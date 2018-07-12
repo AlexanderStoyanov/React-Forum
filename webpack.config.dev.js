@@ -22,7 +22,9 @@ export default {
         rules: [
             {
                 test: /\.js|jsx$/,
-                include: path.join(__dirname, 'client'),
+                include: [ path.join(__dirname, 'client'),
+                path.join(__dirname, 'server/shared') 
+                ],
                 loaders: ['babel-loader'],
                 exclude: /node_modules/
             }
@@ -30,5 +32,8 @@ export default {
     },
     resolve: {
         extensions: [ '.js', '.jsx' ]
+    },
+    devServer: {
+        historyApiFallback: true
     }
 }

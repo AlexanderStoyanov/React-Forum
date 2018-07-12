@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-
+import validateInput from '../../server/shared/validations/signup';
+import TextFieldGroup from './common/TextFieldGroup';
 
 class SignUpForm extends React.Component {
     constructor(props) {
@@ -21,13 +22,29 @@ class SignUpForm extends React.Component {
         this.setState({ [event.target.name]: event.target.value });
     }
 
+    isValid() {
+        const { errors, isValid } = validateInput(this.state);
+
+        if (!isValid) {
+            this.setState({ errors });
+        }
+
+        return isValid;
+    }
+
     onSubmit(event) {
         event.preventDefault();
-        this.setState({ errors: {}, isLoading: true });
-        this.props.userSignUpRequest(this.state).then(
-            () => { },
-            (err) => this.setState({ errors: err.response.data, isLoading: false })
-        );
+
+        if (this.isValid()) {
+            this.setState({ errors: {}, isLoading: true });
+            this.props.userSignUpRequest(this.state).then(
+                () => {
+                    
+                    console.log("bla");
+                },
+                (err) => this.setState({ errors: err.response.data, isLoading: false })
+            );
+        }
     }
 
     render() {
@@ -35,29 +52,22 @@ class SignUpForm extends React.Component {
         return (
             <form onSubmit={this.onSubmit} >
 
-                <div className="form-group">
-                    <label className="control-label">Username</label>
-                    <input
-                        value={this.state.username}
-                        onChange={this.onChange}
-                        name="username"
-                        type="text"
-                        className={classnames("form-control", { 'is-invalid': errors.username })}
-                    ></input>
-                    {errors.username && <span className="help-block">{errors.username}</span>}
-                </div>
+                <TextFieldGroup
+                    error={errors.username}
+                    label="Username"
+                    onChange={this.onChange}
+                    value={this.state.username}
+                    field="username"
+                />
 
-                <div className="form-group">
-                    <label className="control-label">Password</label>
-                    <input
-                        value={this.state.password}
-                        onChange={this.onChange}
-                        name="password"
-                        type="password"
-                        className={classnames("form-control", { 'is-invalid': errors.password })}
-                    ></input>
-                    {errors.username && <span className="help-block">{errors.password}</span>}
-                </div>
+                <TextFieldGroup
+                    error={errors.password}
+                    label="Password"
+                    onChange={this.onChange}
+                    value={this.state.password}
+                    field="password"
+                    type="password"
+                />
 
                 <button disabled={this.state.isLoading} type="submit" className="btn btn-primary">Submit</button>
             </form>

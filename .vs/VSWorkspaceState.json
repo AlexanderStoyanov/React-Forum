@@ -4,9 +4,12 @@
     "\\client",
     "\\client\\actions",
     "\\client\\components",
+    "\\client\\components\\common",
     "\\server",
-    "\\server\\routes"
+    "\\server\\routes",
+    "\\server\\shared",
+    "\\server\\shared\\validations"
   ],
-  "SelectedNode": "\\server\\routes\\users.js",
+  "SelectedNode": "\\client\\components\\Routing.js",
   "PreviewInSolutionExplorer": false
 }
