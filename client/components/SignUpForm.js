@@ -3,6 +3,13 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import validateInput from '../../server/shared/validations/signup';
 import TextFieldGroup from './common/TextFieldGroup';
+import {
+    BrowserRouter as Router,
+    Route,
+    Link,
+    Redirect,
+    withRouter
+} from "react-router-dom";
 
 class SignUpForm extends React.Component {
     constructor(props) {
@@ -11,12 +18,14 @@ class SignUpForm extends React.Component {
             username: '',
             password: '',
             errors: {},
-            isLoading: false
+            isLoading: false,
+            redirectToReferrer: false
         }
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
+
 
     onChange(event) {
         this.setState({ [event.target.name]: event.target.value });
@@ -35,12 +44,13 @@ class SignUpForm extends React.Component {
     onSubmit(event) {
         event.preventDefault();
 
+        const { history } = this.props;
+
         if (this.isValid()) {
             this.setState({ errors: {}, isLoading: true });
             this.props.userSignUpRequest(this.state).then(
                 () => {
-                    
-                    console.log("bla");
+                    this.props.history.push("/");
                 },
                 (err) => this.setState({ errors: err.response.data, isLoading: false })
             );
@@ -48,6 +58,7 @@ class SignUpForm extends React.Component {
     }
 
     render() {
+
         const { errors } = this.state;
         return (
             <form onSubmit={this.onSubmit} >
@@ -79,4 +90,4 @@ SignUpForm.propTypes = {
     userSignUpRequest: PropTypes.func.isRequired
 }
 
-export default SignUpForm;
+export default withRouter(SignUpForm);
