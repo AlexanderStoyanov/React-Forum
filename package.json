@@ -34,6 +34,7 @@
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
+    "shortid": "^2.2.12",
     "validator": "^10.4.0"
   }
 }

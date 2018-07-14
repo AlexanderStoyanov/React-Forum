@@ -50,6 +50,10 @@ class SignUpForm extends React.Component {
             this.setState({ errors: {}, isLoading: true });
             this.props.userSignUpRequest(this.state).then(
                 () => {
+                    this.props.addFlashMessage({
+                        type: 'success',
+                        text: 'Account created successfully'
+                    });
                     this.props.history.push("/");
                 },
                 (err) => this.setState({ errors: err.response.data, isLoading: false })
@@ -87,7 +91,8 @@ class SignUpForm extends React.Component {
 }
 
 SignUpForm.propTypes = {
-    userSignUpRequest: PropTypes.func.isRequired
+    userSignUpRequest: PropTypes.func.isRequired,
+    addFlashMessage: PropTypes.func.isRequired
 }
 
 export default withRouter(SignUpForm);
