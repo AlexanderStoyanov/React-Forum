@@ -24,4 +24,4 @@ SignUpPage.propTypes = {
     addFlashMessage: PropTypes.func.isRequired
 }
 
-export default connect(null, { userSignUpRequest, addFlashMessage  })(SignUpPage);
+export default connect(null, { userSignUpRequest, addFlashMessage })(SignUpPage);
