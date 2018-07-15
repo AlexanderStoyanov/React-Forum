@@ -5,11 +5,12 @@
     "\\client\\actions",
     "\\client\\components",
     "\\client\\components\\common",
+    "\\client\\components\\flash",
+    "\\client\\reducers",
     "\\server",
     "\\server\\routes",
-    "\\server\\shared",
-    "\\server\\shared\\validations"
+    "\\server\\shared"
   ],
-  "SelectedNode": "\\client\\components\\Routing.js",
+  "SelectedNode": "\\server\\index.js",
   "PreviewInSolutionExplorer": false
 }
