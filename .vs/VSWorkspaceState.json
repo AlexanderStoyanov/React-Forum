@@ -11,6 +11,6 @@
     "\\server\\routes",
     "\\server\\shared"
   ],
-  "SelectedNode": "\\server\\index.js",
+  "SelectedNode": "\\server\\routes\\users.js",
   "PreviewInSolutionExplorer": false
 }
