@@ -19,7 +19,8 @@ class SignUpForm extends React.Component {
             password: '',
             errors: {},
             isLoading: false,
-            redirectToReferrer: false
+            redirectToReferrer: false,
+            isValid: false,
         }
 
         this.onChange = this.onChange.bind(this);

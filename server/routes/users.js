@@ -16,12 +16,37 @@ const pool = new Pool({
 });
 
 
-//client.query('CREATE TABLE users(id VARCHAR(10) PRIMARY KEY, username VARCHAR(10) not null, password VARCHAR(40) not null)');
+//client.query('CREATE TABLE users(id VARCHAR(10) PRIMARY KEY, username VARCHAR(10) not null unique, password VARCHAR(40) not null)');
 
-router.post('/', (req, res) => {
-    const { errors, isValid } = validateInput(req.body);
+//Checks for uniqueness of username; TODO: check uniqueness of email
+function userUniquenessCheck(req, res, next) {
+    const query = {
+        text: 'select * from users where username = $1',
+        values: [req.body.username],
+    }
 
-    if (isValid) {
+    pool.connect((err, client, done) => {
+        if (err) throw err
+        client.query(query, (err, res) => {
+            done();
+
+            if (err) {
+                console.log(err.stack);
+            } else if (res.rows[0] != null) {
+                req.body.isValid = false;
+                next();
+            } else {
+                req.body.isValid = true;
+                next();
+            }
+        });
+    });
+
+
+}
+
+router.post('/', userUniquenessCheck, (req, res) => {
+    if (req.body.isValid) {
         const query = {
             text: 'INSERT INTO users(id, username, password) VALUES($1, $2, $3)',
             values: [shortid.generate(), req.body.username, req.body.password],
@@ -41,7 +66,7 @@ router.post('/', (req, res) => {
         });
         res.json({ success: true });
     } else {
-        res.status(400).json(errors);
+        res.status(500).send('Username is already taken!');
     }
 });
 

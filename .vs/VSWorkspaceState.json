@@ -9,7 +9,8 @@
     "\\client\\reducers",
     "\\server",
     "\\server\\routes",
-    "\\server\\shared"
+    "\\server\\shared",
+    "\\server\\shared\\validations"
   ],
   "SelectedNode": "\\server\\routes\\users.js",
   "PreviewInSolutionExplorer": false
