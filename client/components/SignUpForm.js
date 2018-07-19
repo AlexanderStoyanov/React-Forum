@@ -19,12 +19,12 @@ class SignUpForm extends React.Component {
             password: '',
             errors: {},
             isLoading: false,
-            redirectToReferrer: false,
-            isValid: false,
+            invalid: false,
         }
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.checkUserExists = this.checkUserExists.bind(this);
     }
 
 
@@ -46,6 +46,7 @@ class SignUpForm extends React.Component {
         event.preventDefault();
 
         const { history } = this.props;
+        const field = event.target.name;
 
         if (this.isValid()) {
             this.setState({ errors: {}, isLoading: true });
@@ -57,8 +58,31 @@ class SignUpForm extends React.Component {
                     });
                     this.props.history.push("/");
                 },
-                (err) => this.setState({ errors: err.response.data, isLoading: false })
+                (err) => {
+                    this.setState({ errors: err.response.data, isLoading: false });
+                    
+                }
             );
+        }
+    }
+
+    checkUserExists(event) {
+        const field = event.target.name;
+        const val = event.target.value;
+        if (val !== '') {
+            this.props.doesUserExist(val).then(
+                (res) => {
+                    let errors = this.state.errors;
+                    let invalid;
+                    if (res.data.user) {
+                        errors[field] = 'Username already taken';
+                        invalid = true;
+                    } else {
+                        errors[field] = '';
+                        invalid = false;
+                    }
+                    this.setState({ errors, invalid });
+                });
         }
     }
 
@@ -72,6 +96,7 @@ class SignUpForm extends React.Component {
                     error={errors.username}
                     label="Username"
                     onChange={this.onChange}
+                    checkUserExists={this.checkUserExists}
                     value={this.state.username}
                     field="username"
                 />
@@ -85,7 +110,7 @@ class SignUpForm extends React.Component {
                     type="password"
                 />
 
-                <button disabled={this.state.isLoading} type="submit" className="btn btn-primary">Submit</button>
+                <button disabled={this.state.isLoading || this.state.invalid} type="submit" className="btn btn-primary">Submit</button>
             </form>
         );
     }
@@ -93,7 +118,8 @@ class SignUpForm extends React.Component {
 
 SignUpForm.propTypes = {
     userSignUpRequest: PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired
+    addFlashMessage: PropTypes.func.isRequired,
+    doesUserExist: PropTypes.func.isRequired
 }
 
 export default withRouter(SignUpForm);

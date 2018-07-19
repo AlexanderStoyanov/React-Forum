@@ -70,4 +70,26 @@ router.post('/', userUniquenessCheck, (req, res) => {
     }
 });
 
+router.get('/:identifier', (req, res) => {
+    const query = {
+        text: 'select * from users where username = $1',
+        values: [req.params.identifier],
+    }
+
+    pool.connect((err, client, done) => {
+        if (err) throw err
+        client.query(query, (err, ress) => {
+            done();
+            
+            if (err) {
+                console.log(err.stack);
+            } else if (ress.rowCount > 0) {
+                res.json({ user: true });
+            } else {
+                res.json({ user: false });
+            }
+        });
+    });
+});
+
 export default router;
