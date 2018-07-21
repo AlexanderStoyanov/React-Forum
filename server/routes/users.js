@@ -45,7 +45,7 @@ function userUniquenessCheck(req, res, next) {
 
 }
 
-router.post('/', userUniquenessCheck, (req, res) => {
+router.post('/signup', userUniquenessCheck, (req, res) => {
     if (req.body.isValid) {
         const query = {
             text: 'INSERT INTO users(id, username, password) VALUES($1, $2, $3)',
@@ -70,6 +70,28 @@ router.post('/', userUniquenessCheck, (req, res) => {
     }
 });
 
+router.post('/signin', (req, res) => {
+    const query = {
+        text: 'select * from users where username = $1 and password = $2',
+        values: [req.body.username, req.body.password],
+    }
+
+    pool.connect((err, client, done) => {
+        if (err) throw err
+        client.query(query, (err, ress) => {
+            done();
+
+            if (err) {
+                console.log(err.stack);
+            } else if (ress.rowCount > 0) {
+                res.json({ success: true });
+            } else {
+                res.json({ success: false });
+            }
+        });
+    });
+});
+
 router.get('/:identifier', (req, res) => {
     const query = {
         text: 'select * from users where username = $1',
@@ -80,7 +102,7 @@ router.get('/:identifier', (req, res) => {
         if (err) throw err
         client.query(query, (err, ress) => {
             done();
-            
+
             if (err) {
                 console.log(err.stack);
             } else if (ress.rowCount > 0) {

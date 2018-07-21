@@ -6,12 +6,12 @@
     "\\client\\components",
     "\\client\\components\\common",
     "\\client\\components\\flash",
+    "\\client\\components\\SignIn",
     "\\client\\reducers",
     "\\server",
-    "\\server\\routes",
     "\\server\\shared",
     "\\server\\shared\\validations"
   ],
-  "SelectedNode": "\\server\\routes\\users.js",
+  "SelectedNode": "\\client\\components\\SignIn\\SignInPage.js",
   "PreviewInSolutionExplorer": false
 }

@@ -6,14 +6,15 @@ import {
 
 import Home from './Home';
 import SignUpPage from './SignUpPage';
+import SignInPage from './SignIn/SignInPage';
 
 
 const Root = () => (
     <main>
         <Switch>
-            <Route exact path='/' component={Home} />
+            <Route exact path='/home' component={Home} />
             <Route path='/signup' component={SignUpPage} />
-
+            <Route path='/signin' component={SignInPage} />
         </Switch>
     </main>
 )

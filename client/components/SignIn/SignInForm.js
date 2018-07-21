@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import validateInput from '../../server/shared/validations/signup';
-import TextFieldGroup from './common/TextFieldGroup';
+import validateInput from '../../../server/shared/validations/signup';
+import TextFieldGroup from '../common/TextFieldGroup';
 import {
     BrowserRouter as Router,
     Route,
@@ -11,7 +11,7 @@ import {
     withRouter
 } from "react-router-dom";
 
-class SignUpForm extends React.Component {
+class SignInForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,12 +19,10 @@ class SignUpForm extends React.Component {
             password: '',
             errors: {},
             isLoading: false,
-            invalid: false,
         }
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        this.checkUserExists = this.checkUserExists.bind(this);
     }
 
 
@@ -34,7 +32,7 @@ class SignUpForm extends React.Component {
 
     isValid() {
         const { errors, isValid } = validateInput(this.state);
-
+        
         if (!isValid) {
             this.setState({ errors });
         }
@@ -46,43 +44,30 @@ class SignUpForm extends React.Component {
         event.preventDefault();
 
         const { history } = this.props;
-        const field = event.target.name;
 
         if (this.isValid()) {
             this.setState({ errors: {}, isLoading: true });
-            this.props.userSignUpRequest(this.state).then(
-                () => {
-                    this.props.addFlashMessage({
-                        type: 'success',
-                        text: 'Account created successfully'
-                    });
-                    this.props.history.push("/");
+            this.props.userSignInRequest(this.state).then(
+                (res) => {
+                    if (res.data.success) {
+                        this.props.addFlashMessage({
+                            type: 'success',
+                            text: 'Logged in successfully!'
+                        });
+                        this.props.history.push("/home");
+                    } else {
+                        this.props.addFlashMessage({
+                            type: 'error',
+                            text: 'Username or password is incorrect!'
+                        });
+                        this.setState({ isLoading: false });
+                    }
                 },
                 (err) => {
                     this.setState({ errors: err.response.data, isLoading: false });
-                    
+
                 }
             );
-        }
-    }
-
-    checkUserExists(event) {
-        const field = event.target.name;
-        const val = event.target.value;
-        if (val !== '') {
-            this.props.doesUserExist(val).then(
-                (res) => {
-                    let errors = this.state.errors;
-                    let invalid;
-                    if (res.data.user) {
-                        errors[field] = 'Username already taken';
-                        invalid = true;
-                    } else {
-                        errors[field] = '';
-                        invalid = false;
-                    }
-                    this.setState({ errors, invalid });
-                });
         }
     }
 
@@ -96,7 +81,6 @@ class SignUpForm extends React.Component {
                     error={errors.username}
                     label="Username"
                     onChange={this.onChange}
-                    checkUserExists={this.checkUserExists}
                     value={this.state.username}
                     field="username"
                 />
@@ -110,10 +94,10 @@ class SignUpForm extends React.Component {
                     type="password"
                 />
 
-                <button disabled={this.state.isLoading || this.state.invalid} type="submit" className="btn btn-primary">Submit</button>
+                <button disabled={this.state.isLoading} type="submit" className="btn btn-primary">Submit</button>
             </form>
         );
     }
 }
 
-export default withRouter(SignUpForm);
+export default withRouter(SignInForm);
