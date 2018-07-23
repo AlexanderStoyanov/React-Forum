@@ -67,14 +67,14 @@ function userUniquenessCheck(req, res, next) {
 }
 
 router.post('/signup', userUniquenessCheck, (req, res) => {
-    var hashedPassword = bcrypt.hashSync(req.body.password, 8);
-    
     if (req.body.isValid) {
+        var hashedPassword = bcrypt.hashSync(req.body.password, 8);
+        var id = shortid.generate();
         const query = {
             text: 'INSERT INTO users(id, username, password) VALUES($1, $2, $3)',
-            values: [shortid.generate(), req.body.username, hashedPassword],
+            values: [id, req.body.username, hashedPassword],
         }
-
+        
         pool.connect((err, client, done) => {
             if (err) throw err
             client.query(query, (err, ress) => {
@@ -83,7 +83,9 @@ router.post('/signup', userUniquenessCheck, (req, res) => {
                 if (err) {
                     console.log(err.stack);
                 } else {
-                    res.json({ success: true });
+                    let payload = { subject: id };
+                    let token = jwt.sign(payload, 'raccoon', { expiresIn: 86400 });
+                    res.json({ success: true, token: token });
                 }
             });
         });
@@ -108,8 +110,12 @@ router.post('/signin', (req, res) => {
             
             if (err) {
                 console.log(err.stack);
+            } else if (!passwordIsValid) { 
+                res.status(401).send({ success: false, token: null });
             } else if (ress.rowCount > 0 && passwordIsValid) {
-                res.json({ success: true });
+                let payload = { subject: ress.id };
+                let token = jwt.sign(payload, 'raccoon', { expiresIn: 86400 });
+                res.status(200).send({ success: true, token: token });
             } else {
                 res.json({ success: false });
             }
