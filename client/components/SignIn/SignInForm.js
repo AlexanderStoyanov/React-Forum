@@ -19,6 +19,7 @@ class SignInForm extends React.Component {
             password: '',
             errors: {},
             isLoading: false,
+            loggedin: false,
         }
 
         this.onChange = this.onChange.bind(this);
@@ -54,6 +55,7 @@ class SignInForm extends React.Component {
                             type: 'success',
                             text: 'Logged in successfully!'
                         });
+                        this.setState({ loggedin: true });
                         this.props.history.push("/home");
                     } else {
                         this.props.addFlashMessage({
