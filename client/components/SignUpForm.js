@@ -15,8 +15,10 @@ class SignUpForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            fname: '',
             username: '',
             password: '',
+            password2: '',
             errors: {},
             isLoading: false,
             invalid: false,
@@ -25,6 +27,7 @@ class SignUpForm extends React.Component {
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.checkUserExists = this.checkUserExists.bind(this);
+        this.matchPasswords = this.matchPasswords.bind(this);
     }
 
 
@@ -46,7 +49,6 @@ class SignUpForm extends React.Component {
         event.preventDefault();
 
         const { history } = this.props;
-        const field = event.target.name;
 
         if (this.isValid()) {
             this.setState({ errors: {}, isLoading: true });
@@ -56,7 +58,7 @@ class SignUpForm extends React.Component {
                         type: 'success',
                         text: 'Account created successfully'
                     });
-                    this.props.history.push("/");
+                    this.props.history.push("/home");
                 },
                 (err) => {
                     this.setState({ errors: err.response.data, isLoading: false });
@@ -86,6 +88,17 @@ class SignUpForm extends React.Component {
         }
     }
 
+    //TODO: make this method work
+    matchPasswords(event) {
+        const { password, password2 } = this.state;
+
+        if (password !== password2) {
+            this.setState({ invalid: true });
+        } else {
+            this.setState({ invalid: false });
+        }
+    }
+
     render() {
 
         const { errors } = this.state;
@@ -93,10 +106,18 @@ class SignUpForm extends React.Component {
             <form onSubmit={this.onSubmit} >
 
                 <TextFieldGroup
+                    error={errors.fname}
+                    label="First name"
+                    onChange={this.onChange}
+                    value={this.state.fname}
+                    field="fname"
+                />
+
+                <TextFieldGroup
                     error={errors.username}
                     label="Username"
                     onChange={this.onChange}
-                    checkUserExists={this.checkUserExists}
+                    onBlur={this.checkUserExists}
                     value={this.state.username}
                     field="username"
                 />
@@ -107,6 +128,16 @@ class SignUpForm extends React.Component {
                     onChange={this.onChange}
                     value={this.state.password}
                     field="password"
+                    type="password"
+                />
+
+                <TextFieldGroup
+                    error={errors.password}
+                    label="Confirm password"
+                    onChange={this.onChange}
+                    onChange={this.matchPasswords}
+                    value={this.state.password2}
+                    field="password2"
                     type="password"
                 />
 

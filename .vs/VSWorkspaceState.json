@@ -9,10 +9,9 @@
     "\\client\\components\\SignIn",
     "\\client\\reducers",
     "\\server",
-    "\\server\\routes",
     "\\server\\shared",
     "\\server\\shared\\validations"
   ],
-  "SelectedNode": "\\client\\components\\SignIn\\SignInForm.js",
+  "SelectedNode": "\\server\\routes\\users.js",
   "PreviewInSolutionExplorer": false
 }

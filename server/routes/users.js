@@ -19,7 +19,7 @@ const pool = new Pool({
 });
 
 
-//client.query('CREATE TABLE users(id VARCHAR(10) PRIMARY KEY, username VARCHAR(10) not null unique, password VARCHAR(40) not null)');
+//CREATE TABLE users(id VARCHAR(10) PRIMARY KEY, username VARCHAR(10) not null unique, password VARCHAR(100) not null, firstname VARCHAR(25) not null)
 
 //Verifies token
 function verifyToken(req, res, next) {
@@ -39,7 +39,7 @@ function verifyToken(req, res, next) {
     next()
 }
 
-//Checks for uniqueness of username; TODO: check uniqueness of email
+//Checks for uniqueness of username
 function userUniquenessCheck(req, res, next) {
     const query = {
         text: 'select * from users where username = $1',
@@ -66,31 +66,36 @@ function userUniquenessCheck(req, res, next) {
 
 }
 
+
 router.post('/signup', userUniquenessCheck, (req, res) => {
     if (req.body.isValid) {
-        var hashedPassword = bcrypt.hashSync(req.body.password, 8);
-        var id = shortid.generate();
-        const query = {
-            text: 'INSERT INTO users(id, username, password) VALUES($1, $2, $3)',
-            values: [id, req.body.username, hashedPassword],
-        }
-        
-        pool.connect((err, client, done) => {
-            if (err) throw err
-            client.query(query, (err, ress) => {
-                done();
+        if (req.body.password === req.body.password2) {
+            var hashedPassword = bcrypt.hashSync(req.body.password, 8);
+            var id = shortid.generate();
+            const query = {
+                text: 'INSERT INTO users(id, username, password, firstname) VALUES($1, $2, $3, $4)',
+                values: [id, req.body.username, hashedPassword, req.body.fname],
+            }
 
-                if (err) {
-                    console.log(err.stack);
-                } else {
-                    let payload = { subject: id };
-                    let token = jwt.sign(payload, 'raccoon', { expiresIn: 86400 });
-                    res.json({ success: true, token: token });
-                }
+            pool.connect((err, client, done) => {
+                if (err) throw err
+                client.query(query, (err, ress) => {
+                    done();
+
+                    if (err) {
+                        console.log(err.stack);
+                    } else {
+                        let payload = { subject: id };
+                        let token = jwt.sign(payload, 'raccoon', { expiresIn: 86400 });
+                        res.json({ success: true, token: token });
+                    }
+                });
             });
-        });
+        } else {
+            res.status(500).send('Password fields do not match');
+        }
     } else {
-        res.status(500).send('Username is already taken!');
+        res.status(500).send('Username or password cannot be blank');
     }
 });
 
