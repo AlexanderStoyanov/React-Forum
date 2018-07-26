@@ -32,7 +32,10 @@ class SignUpForm extends React.Component {
 
 
     onChange(event) {
-        this.setState({ [event.target.name]: event.target.value });
+        //callback function is required in order to work with an updated state
+        this.setState({ [event.target.name]: event.target.value }, function () {
+            this.matchPasswords();
+        });
     }
 
     isValid() {
@@ -87,8 +90,7 @@ class SignUpForm extends React.Component {
                 });
         }
     }
-
-    //TODO: make this method work
+    
     matchPasswords(event) {
         const { password, password2 } = this.state;
 
@@ -132,10 +134,9 @@ class SignUpForm extends React.Component {
                 />
 
                 <TextFieldGroup
-                    error={errors.password}
+                    error={errors.password2}
                     label="Confirm password"
                     onChange={this.onChange}
-                    onChange={this.matchPasswords}
                     value={this.state.password2}
                     field="password2"
                     type="password"
