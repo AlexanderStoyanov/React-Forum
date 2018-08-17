@@ -8,12 +8,14 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../webpack.config.dev';
 
 import users from './routes/users';
+import forums from './routes/forums';
 
 let app = express();
 
 app.use(bodyParser.json());
 
 app.use('/api/users', users);
+app.use('/api/forums', forums);
 
 const compiler = webpack(webpackConfig);
 

@@ -3,7 +3,6 @@ import isEmpty from 'lodash/isEmpty';
 
 export default function validateInput(data) {
     let errors = {};
-    console.log(data);
 
     if (data.fname === '') {
         errors.fname = 'First name is required';
@@ -16,6 +15,9 @@ export default function validateInput(data) {
     }
     if (data.password2 === '') {
         errors.password2 = 'Password confirmation is required';
+    }
+    if (data.password !== data.password2) {
+        errors.passwordsMatch = 'Passwords do not match!'
     }
 
     return {

@@ -20,7 +20,7 @@ class SignUpForm extends React.Component {
             password: '',
             password2: '',
             errors: {},
-            isLoading: false,
+            passwordsMatch: true,
             invalid: false,
         }
 
@@ -35,6 +35,8 @@ class SignUpForm extends React.Component {
         //callback function is required in order to work with an updated state
         this.setState({ [event.target.name]: event.target.value }, function () {
             this.matchPasswords();
+            //TODO: finish
+            //this.setState({ errors: {} });
         });
     }
 
@@ -54,7 +56,7 @@ class SignUpForm extends React.Component {
         const { history } = this.props;
 
         if (this.isValid()) {
-            this.setState({ errors: {}, isLoading: true });
+            this.setState({ errors: {}, invalid: true });
             this.props.userSignUpRequest(this.state).then(
                 () => {
                     this.props.addFlashMessage({
@@ -64,7 +66,7 @@ class SignUpForm extends React.Component {
                     this.props.history.push("/home");
                 },
                 (err) => {
-                    this.setState({ errors: err.response.data, isLoading: false });
+                    this.setState({ errors: err.response.data, invalid: false });
                     
                 }
             );
@@ -95,9 +97,9 @@ class SignUpForm extends React.Component {
         const { password, password2 } = this.state;
 
         if (password !== password2) {
-            this.setState({ invalid: true });
+            this.setState({ invalid: true, passwordsMatch: false });
         } else {
-            this.setState({ invalid: false });
+            this.setState({ invalid: false, passwordsMatch: true });
         }
     }
 
@@ -142,7 +144,8 @@ class SignUpForm extends React.Component {
                     type="password"
                 />
 
-                <button disabled={this.state.isLoading || this.state.invalid} type="submit" className="btn btn-primary">Submit</button>
+                
+                <button disabled={!this.state.passwordsMatch || this.state.invalid} type="submit" className="btn btn-primary">Submit</button>
             </form>
         );
     }

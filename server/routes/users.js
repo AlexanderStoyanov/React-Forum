@@ -20,6 +20,7 @@ const pool = new Pool({
 
 
 //CREATE TABLE users(id VARCHAR(10) PRIMARY KEY, username VARCHAR(10) not null unique, password VARCHAR(100) not null, firstname VARCHAR(25) not null)
+//CREATE TABLE forums(id VARCHAR(10) PRIMARY KEY, forumname VARCHAR(40) not null)
 
 //Verifies token
 function verifyToken(req, res, next) {
