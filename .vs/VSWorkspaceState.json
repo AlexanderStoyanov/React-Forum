@@ -6,13 +6,11 @@
     "\\client\\components",
     "\\client\\components\\common",
     "\\client\\components\\flash",
-    "\\client\\components\\Home",
+    "\\client\\components\\Forums",
     "\\client\\components\\SignIn",
     "\\server",
-    "\\server\\routes",
-    "\\server\\shared",
-    "\\server\\shared\\validations"
+    "\\server\\routes"
   ],
-  "SelectedNode": "\\client\\components\\SignUpForm.js",
+  "SelectedNode": "\\client\\components\\Forums\\Forum.js",
   "PreviewInSolutionExplorer": false
 }

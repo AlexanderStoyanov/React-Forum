@@ -31,8 +31,9 @@ router.get('/load', (req, res) => {
             if (err) {
                 console.log(err.stack);
             } else if (ress.rowCount > 0) {
-                console.log(ress);
-                res.json({ ress });
+                let payload = ress.rows;
+                console.log(payload);
+                res.json({ payload });
             } else {
                 res.json({ error: true });
             }

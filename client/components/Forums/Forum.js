@@ -6,7 +6,7 @@ class Forum extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            forumName: '',
+            forumName: [],
             forumRef: '123',
         };
 
@@ -14,12 +14,18 @@ class Forum extends React.Component {
     }
 
     load() {
+        //hasCodeRunBefore makes getForums() run only once when /forum directory is loaded
         localStorage.removeItem("hasCodeRunBefore");
         this.props.getForums().then(
             (res) => {
                 if (!('hasCodeRunBefore' in localStorage)) {
-                    this.setState({ forumName: res.data.ress.rows[0].forumname });
-                    console.log('success');
+
+                    //populating forumName array to use it to get all forum names
+                    for (let i = 0; i < res.data.payload.length; i++) {
+                        this.setState(prevState => ({
+                            forumName: [...prevState.forumName, res.data.payload[i].forumname]
+                        }));
+                    }
                     localStorage.setItem("hasCodeRunBefore", true);
                 }
             },
@@ -32,11 +38,18 @@ class Forum extends React.Component {
 
 
     render() {
+        var rows = [];
+        for (var i = 0; i < this.state.forumName.length; i++) {
+            rows.push(<ForumEntry
+                    key={i}
+                    forumName={this.state.forumName[i]}
+                />);
+        }
+
         return (
-            <ForumEntry
-                onLoad={this.load()}
-                forumName={this.state.forumName}
-            />
+            <div onLoad={this.load()}>
+                {rows}
+            </div>
         );
     }
 }
