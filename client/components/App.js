@@ -1,6 +1,6 @@
 import React from 'react';
 import NavigationBar from './NavigationBar';
-import SignUpPage from './SignUpPage';
+//import SignUpPage from './SignUpPage';
 import Routing from './Routing';
 import FlashMessagesList from './flash/FlashMessagesList';
 

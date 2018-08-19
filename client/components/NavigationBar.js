@@ -16,7 +16,7 @@ export default () => {
                     <div className="collapse navbar-collapse scrollable" id="collapsibleNavbar">
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item">
-                                <Link to='/home' className="nav-link">Home</Link>
+                                <Link to='/forum' className="nav-link">Home</Link>
                             </li>
                         </ul>
                         <ul className="navbar-nav ml-auto">

@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
 
-const ForumEntry = ({ forumName, forumRef }) => {
+const ForumEntry = ({ forumName, forumRef, onLoad }) => {
     return (
         <div class="card">
             <div class="card-body">
@@ -21,6 +21,7 @@ const ForumEntry = ({ forumName, forumRef }) => {
 
 ForumEntry.propTypes = {
     forumName: PropTypes.string.isRequired,
+    onLoad: PropTypes.func.isRequired,
 }
 
 ForumEntry.defaultProps = {

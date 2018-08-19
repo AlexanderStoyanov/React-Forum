@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import classnames from 'classnames';
+//import PropTypes from 'prop-types';
+//import classnames from 'classnames';
 import validateInput from '../../../server/shared/validations/signup';
 import TextFieldGroup from '../common/TextFieldGroup';
 import {
@@ -56,7 +56,7 @@ class SignInForm extends React.Component {
                             text: 'Logged in successfully!'
                         });
                         this.setState({ loggedin: true });
-                        this.props.history.push("/home");
+                        this.props.history.push("/forum");
                     } else {
                         this.props.addFlashMessage({
                             type: 'error',

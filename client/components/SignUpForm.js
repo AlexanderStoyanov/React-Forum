@@ -1,6 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import validateInput from '../../server/shared/validations/signup';
 import TextFieldGroup from './common/TextFieldGroup';
 import {
@@ -22,7 +20,7 @@ class SignUpForm extends React.Component {
             errors: {},
             passwordsMatch: true,
             invalid: false,
-        }
+        };
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
