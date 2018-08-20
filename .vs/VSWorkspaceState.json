@@ -8,9 +8,9 @@
     "\\client\\components\\flash",
     "\\client\\components\\Forums",
     "\\client\\components\\SignIn",
-    "\\server",
-    "\\server\\routes"
+    "\\client\\components\\Topics",
+    "\\server"
   ],
-  "SelectedNode": "\\client\\components\\Forums\\Forum.js",
+  "SelectedNode": "\\client\\components\\Topics\\Topic.js",
   "PreviewInSolutionExplorer": false
 }

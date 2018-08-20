@@ -1,28 +1,27 @@
 import React from 'react';
-import ForumEntry from '../common/ForumEntry';
-import { withRouter } from 'react-router-dom';
+import TopicEntry from '../common/TopicEntry';
 
-class Forum extends React.Component {
+class Topic extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            forumName: [],
-        };
-
-        this.load = this.load.bind(this);
+            topicName: '',
+            forumURL: '',
+            topicURL: '',
+        }
     }
 
     load() {
         //hasCodeRunBefore makes getForums() run only once when /forum directory is loaded
         localStorage.removeItem("hasCodeRunBefore");
-        this.props.getForums().then(
+        this.props.getTopics().then(
             (res) => {
                 if (!('hasCodeRunBefore' in localStorage)) {
 
                     //populating forumName array to use it to get all forum names
                     for (let i = 0; i < res.data.payload.length; i++) {
                         this.setState(prevState => ({
-                            forumName: [...prevState.forumName, res.data.payload[i].forumname]
+                            topicName: [...prevState.topicName, res.data.payload[i].topicname]
                         }));
                     }
                     localStorage.setItem("hasCodeRunBefore", true);
@@ -34,15 +33,14 @@ class Forum extends React.Component {
         );
     }
 
-
-
     render() {
         var rows = [];
-        for (var i = 0; i < this.state.forumName.length; i++) {
-            rows.push(<ForumEntry
+        for (var i = 0; i < this.state.topicName.length; i++) {
+            rows.push(<TopicEntry
                 key={i}
-                forumName={this.state.forumName[i]}
-                forumURL={this.state.forumName[i]}
+                topicName={this.state.topicName[i]}
+                forumURL={this.state.forumURL}
+                topicURL={this.state.topicURL}
             />);
         }
 
@@ -54,4 +52,4 @@ class Forum extends React.Component {
     }
 }
 
-export default withRouter(Forum)
+export default Topic

@@ -12,7 +12,7 @@ const pool = new Pool({
 
 router.get('/load', (req, res) => {
     const query = {
-        text: 'select * from forums',
+        text: 'select * from topics',
     }
 
     pool.connect((err, client, done) => {
@@ -24,6 +24,7 @@ router.get('/load', (req, res) => {
                 console.log(err.stack);
             } else if (ress.rowCount > 0) {
                 let payload = ress.rows;
+                console.log(payload);
                 res.json({ payload });
             } else {
                 res.json({ error: true });

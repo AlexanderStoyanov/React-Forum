@@ -19,8 +19,9 @@ const pool = new Pool({
 });
 
 
-//CREATE TABLE users(id VARCHAR(10) PRIMARY KEY, username VARCHAR(10) not null unique, password VARCHAR(100) not null, firstname VARCHAR(25) not null)
-//CREATE TABLE forums(id VARCHAR(10) PRIMARY KEY, forumname VARCHAR(40) not null)
+//CREATE TABLE users(userid VARCHAR(10) PRIMARY KEY, username VARCHAR(10) not null unique, password VARCHAR(100) not null, firstname VARCHAR(20) not null)
+//CREATE TABLE forums(forumid VARCHAR(5) PRIMARY KEY, forumname VARCHAR(40) not null)
+//CREATE TABLE topics(id VARCHAR(10) PRIMARY KEY, topicname VARCHAR(40) not null, forumid VARCHAR(5))
 
 //Verifies token
 function verifyToken(req, res, next) {
