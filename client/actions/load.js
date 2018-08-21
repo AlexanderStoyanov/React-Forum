@@ -11,3 +11,9 @@ export function getTopics() {
         return axios.get('/api/topics/load');
     }
 }
+
+export function getReplies() {
+    return dispatch => {
+        return axios.get('/api/replies/load');
+    }
+}

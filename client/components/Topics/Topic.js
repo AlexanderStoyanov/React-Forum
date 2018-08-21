@@ -4,9 +4,14 @@ import TopicEntry from '../common/TopicEntry';
 class Topic extends React.Component {
     constructor(props) {
         super(props);
+
+        //getting forumname to properly construct forum URL
+        const path = document.location.pathname;
+        const directory = path.substring(path.lastIndexOf('/') + 1, path.length);
+
         this.state = {
             topicName: '',
-            forumURL: '',
+            forumURL: directory,
             topicURL: '',
         }
     }
@@ -46,7 +51,7 @@ class Topic extends React.Component {
                 key={i}
                 topicName={this.state.topicName[i]}
                 forumURL={this.state.forumURL}
-                topicURL={this.state.topicURL}
+                topicURL={this.state.topicName[i]}
             />);
         }
 

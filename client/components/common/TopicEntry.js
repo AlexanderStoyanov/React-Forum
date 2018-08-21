@@ -15,6 +15,8 @@ const TopicEntry = ({ topicName, forumURL, topicURL }) => {
 
 TopicEntry.propTypes = {
     topicName: PropTypes.string.isRequired,
+    forumURL: PropTypes.string.isRequired,
+    topicURL: PropTypes.string.isRequired,
     onLoad: PropTypes.func.isRequired,
 }
 

@@ -18,6 +18,7 @@ const ForumEntry = ({ forumName, forumURL, onLoad }) => {
 
 ForumEntry.propTypes = {
     forumName: PropTypes.string.isRequired,
+    forumURL: PropTypes.string.isRequired,
     onLoad: PropTypes.func.isRequired,
 }
 
