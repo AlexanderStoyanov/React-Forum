@@ -11,7 +11,7 @@ class Reply extends React.Component {
 
     render() {
         return (
-            <div className="Reply">
+            <div className="reply">
                 <ReplyEntry
                     text={this.state.text}
                 />

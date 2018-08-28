@@ -1,14 +1,21 @@
 import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import {
+    Route,
+    Switch,
+    Link
+} from "react-router-dom";
+import RepliesPage from '../Replies/RepliesPage';
 
 const TopicEntry = ({ topicName, forumURL, topicURL }) => {
     return (
-        <div className="card">
-            <div className="card-body">
-                <Link to={`/forum/${forumURL}/${topicURL}`} className="nav-link">{topicName}</Link>
-            </div>
+        <div className="topicEntry">
+            <Link to={`/forum/${forumURL}/${topicURL}`} type="button" className="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">{topicName}</Link>
+            <Switch>
+                <Route exact path={`/forum/${forumURL}/${topicURL}`} component={RepliesPage} />
+            </Switch>
+            
         </div>
     );
 }
