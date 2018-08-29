@@ -10,7 +10,7 @@ import webpackConfig from '../webpack.config.dev';
 import users from './routes/users';
 import forums from './routes/forums';
 import topics from './routes/topics';
-//import replies from './routes/replies';
+import replies from './routes/replies';
 
 let app = express();
 
@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use('/api/users', users);
 app.use('/api/forums', forums);
 app.use('/api/topics', topics);
-//app.use('/api/replies', replies);
+app.use('/api/replies', replies);
 
 const compiler = webpack(webpackConfig);
 

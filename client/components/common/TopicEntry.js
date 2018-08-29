@@ -15,7 +15,6 @@ const TopicEntry = ({ topicName, forumURL, topicURL }) => {
             <Switch>
                 <Route exact path={`/forum/${forumURL}/${topicURL}`} component={RepliesPage} />
             </Switch>
-            
         </div>
     );
 }

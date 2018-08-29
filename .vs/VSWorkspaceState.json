@@ -8,10 +8,10 @@
     "\\client\\components\\flash",
     "\\client\\components\\Forums",
     "\\client\\components\\Replies",
-    "\\client\\components\\SignIn",
+    "\\client\\components\\Topics",
     "\\server",
     "\\server\\routes"
   ],
-  "SelectedNode": "\\client\\components\\Routing.js",
+  "SelectedNode": "\\client\\components\\common\\TopicEntry.js",
   "PreviewInSolutionExplorer": false
 }

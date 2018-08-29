@@ -24,7 +24,7 @@ class Topic extends React.Component {
                 if (!('hasCodeRunBefore' in localStorage)) {
                     var path = document.location.pathname;
                     var directory = path.substring(path.lastIndexOf('/') + 1, path.length);
-                    //populating forumName array to use it to get all forum names
+                    //populating topicName
                     for (let i = 0; i < res.data.payload.length; i++) {
 
                         //if directory name === forumname that is assigned to a particular topic,
