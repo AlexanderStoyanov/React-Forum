@@ -11,6 +11,7 @@ class Topic extends React.Component {
         this.state = {
             topicId: '',
             topicName: [],
+            //tempTopicName: [],
             forumURL: directory,
             topicURL: '',
         }
@@ -27,15 +28,13 @@ class Topic extends React.Component {
 
         var path = document.location.pathname;
         var directory = path.substring(path.lastIndexOf('/') + 1, path.length);
-        console.log('twice');
+        let tempTopicName = [];
 
         localStorage.removeItem("hasCodeRunBefore");
         this.props.getTopics(directory).then(
             (res) => {
-                
                 if (!('hasCodeRunBefore' in localStorage)) {
                     let length = Object.keys(res.data.payload).length;
-                    let tempTopicName = this.state.topicName;
 
 
                     for (let i = 0; i < length; i++) {
@@ -43,13 +42,10 @@ class Topic extends React.Component {
                             tempTopicName[i] = res.data.payload[i].topicname;
                         }
                     }
-                    console.log(this.state.topicName);
                     this.setState(prevState => ({
                         topicName: [...prevState.topicName, ...tempTopicName],
                         //topicId: [...prevState.topicId, temp.data.payload[i].topicid]
-                        done: true,
                     }));
-                    console.log(this.state.topicName);
                 }
                 localStorage.setItem("hasCodeRunBefore", true);
             },
