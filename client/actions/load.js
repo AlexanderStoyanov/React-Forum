@@ -6,9 +6,14 @@ export function getForums() {
     }
 }
 
-export function getTopics() {
+export function getTopics(directory) {
+
     return dispatch => {
-        return axios.get('/api/topics/load');
+        return axios.get('/api/topics/load', {
+            params: {
+                directory: directory
+            }
+        });
     }
 }
 

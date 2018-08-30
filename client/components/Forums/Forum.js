@@ -18,7 +18,7 @@ class Forum extends React.Component {
         this.props.getForums().then(
             (res) => {
                 if (!('hasCodeRunBefore' in localStorage)) {
-
+                    console.log(res);
                     //populating forumName array to use it to get all forum names
                     for (let i = 0; i < res.data.payload.length; i++) {
                         this.setState(prevState => ({

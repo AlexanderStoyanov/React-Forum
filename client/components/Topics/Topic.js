@@ -4,39 +4,54 @@ import TopicEntry from '../common/TopicEntry';
 class Topic extends React.Component {
     constructor(props) {
         super(props);
-
         //getting forumname to properly construct forum URL
         const path = document.location.pathname;
         const directory = path.substring(path.lastIndexOf('/') + 1, path.length);
 
         this.state = {
-            topicName: '',
+            topicId: '',
+            topicName: [],
             forumURL: directory,
             topicURL: '',
         }
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.topicName !== prevState.topicName) {
+            console.log('componentDidUpdate');
+        }
+    }
+
     load() {
         //hasCodeRunBefore makes getTopics() run only once when /forum/:forumname directory is loaded
-        localStorage.removeItem("hasCodeRunBefore");
-        this.props.getTopics().then(
-            (res) => {
-                if (!('hasCodeRunBefore' in localStorage)) {
-                    var path = document.location.pathname;
-                    var directory = path.substring(path.lastIndexOf('/') + 1, path.length);
-                    //populating topicName
-                    for (let i = 0; i < res.data.payload.length; i++) {
 
-                        //if directory name === forumname that is assigned to a particular topic,
-                        //then the topic will be displayed in that forum
+        var path = document.location.pathname;
+        var directory = path.substring(path.lastIndexOf('/') + 1, path.length);
+        console.log('twice');
+
+        localStorage.removeItem("hasCodeRunBefore");
+        this.props.getTopics(directory).then(
+            (res) => {
+                
+                if (!('hasCodeRunBefore' in localStorage)) {
+                    let length = Object.keys(res.data.payload).length;
+                    let tempTopicName = this.state.topicName;
+
+
+                    for (let i = 0; i < length; i++) {
                         if (directory === res.data.payload[i].forumname) {
-                            this.setState(prevState => ({
-                                topicName: [...prevState.topicName, res.data.payload[i].topicname]
-                            }));
+                            tempTopicName[i] = res.data.payload[i].topicname;
                         }
                     }
-                    localStorage.setItem("hasCodeRunBefore", true);
+                    console.log(this.state.topicName);
+                    this.setState(prevState => ({
+                        topicName: [...prevState.topicName, ...tempTopicName],
+                        //topicId: [...prevState.topicId, temp.data.payload[i].topicid]
+                        done: true,
+                    }));
+                    console.log(this.state.topicName);
                 }
+                localStorage.setItem("hasCodeRunBefore", true);
             },
             (err) => {
                 console.log('error');
@@ -52,6 +67,7 @@ class Topic extends React.Component {
                 topicName={this.state.topicName[i]}
                 forumURL={this.state.forumURL}
                 topicURL={this.state.topicName[i]}
+
             />);
         }
 
