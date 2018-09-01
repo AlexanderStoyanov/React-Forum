@@ -11,7 +11,6 @@ class NavigationBarContainer extends React.Component {
     }
 
     render() {
-        //console.log(this.props.navBar);
         return (
             <div className="NavigationBar"><NavigationBar navBar={this.props.navBar} changeDir={this.props.changeDir} /></div>
         );
@@ -19,7 +18,6 @@ class NavigationBarContainer extends React.Component {
 }
 
 NavigationBarContainer.propTypes = {
-    navBar: PropTypes.object.isRequired,
     changeDir: PropTypes.func.isRequired,
 }
 

@@ -4,7 +4,7 @@ export default (state = [], action = {}) => {
     switch (action.type) {
         case CHANGE_DIRECTORY:
             return [
-                ...state, {
+                {
                     text: action.directory.text
                 }
             ];
