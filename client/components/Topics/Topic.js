@@ -7,19 +7,12 @@ class Topic extends React.Component {
         //getting forumname to properly construct forum URL
         const path = document.location.pathname;
         const directory = path.substring(path.lastIndexOf('/') + 1, path.length);
-
+        localStorage.removeItem("hasCodeRunBefore");
         this.state = {
-            topicId: '',
+            topicId: [],
             topicName: [],
-            //tempTopicName: [],
             forumURL: directory,
             topicURL: '',
-        }
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        if (this.state.topicName !== prevState.topicName) {
-            console.log('componentDidUpdate');
         }
     }
 
@@ -29,8 +22,8 @@ class Topic extends React.Component {
         var path = document.location.pathname;
         var directory = path.substring(path.lastIndexOf('/') + 1, path.length);
         let tempTopicName = [];
+        let tempTopicId = [];
 
-        localStorage.removeItem("hasCodeRunBefore");
         this.props.getTopics(directory).then(
             (res) => {
                 if (!('hasCodeRunBefore' in localStorage)) {
@@ -40,12 +33,13 @@ class Topic extends React.Component {
                     for (let i = 0; i < length; i++) {
                         if (directory === res.data.payload[i].forumname) {
                             tempTopicName[i] = res.data.payload[i].topicname;
+                            tempTopicId[i] = res.data.payload[i].topicid;
                         }
                     }
-                    this.setState(prevState => ({
-                        topicName: [...prevState.topicName, ...tempTopicName],
-                        //topicId: [...prevState.topicId, temp.data.payload[i].topicid]
-                    }));
+                    this.setState({
+                        topicName: [...tempTopicName],
+                        topicId: [...tempTopicId],
+                    });
                 }
                 localStorage.setItem("hasCodeRunBefore", true);
             },
