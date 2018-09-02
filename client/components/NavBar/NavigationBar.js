@@ -16,11 +16,11 @@ class NavigationBar extends React.Component {
     }
 
     render() {
-        var text = 'undef';
+        var text = '/undef';
         if (this.props.navBar[0]) {
             text = this.props.navBar[0].text;
         } else {
-            text = 'undef';
+            text = '/undef';
         }
         return (
             <div className="row">
@@ -36,15 +36,15 @@ class NavigationBar extends React.Component {
                         <div className="collapse navbar-collapse scrollable" id="collapsibleNavbar">
                             <ul className="navbar-nav mr-auto">
                                 <li className="nav-item">
-                                    <Link to='/forum' name="Home" className="nav-link" onClick={this.onClick} > Home</Link>
+                                    <Link to='/forum' name="/forum" className="nav-link" onClick={this.onClick} > Home</Link>
                                 </li>
                             </ul>
                             <ul className="navbar-nav ml-auto">
                                 <li className="nav-item">
-                                    <Link to='/signin' name="Sign In" className="nav-link" onClick={this.onClick} >Sign In</Link>
+                                    <Link to='/signin' name="/signin" className="nav-link" onClick={this.onClick} >Sign In</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to='/signup' name="Sign Up" className="nav-link" onClick={this.onClick} >Sign Up</Link>
+                                    <Link to='/signup' name="/signup" className="nav-link" onClick={this.onClick} >Sign Up</Link>
                                 </li>
                             </ul>
                         </div>

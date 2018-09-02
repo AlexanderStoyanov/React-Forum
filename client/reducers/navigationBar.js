@@ -1,8 +1,8 @@
-import { CHANGE_DIRECTORY } from '../actions/types';
+import { NAVIGATE_HOME, NAVIGATE_SIGNU, NAVIGATE_SIGNINP } from '../actions/types';
 
 export default (state = [], action = {}) => {
     switch (action.type) {
-        case CHANGE_DIRECTORY:
+        case NAVIGATE_HOME:
             return [
                 {
                     text: action.directory.text

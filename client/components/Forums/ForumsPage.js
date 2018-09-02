@@ -1,18 +1,31 @@
 import React from 'react';
 import Forum from './Forum';
-import PropTypes from 'prop-types';
+import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
-import { getForums } from '../../actions/load';
+import { loadForums } from '../../actions/loadForums';
 
 
 class ForumsPage extends React.Component {
+    constructor(props) {
+        super(props);
+
+    }
+
+    componentDidMount() {
+        this.props.loadForums();
+        
+    }
+
     render() {
-        const { getForums } = this.props;
+        let forumNames = ['Nothing there yet..'];
+        if (this.props.forum.forumNames) {
+            forumNames = this.props.forum.forumNames[0];
+        }
         return (
             <div className="row">
                 <div className="col-md">
                     <Forum
-                        getForums={getForums}
+                        forumNames={forumNames}
                     />
                 </div>
             </div>
@@ -21,7 +34,22 @@ class ForumsPage extends React.Component {
 }
 
 ForumsPage.propTypes = {
-    getForums: PropTypes.func.isRequired,
+    loadForums: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired
 }
 
-export default connect(null, { getForums })(ForumsPage);
+function mapStateToProps(state) {
+    return {
+        forum: state.forum
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        loadForums: () => {
+            dispatch(loadForums());
+        },
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ForumsPage);

@@ -1,8 +1,10 @@
-import { CHANGE_DIRECTORY } from './types';
+import fetch from 'cross-fetch';
+
+import { NAVIGATE_HOME } from '../actions/types';
 
 export function changeDir(directory) {
     return {
-        type: CHANGE_DIRECTORY,
+        type: NAVIGATE_HOME,
         directory
     }
 }
