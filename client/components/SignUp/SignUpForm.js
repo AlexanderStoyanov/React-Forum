@@ -1,6 +1,6 @@
 import React from 'react';
-import validateInput from '../../server/shared/validations/signup';
-import TextFieldGroup from './common/TextFieldGroup';
+import validateInput from '../../../server/shared/validations/signup';
+import TextFieldGroup from '../common/TextFieldGroup';
 import {
     BrowserRouter as Router,
     Route,

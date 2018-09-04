@@ -7,7 +7,7 @@ import {
 import ForumsPage from './Forums/ForumsPage';
 import TopicsPage from './Topics/TopicsPage';
 
-import SignUpPage from './SignUpPage';
+import SignUpPage from './SignUp/SignUpPage';
 import SignInPage from './SignIn/SignInPage';
 
 

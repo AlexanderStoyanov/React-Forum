@@ -24,4 +24,10 @@ TopicsPage.propTypes = {
     getTopics: PropTypes.func.isRequired,
 }
 
+function mapStateToProps(state) {
+    return {
+        topic: state.topic
+    }
+}
+
 export default connect(null, { getTopics })(TopicsPage);

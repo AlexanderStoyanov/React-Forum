@@ -2,8 +2,8 @@ import React from 'react';
 import SignUpForm from './SignUpForm';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { userSignUpRequest, doesUserExist } from '../actions/signUpAction';
-import { addFlashMessage } from '../actions/flashMessages';
+import { userSignUpRequest, doesUserExist } from '../../actions/signUpAction';
+import { addFlashMessage } from '../../actions/flashMessages';
 
 
 class SignUpPage extends React.Component {
