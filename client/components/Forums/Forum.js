@@ -7,6 +7,11 @@ class Forum extends React.Component {
     constructor(props) {
         super(props);
 
+        this.onClick = this.onClick.bind(this);
+    }
+
+    onClick(e) {
+        this.props.loadTopics(e.target.name);
     }
 
     render() {
@@ -16,11 +21,12 @@ class Forum extends React.Component {
                 key={i}
                 forumName={this.props.forumNames[i].forumname}
                 forumURL={this.props.forumNames[i].forumname}
+                onClick={this.onClick}
             />);
         }
 
         return (
-            <div >
+            <div className="forumEntries">
                 {rows}
             </div>
         );
@@ -29,6 +35,7 @@ class Forum extends React.Component {
 
 Forum.propTypes = {
     forumNames: PropTypes.array,
+    loadTopics: PropTypes.func.isRequired,
 }
 
 export default withRouter(Forum)
