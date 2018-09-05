@@ -27,17 +27,19 @@ function receiveReplies(json) {
     }
 }
 
-export const loadReplies = (directory) => {
+export const loadReplies = (id) => {
     return dispatch => {
-        dispatch(requestReplies(directory));
+        dispatch(requestReplies(id));
 
-        axios.get('/api/replies/load')
+        axios.get('/api/replies/load', {
+            params: {
+                id: id
+            },
+        })
             .then(res => {
-                //console.log(res);
                 dispatch(receiveReplies(res.data.payload));
             })
             .catch(err => {
-                //console.log(err);
                 dispatch(postFailure(err.message));
             });
     };

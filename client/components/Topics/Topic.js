@@ -10,7 +10,7 @@ class Topic extends React.Component {
     }
 
     onClick(e) {
-        this.props.loadReplies();
+        this.props.loadReplies(e.target.id);
     }
 
     render() {
@@ -24,6 +24,7 @@ class Topic extends React.Component {
                     forumURL={this.props.forumURL}
                     topicURL={this.props.topicNames[i].topicname}
                     onClick={this.onClick}
+                    id={this.props.topicNames[i].topicid}
                 />);
             }
         }

@@ -6,6 +6,7 @@ import {
 
 import ForumsPage from './Forums/ForumsPage';
 import TopicsPage from './Topics/TopicsPage';
+import RepliesPage from './Replies/RepliesPage';
 
 import SignUpPage from './SignUp/SignUpPage';
 import SignInPage from './SignIn/SignInPage';
@@ -16,6 +17,7 @@ const Root = ({ match }) => (
         <Switch>
             <Route exact path='/forum' component={ForumsPage} />
             <Route path={`/forum/:forumName`} component={TopicsPage} />
+            <Route path={`/forum/:forumName/:topicName`} component={RepliesPage} />
             <Route path='/signup' component={SignUpPage} />
             <Route path='/signin' component={SignInPage} />
         </Switch>

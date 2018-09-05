@@ -38,8 +38,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        loadReplies: () => {
-            dispatch(loadReplies());
+        loadReplies: (id) => {
+            dispatch(loadReplies(id));
         },
     }
 }

@@ -8,13 +8,22 @@ import {
 } from "react-router-dom";
 import RepliesPage from '../Replies/RepliesPage';
 
-const TopicEntry = ({ topicName, forumURL, topicURL, onClick }) => {
+const TopicEntry = ({ topicName, forumURL, topicURL, id, onClick }) => {
     return (
-        <div className="topicEntry" onClick={onClick}>
-            <Link to={`/forum/${forumURL}/${topicURL}`} type="button" className="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">{topicName}</Link>
-            <Switch>
-                <Route exact path={`/forum/${forumURL}/${topicURL}`} component={RepliesPage} />
-            </Switch>
+        <div className="card" onClick={onClick}>
+            <div className="card-body">
+                <h3>
+                    <Link
+                        to={`/forum/${forumURL}/${topicURL}`}
+                        className="nav-link"
+                        name={`${topicURL}`}
+                        id={id}
+                    >{topicName}</Link>
+                </h3>
+                <Switch>
+                    <Route exact path={`/forum/${forumURL}/${topicURL}`} component={RepliesPage} />
+                </Switch>
+            </div>
         </div>
     );
 }
