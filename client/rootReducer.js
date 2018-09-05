@@ -4,10 +4,12 @@ import flashMessages from './reducers/flashMessages';
 import navigationBar from './reducers/navigationBar';
 import forum from './reducers/forum';
 import topic from './reducers/topic';
+import reply from './reducers/reply';
 
 export default combineReducers({
     flashMessages,
     navigationBar,
     forum,
     topic,
+    reply,
 });

@@ -7,10 +7,10 @@
     "\\client\\components\\common",
     "\\client\\components\\flash",
     "\\client\\components\\Forums",
+    "\\client\\components\\Topics",
     "\\client\\reducers",
-    "\\server",
-    "\\server\\routes"
+    "\\server"
   ],
-  "SelectedNode": "\\client\\actions\\loadForums.js",
+  "SelectedNode": "\\client\\actions\\loadTopics.js",
   "PreviewInSolutionExplorer": false
 }

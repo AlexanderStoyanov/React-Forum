@@ -6,6 +6,11 @@ class Topic extends React.Component {
     constructor(props) {
         super(props);
 
+        this.onClick = this.onClick.bind(this);
+    }
+
+    onClick(e) {
+        this.props.loadReplies();
     }
 
     render() {
@@ -16,6 +21,9 @@ class Topic extends React.Component {
                 rows.push(<TopicEntry
                     key={i}
                     topicName={this.props.topicNames[i].topicname}
+                    forumURL={this.props.forumURL}
+                    topicURL={this.props.topicNames[i].topicname}
+                    onClick={this.onClick}
                 />);
             }
         }

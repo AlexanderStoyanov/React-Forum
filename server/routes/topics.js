@@ -13,7 +13,7 @@ const pool = new Pool({
 router.get('/load', (req, res) => {
     const query = {
         text: 'select * from topics where forumname = $1',
-        values: [req.query.directory],  //where forumname = $1
+        values: [req.query.directory],
     }
 
     pool.connect((err, client, done) => {
@@ -25,7 +25,7 @@ router.get('/load', (req, res) => {
                 console.log(err.stack);
             } else if (ress.rowCount > 0) {
                 let payload = ress.rows;
-                console.log(payload);
+                
                 res.json({ payload });
             } else {
                 res.json({ error: true });
