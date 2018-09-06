@@ -27,11 +27,15 @@ export default {
                 ],
                 loaders: ['babel-loader'],
                 exclude: /node_modules/
-            }
+            },
+            { test: /\.css$/, loader: "style-loader!css-loader" }
         ]
     },
     resolve: {
-        extensions: [ '.js', '.jsx' ]
+        extensions: ['.js', '.jsx', '.css'],
+        modules: [
+            'node_modules'
+        ]
     },
     devServer: {
         historyApiFallback: true

@@ -14,10 +14,12 @@ const TopicEntry = ({ topicName, forumURL, topicURL, id, onClick }) => {
             <div className="card-body">
                 <h3>
                     <Link
-                        to={`/forum/${forumURL}/${topicURL}`}
+                        to={{ pathname: `/forum/${forumURL}/${topicURL}` }}
                         className="nav-link"
                         name={`${topicURL}`}
                         id={id}
+                        data-toggle="modal" 
+                        data-target=".bd-modal-lg"
                     >{topicName}</Link>
                 </h3>
                 <Switch>
@@ -27,6 +29,10 @@ const TopicEntry = ({ topicName, forumURL, topicURL, id, onClick }) => {
         </div>
     );
 }
+
+//<Switch>
+//    <Route exact path={`/forum/${forumURL}/${topicURL}`} component={RepliesPage} />
+//</Switch>
 
 TopicEntry.propTypes = {
     topicName: PropTypes.string.isRequired,

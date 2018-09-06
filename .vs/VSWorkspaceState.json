@@ -6,11 +6,11 @@
     "\\client\\components",
     "\\client\\components\\common",
     "\\client\\components\\flash",
-    "\\client\\components\\Forums",
-    "\\client\\components\\Topics",
+    "\\client\\components\\NavBar",
     "\\client\\reducers",
-    "\\server"
+    "\\server",
+    "\\server\\routes"
   ],
-  "SelectedNode": "\\client\\actions\\loadTopics.js",
+  "SelectedNode": "\\client\\components\\Replies\\RepliesPage.js",
   "PreviewInSolutionExplorer": false
 }

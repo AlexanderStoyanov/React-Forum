@@ -12,7 +12,7 @@ import SignUpPage from './SignUp/SignUpPage';
 import SignInPage from './SignIn/SignInPage';
 
 
-const Root = ({ match }) => (
+const Root = ({  }) => (
     <main>
         <Switch>
             <Route exact path='/forum' component={ForumsPage} />
