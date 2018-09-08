@@ -25,6 +25,7 @@ class Topic extends React.Component {
                     topicURL={this.props.topicNames[i].topicname}
                     onClick={this.onClick}
                     id={this.props.topicNames[i].topicid}
+                    match={this.props.match}
                 />);
             }
         }

@@ -11,7 +11,7 @@ class TopicsPage extends React.Component {
         if (this.props.topic.topicNames) {
             topicNames = this.props.topic.topicNames[0];
         }
-        
+        //console.log(this.props.match);
         return (
             <div className="row">
                 <div className="col-md">
@@ -19,6 +19,7 @@ class TopicsPage extends React.Component {
                         topicNames={topicNames}
                         loadReplies={this.props.loadReplies}
                         forumURL={this.props.topic.currentDirectory}
+                        match={this.props.match}
                     />
                 </div>
             </div>

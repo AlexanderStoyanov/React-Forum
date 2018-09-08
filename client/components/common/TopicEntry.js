@@ -8,13 +8,15 @@ import {
 } from "react-router-dom";
 import RepliesPage from '../Replies/RepliesPage';
 
-const TopicEntry = ({ topicName, forumURL, topicURL, id, onClick }) => {
+const TopicEntry = ({ topicName, forumURL, topicURL, id, onClick, match }) => {
+    //console.log(match);
     return (
         <div className="card" onClick={onClick}>
             <div className="card-body">
+                <Route exact path={`${match.url}/${topicURL}`} component={RepliesPage} />
                 <h3>
                     <Link
-                        to={{ pathname: `/forum/${forumURL}/${topicURL}` }}
+                        to={{ pathname: `${match.url}/${topicURL}` }}
                         className="nav-link"
                         name={`${topicURL}`}
                         id={id}
@@ -22,9 +24,7 @@ const TopicEntry = ({ topicName, forumURL, topicURL, id, onClick }) => {
                         data-target=".bd-modal-lg"
                     >{topicName}</Link>
                 </h3>
-                <Switch>
-                    <Route exact path={`/forum/${forumURL}/${topicURL}`} component={RepliesPage} />
-                </Switch>
+                
             </div>
         </div>
     );

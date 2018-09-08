@@ -1,18 +1,17 @@
 import React from 'react';
-import {
-    Route,
-    Switch
-} from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 
 import ForumsPage from './Forums/ForumsPage';
 import TopicsPage from './Topics/TopicsPage';
 import RepliesPage from './Replies/RepliesPage';
 
+import TopicEntry from './common/TopicEntry';
+
 import SignUpPage from './SignUp/SignUpPage';
 import SignInPage from './SignIn/SignInPage';
 
 
-const Root = ({  }) => (
+const Root = ({ match }) => (
     <main>
         <Switch>
             <Route exact path='/forum' component={ForumsPage} />

@@ -7,10 +7,10 @@
     "\\client\\components\\common",
     "\\client\\components\\flash",
     "\\client\\components\\NavBar",
-    "\\client\\reducers",
-    "\\server",
-    "\\server\\routes"
+    "\\client\\components\\Replies",
+    "\\client\\components\\Topics",
+    "\\client\\reducers"
   ],
-  "SelectedNode": "\\client\\components\\Replies\\RepliesPage.js",
+  "SelectedNode": "\\client\\components\\common\\TopicEntry.js",
   "PreviewInSolutionExplorer": false
 }
