@@ -22,8 +22,4 @@ ForumEntry.propTypes = {
     onClick: PropTypes.func.isRequired,
 }
 
-ForumEntry.defaultProps = {
-
-}
-
 export default ForumEntry;

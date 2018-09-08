@@ -11,7 +11,7 @@ class TopicsPage extends React.Component {
         if (this.props.topic.topicNames) {
             topicNames = this.props.topic.topicNames[0];
         }
-        console.log(this.props);
+        
         return (
             <div className="row">
                 <div className="col-md">

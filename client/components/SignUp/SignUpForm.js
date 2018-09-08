@@ -56,12 +56,13 @@ class SignUpForm extends React.Component {
         if (this.isValid()) {
             this.setState({ errors: {}, invalid: true });
             this.props.userSignUpRequest(this.state).then(
-                () => {
+                (res) => {
                     this.props.addFlashMessage({
                         type: 'success',
                         text: 'Account created successfully'
                     });
-                    this.props.history.push("/home");
+                    localStorage.setItem('token', res.data.token);
+                    this.props.history.push("/forum");
                 },
                 (err) => {
                     this.setState({ errors: err.response.data, invalid: false });

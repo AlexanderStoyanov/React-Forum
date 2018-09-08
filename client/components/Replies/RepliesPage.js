@@ -7,6 +7,9 @@ import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import validateReply from '../../../server/shared/validations/reply';
+import { replyPost } from '../../actions/replyAction';
+import { addFlashMessage } from '../../actions/flashMessages';
 
 const content = {
     "entityMap": {},
@@ -18,25 +21,54 @@ const content = {
 class RepliesPage extends React.Component {
     constructor(props) {
         super(props);
+
         const contentState = convertFromRaw(content);
         this.state = {
             contentState,
+            isValid: false,
+            errors: {},
         }
+
         this.onContentStateChange = this.onContentStateChange.bind(this);
-        this.onClick = this.onClick.bind(this);
+        this.isValid = this.isValid.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     onContentStateChange(contentState) {
-        console.log(contentState);
         this.setState({
             contentState,
         });
     };
 
-    onClick(event) {
+    isValid() {
+        const { errors, isValid } = validateReply(this.state.contentState.blocks[0]);
+
+        if (!isValid) {
+            this.setState({ errors });
+        }
+
+        return isValid;
+    }
+
+    onSubmit(event) {
         event.preventDefault();
 
+        if (this.isValid()) {
+            this.setState({ errors: {}, invalid: true });
+            console.log(this.props);
+            this.props.replyPost({ token: localStorage.getItem('token'), topicid: this.props.reply.currentDirectory, reply: JSON.stringify(this.state.contentState) }).then(
+                () => {
+                    this.props.addFlashMessage({
+                        type: 'success',
+                        text: 'Account created successfully'
+                    });
+                },
+                (err) => {
+                    this.setState({ errors: err.response.data, invalid: false });
 
+                }
+            );
+        }
     }
 
     render() {
@@ -49,17 +81,26 @@ class RepliesPage extends React.Component {
                 <Reply
                     replies={replies}
                 />
-                <form>
+                <form onSubmit={this.onSubmit}>
                     <Editor
                         toolbarClassName="toolbarClassName"
                         wrapperClassName="wrapperClassName"
                         onContentStateChange={this.onContentStateChange}
                     />
+                    <button disabled={this.state.invalid} type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </div>
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        reply: state.reply
+    }
+}
+
+export default connect(mapStateToProps, { replyPost, addFlashMessage })(RepliesPage);
 
 //<div className="modal fade bd-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 //    <div className="modal-dialog" role="document">
@@ -89,11 +130,3 @@ class RepliesPage extends React.Component {
 //        </div>
 //    </div>
 //</div>
-
-function mapStateToProps(state) {
-    return {
-        reply: state.reply
-    }
-}
-
-export default connect(mapStateToProps)(RepliesPage);

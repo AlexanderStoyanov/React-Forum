@@ -75,7 +75,7 @@ router.post('/signup', userUniquenessCheck, (req, res) => {
             var hashedPassword = bcrypt.hashSync(req.body.password, 8);
             var id = shortid.generate();
             const query = {
-                text: 'INSERT INTO users(id, username, password, firstname) VALUES($1, $2, $3, $4)',
+                text: 'INSERT INTO users(userid, username, password, firstname) VALUES($1, $2, $3, $4)',
                 values: [id, req.body.username, hashedPassword, req.body.fname],
             }
 

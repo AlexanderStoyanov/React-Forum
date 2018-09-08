@@ -32,20 +32,17 @@ class SignInForm extends React.Component {
     }
 
     isValid() {
-        const { errors, isValid } = validateInput(this.state);
-        
-        if (!isValid) {
-            this.setState({ errors });
+        if (this.state.username === '' || this.state.password === '') {
+            return false;
         }
-
-        return isValid;
+        return true;
     }
 
     onSubmit(event) {
         event.preventDefault();
 
         const { history } = this.props;
-
+        
         if (this.isValid()) {
             this.setState({ errors: {}, isLoading: true });
             this.props.userSignInRequest(this.state).then(
@@ -55,6 +52,7 @@ class SignInForm extends React.Component {
                             type: 'success',
                             text: 'Logged in successfully!'
                         });
+                        localStorage.setItem('token', res.data.token);
                         this.setState({ loggedin: true });
                         this.props.history.push("/forum");
                     } else {

@@ -14,10 +14,10 @@ class App extends React.Component {
                 <NavigationBarContainer />
                 <FlashMessagesList />
                 <div className="row mb-5 mt-5"></div>
-                <Routing />
                 <Switch>
                     <Route path={`/forum/:forumName/:topicName`} component={RepliesPage} />
                 </Switch>
+                <Routing />
             </div>
         );
     }

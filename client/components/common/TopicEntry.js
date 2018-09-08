@@ -1,15 +1,10 @@
 import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import {
-    Route,
-    Switch,
-    Link, withRouter
-} from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import RepliesPage from '../Replies/RepliesPage';
 
 const TopicEntry = ({ topicName, forumURL, topicURL, id, onClick, match }) => {
-    console.log(match);
     return (
         <div className="card" onClick={onClick}>
             <div className="card-body">
@@ -57,10 +52,6 @@ TopicEntry.propTypes = {
     forumURL: PropTypes.string.isRequired,
     topicURL: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
-}
-
-TopicEntry.defaultProps = {
-
 }
 
 export default withRouter(TopicEntry);
