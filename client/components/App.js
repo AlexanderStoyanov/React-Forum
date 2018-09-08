@@ -4,6 +4,9 @@ import NavigationBarContainer from './NavBar/NavigationBarContainer';
 import Routing from './Routing';
 import FlashMessagesList from './flash/FlashMessagesList';
 
+import RepliesPage from './Replies/RepliesPage';
+import { Router, Route, Switch } from "react-router-dom";
+
 class App extends React.Component {
     render() {
         return (
@@ -12,6 +15,9 @@ class App extends React.Component {
                 <FlashMessagesList />
                 <div className="row mb-5 mt-5"></div>
                 <Routing />
+                <Switch>
+                    <Route path={`/forum/:forumName/:topicName`} component={RepliesPage} />
+                </Switch>
             </div>
         );
     }

@@ -8,9 +8,9 @@
     "\\client\\components\\flash",
     "\\client\\components\\NavBar",
     "\\client\\components\\Replies",
-    "\\client\\components\\Topics",
-    "\\client\\reducers"
+    "\\client\\components\\SignUp",
+    "\\client\\components\\Topics"
   ],
-  "SelectedNode": "\\client\\components\\common\\TopicEntry.js",
+  "SelectedNode": "\\client\\components\\Replies\\RepliesPage.js",
   "PreviewInSolutionExplorer": false
 }
