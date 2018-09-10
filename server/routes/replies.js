@@ -1,5 +1,6 @@
 import express from 'express';
 import shortid from 'shortid';
+import jwt from 'jsonwebtoken';
 
 let router = express.Router();
 
@@ -12,19 +13,20 @@ const pool = new Pool({
 
 //Verifies token
 function verifyToken(req, res, next) {
-    if (!req.headers.authorization) {
-        return res.status(401).send('Unauthorized request')
+    if (!req.body.token) {
+        return res.status(401).send('Unauthorized request');
     }
-    let token = req.headers.authorization.split(' ')[1]
+    let token = req.body.token;
     if (token === 'null') {
-        return res.status(401).send('Unauthorized request')
+        return res.status(401).send('Unauthorized request');
     }
-    let payload = jwt.verify(token, 'raccoon')
+    let payload = jwt.verify(token, 'raccoon');
     if (!payload) {
-        return res.status(401).send('Unauthorized request')
+        return res.status(401).send('Unauthorized request');
     }
-    req.userId = payload.subject
-    req.isAdmin = payload.isAdmin
+    req.body = { userid: payload.subject };
+    console.log(req.body);
+    req.isAdmin = payload.isAdmin;
     next()
 }
 
@@ -53,7 +55,11 @@ router.get('/load', (req, res) => {
 });
 
 router.post('/post', verifyToken, (req, res) => {
-    console.log(req);
+    //console.log(req.userid);
+    const query = {
+        text: 'INSERT INTO replies(replyid, userid, topicid, text, date) VALUES($1, $2, $3, $4, $5)',
+        values: [shortid.generate(), req.userid, req.body.topicid, Date.now()],
+    }
 });
 
 export default router;

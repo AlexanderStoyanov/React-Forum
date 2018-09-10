@@ -60,7 +60,7 @@ class RepliesPage extends React.Component {
                 () => {
                     this.props.addFlashMessage({
                         type: 'success',
-                        text: 'Account created successfully'
+                        text: 'Reply has been posted!'
                     });
                 },
                 (err) => {

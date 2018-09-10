@@ -7,10 +7,6 @@ import bcrypt from 'bcryptjs';
 
 let router = express.Router();
 
-//Database connection
-var conString = process.env.ELEPHANTSQL_URL || "postgres://fxnccmwu:UVEOgDD08que1CZcC9L2twa6PxN11Cyo@baasu.db.elephantsql.com:5432/fxnccmwu";
-var client = new pg.Client(conString);
-
 //Pooling
 import { Pool } from 'pg';
 const connectionString = 'postgres://fxnccmwu:UVEOgDD08que1CZcC9L2twa6PxN11Cyo@baasu.db.elephantsql.com:5432/fxnccmwu';
@@ -120,7 +116,7 @@ router.post('/signin', (req, res) => {
             } else if (!passwordIsValid) { 
                 res.status(401).send({ success: false, token: null });
             } else if (ress.rowCount > 0 && passwordIsValid) {
-                let payload = { subject: ress.id };
+                let payload = { subject: ress.rows[0].userid };
                 let token = jwt.sign(payload, 'raccoon', { expiresIn: 86400 });
                 res.status(200).send({ success: true, token: token });
             } else {
