@@ -56,12 +56,13 @@ class RepliesPage extends React.Component {
         if (this.isValid()) {
             this.setState({ errors: {}, invalid: true });
             console.log(this.props);
-            this.props.replyPost({ token: localStorage.getItem('token'), topicid: this.props.reply.currentDirectory, reply: JSON.stringify(this.state.contentState) }).then(
+            this.props.replyPost({ token: localStorage.getItem('token'), topicid: this.props.reply.currentDirectory, reply: JSON.stringify(this.state.contentState), userid: null }).then(
                 () => {
                     this.props.addFlashMessage({
                         type: 'success',
                         text: 'Reply has been posted!'
                     });
+                    this.setState({ invalid: false });
                 },
                 (err) => {
                     this.setState({ errors: err.response.data, invalid: false });

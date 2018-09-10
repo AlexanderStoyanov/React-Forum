@@ -24,8 +24,7 @@ function verifyToken(req, res, next) {
     if (!payload) {
         return res.status(401).send('Unauthorized request');
     }
-    req.body = { userid: payload.subject };
-    console.log(req.body);
+    req.body.userid = payload.subject;
     req.isAdmin = payload.isAdmin;
     next()
 }
@@ -45,7 +44,7 @@ router.get('/load', (req, res) => {
                 console.log(err.stack);
             } else if (ress.rowCount > 0) {
                 let payload = ress.rows;
-                
+
                 res.json({ payload });
             } else {
                 res.json({ error: true });
@@ -55,11 +54,23 @@ router.get('/load', (req, res) => {
 });
 
 router.post('/post', verifyToken, (req, res) => {
-    //console.log(req.userid);
     const query = {
         text: 'INSERT INTO replies(replyid, userid, topicid, text, date) VALUES($1, $2, $3, $4, $5)',
-        values: [shortid.generate(), req.userid, req.body.topicid, Date.now()],
+        values: [shortid.generate(), req.body.userid, req.body.topicid, req.body.reply, Date.now().toString()],
     }
+
+    pool.connect((err, client, done) => {
+        if (err) throw err
+        client.query(query, (err, ress) => {
+            done();
+
+            if (err) {
+                console.log(err);
+            } else {
+                res.json({ success: true });
+            }
+        });
+    });
 });
 
 export default router;
