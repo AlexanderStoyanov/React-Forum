@@ -2,7 +2,8 @@ import React from 'react';
 import Reply from './Reply';
 
 import { Editor } from 'react-draft-wysiwyg';
-import { convertFromRaw } from 'draft-js';
+import { convertFromRaw, convertToRaw } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
 import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 import PropTypes from 'prop-types';
@@ -73,10 +74,13 @@ class RepliesPage extends React.Component {
     }
 
     render() {
-        let replies = ['Nothing there yet..'];
+        let replies = [];
         if (this.props.reply.replies) {
-            replies = this.props.reply.replies[0];
+            for (let i = 0; i < this.props.reply.replies.length; i++) {
+                replies.push(draftToHtml(JSON.parse(this.props.reply.replies[i].text)));
+            }
         }
+
         return (
             <div>
                 <Reply

@@ -3,7 +3,7 @@ import { REPLIES_REQUEST_FAILURE, REQUEST_REPLIES, RECEIVE_REPLIES } from '../ac
 const initialState = {
     loading: false,
     currentTopic: null,
-    replies: [],
+    replies: null,
     error: null,
 };
 
@@ -18,7 +18,7 @@ export default (state = initialState, action = {}) => {
             return {
                 loading: false,
                 error: null,
-                replies: [action.replies],
+                replies: action.replies,
                 currentDirectory: state.currentDirectory
             };
         case REPLIES_REQUEST_FAILURE:

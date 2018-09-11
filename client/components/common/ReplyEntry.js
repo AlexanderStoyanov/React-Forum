@@ -3,10 +3,18 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
 const ReplyEntry = ({ text }) => {
+    function createMarkup() {
+        return { __html: text };
+    }
+
+    function myComponent() {
+        return <div dangerouslySetInnerHTML={createMarkup()} />;
+    }
+
     return (
         <div className="card">
             <div className="card-body">
-                {text}
+                {myComponent()}
             </div>
         </div>
     );

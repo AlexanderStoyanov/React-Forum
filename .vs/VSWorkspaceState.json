@@ -4,14 +4,13 @@
     "\\client",
     "\\client\\actions",
     "\\client\\components",
+    "\\client\\components\\Replies",
     "\\client\\components\\SignIn",
     "\\client\\components\\SignUp",
     "\\client\\components\\Topics",
     "\\server",
-    "\\server\\routes",
-    "\\server\\shared",
-    "\\server\\shared\\validations"
+    "\\server\\routes"
   ],
-  "SelectedNode": "\\client\\actions\\loadReplies.js",
+  "SelectedNode": "\\server\\routes\\replies.js",
   "PreviewInSolutionExplorer": false
 }
