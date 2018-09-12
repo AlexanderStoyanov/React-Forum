@@ -10,6 +10,7 @@ class Reply extends React.Component {
                 rows.push(<ReplyEntry
                     key={i}
                     text={this.props.replies[i]}
+                    firstname={this.props.names[i]}
                 />);
             }
         }

@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
-const ReplyEntry = ({ text }) => {
+const ReplyEntry = ({ text, firstname }) => {
     function createMarkup() {
         return { __html: text };
     }
@@ -12,9 +12,20 @@ const ReplyEntry = ({ text }) => {
     }
 
     return (
-        <div className="card">
-            <div className="card-body">
-                {myComponent()}
+        <div className="row">
+            <div className="col-md-3">
+                <div className="card">
+                    <div className="card-body">
+                        <h5 className="card-title">{firstname}</h5>
+                    </div>
+                </div>
+            </div>
+            <div className="col-md-9">
+                <div className="card">
+                    <div className="card-body">
+                        {myComponent()}
+                    </div>
+                </div>
             </div>
         </div>
     );

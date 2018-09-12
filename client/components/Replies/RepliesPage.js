@@ -5,6 +5,7 @@ import { Editor } from 'react-draft-wysiwyg';
 import { convertFromRaw, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import './Editor.css';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -75,25 +76,38 @@ class RepliesPage extends React.Component {
 
     render() {
         let replies = [];
+        let names = [];
         if (this.props.reply.replies) {
             for (let i = 0; i < this.props.reply.replies.length; i++) {
                 replies.push(draftToHtml(JSON.parse(this.props.reply.replies[i].text)));
+                names.push(this.props.reply.replies[i].firstname);
             }
         }
 
         return (
-            <div>
+            <div className="container">
                 <Reply
                     replies={replies}
+                    names={names}
                 />
-                <form onSubmit={this.onSubmit}>
-                    <Editor
-                        toolbarClassName="toolbarClassName"
-                        wrapperClassName="wrapperClassName"
-                        onContentStateChange={this.onContentStateChange}
-                    />
-                    <button disabled={this.state.invalid} type="submit" className="btn btn-primary">Submit</button>
-                </form>
+                <div className="row">
+                    <div className="col-md">
+                        <form onSubmit={this.onSubmit}>
+                            <Editor
+                                toolbarClassName="toolbarClass"
+                                editorClassName="editorClass"
+                                onContentStateChange={this.onContentStateChange}
+                                toolbar={{
+                                    inline: {
+                                        inDropdown: false,
+                                        className: 'red',
+                                    }
+                                }}
+                            />
+                            <button disabled={this.state.invalid} type="submit" className="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         );
     }
