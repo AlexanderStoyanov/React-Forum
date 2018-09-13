@@ -9,6 +9,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from './rootReducer';
 
 import App from './components/App';
+import './style.css';
 
 const store = createStore(
     rootReducer,

@@ -5,12 +5,12 @@
     "\\client\\actions",
     "\\client\\components",
     "\\client\\components\\common",
+    "\\client\\components\\Forums",
     "\\client\\components\\Replies",
     "\\client\\components\\SignIn",
-    "\\client\\components\\SignUp",
-    "\\client\\components\\Topics",
-    "\\client\\reducers"
+    "\\server",
+    "\\server\\routes"
   ],
-  "SelectedNode": "\\client\\components\\Replies\\RepliesPage.js",
+  "SelectedNode": "\\client\\components\\common\\ReplyEntry.js",
   "PreviewInSolutionExplorer": false
 }

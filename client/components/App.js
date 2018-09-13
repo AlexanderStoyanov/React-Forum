@@ -13,7 +13,6 @@ class App extends React.Component {
             <div className="App">
                 <NavigationBarContainer />
                 <FlashMessagesList />
-                <div className="row mb-5 mt-5"></div>
                 <Switch>
                     <Route path={`/forum/:forumName/:topicName`} component={RepliesPage} />
                 </Switch>

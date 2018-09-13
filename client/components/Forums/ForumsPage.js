@@ -14,7 +14,7 @@ class ForumsPage extends React.Component {
 
     componentDidMount() {
         this.props.loadForums();
-        
+
     }
 
     render() {
@@ -23,12 +23,14 @@ class ForumsPage extends React.Component {
             forumNames = this.props.forum.forumNames[0];
         }
         return (
-            <div className="row">
-                <div className="col-md">
-                    <Forum
-                        loadTopics={this.props.loadTopics}
-                        forumNames={forumNames}
-                    />
+            <div className="container">
+                <div className="row">
+                    <div className="col-md">
+                        <Forum
+                            loadTopics={this.props.loadTopics}
+                            forumNames={forumNames}
+                        />
+                    </div>
                 </div>
             </div>
         );

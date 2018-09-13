@@ -85,12 +85,12 @@ class RepliesPage extends React.Component {
         }
 
         return (
-            <div className="container">
+            <div className="container" style={{ background: '#e4e4e4' }}>
                 <Reply
                     replies={replies}
                     names={names}
                 />
-                <div className="row">
+                <div className="row" style={{ marginTop: 20 + 'px' }}>
                     <div className="col-md">
                         <form onSubmit={this.onSubmit}>
                             <Editor

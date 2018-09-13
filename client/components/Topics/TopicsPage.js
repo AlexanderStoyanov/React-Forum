@@ -11,16 +11,18 @@ class TopicsPage extends React.Component {
         if (this.props.topic.topicNames) {
             topicNames = this.props.topic.topicNames[0];
         }
-        
+
         return (
-            <div className="row">
-                <div className="col-md">
-                    <Topic
-                        topicNames={topicNames}
-                        loadReplies={this.props.loadReplies}
-                        forumURL={this.props.topic.currentDirectory}
-                        match={this.props.match}
-                    />
+            <div className="container">
+                <div className="row">
+                    <div className="col-md">
+                        <Topic
+                            topicNames={topicNames}
+                            loadReplies={this.props.loadReplies}
+                            forumURL={this.props.topic.currentDirectory}
+                            match={this.props.match}
+                        />
+                    </div>
                 </div>
             </div>
         );
