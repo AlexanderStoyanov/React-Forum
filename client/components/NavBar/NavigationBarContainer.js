@@ -12,7 +12,13 @@ class NavigationBarContainer extends React.Component {
 
     render() {
         return (
-            <div className="NavigationBar"><NavigationBar navBar={this.props.navBar} changeDir={this.props.changeDir} /></div>
+            <div className="NavigationBar">
+                <NavigationBar
+                    navBar={this.props.navBar}
+                    userDetails={this.props.userDetails}
+                    changeDir={this.props.changeDir}
+                />
+            </div>
         );
     }
 }
@@ -25,6 +31,7 @@ NavigationBarContainer.propTypes = {
 function mapStateToProps(state) {
     return {
         navBar: state.navigationBar,
+        userDetails: state.userDetails,
     }
 }
 

@@ -16,18 +16,16 @@ class NavigationBar extends React.Component {
     }
 
     render() {
-        var text = '/undef';
-        if (this.props.navBar[0]) {
-            text = this.props.navBar[0].text;
-        } else {
-            text = '/undef';
+        var name = 'undef';
+        if (this.props.userDetails) {
+            name = this.props.userDetails.name;
         }
         return (
             <div className="row">
                 <div className="col-md">
                     <nav className="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
 
-                        <Link to='/' className="navbar-brand mr-4">Feed + {text}</Link>
+                        <Link to='/' className="navbar-brand mr-4">Feed</Link>
 
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                             <span className="navbar-toggler-icon"></span>
@@ -40,6 +38,11 @@ class NavigationBar extends React.Component {
                                 </li>
                             </ul>
                             <ul className="navbar-nav ml-auto">
+                                <li className="nav-item">
+                                    <h3>
+                                        Welcome, {name}
+                                    </h3>
+                                </li>
                                 <li className="nav-item">
                                     <Link to='/signin' name="/signin" className="nav-link" onClick={this.onClick} >Sign In</Link>
                                 </li>

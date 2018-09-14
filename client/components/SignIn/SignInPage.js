@@ -8,13 +8,14 @@ import { addFlashMessage } from '../../actions/flashMessages';
 
 class SignInPage extends React.Component {
     render() {
-        const { userSignInRequest, addFlashMessage } = this.props;
+        const { userSignInRequest, addFlashMessage, userDetails } = this.props;
         return (
             <div className="row">
                 <div className="col-md-2 mx-auto">
                     <SignInForm
                         userSignInRequest={userSignInRequest}
                         addFlashMessage={addFlashMessage}
+                        userDetails={userDetails}
                     />
                 </div>
             </div>
@@ -27,4 +28,10 @@ SignInPage.propTypes = {
     addFlashMessage: PropTypes.func.isRequired
 }
 
-export default connect(null, { userSignInRequest, addFlashMessage })(SignInPage);
+function mapStateToProps(state) {
+    return {
+        userDetails: state.userDetails
+    }
+}
+
+export default connect(mapStateToProps, { userSignInRequest, addFlashMessage })(SignInPage);

@@ -1,11 +1,11 @@
-import { NAVIGATE_HOME, NAVIGATE_SIGNU, NAVIGATE_SIGNINP } from '../actions/types';
+import { CHANGE_DIRECTORY } from '../actions/navigationBarActions';
 
 export default (state = [], action = {}) => {
     switch (action.type) {
-        case NAVIGATE_HOME:
+        case CHANGE_DIRECTORY:
             return [
                 {
-                    text: action.directory.text
+                    directory: action.directory.text
                 }
             ];
         default: return state;

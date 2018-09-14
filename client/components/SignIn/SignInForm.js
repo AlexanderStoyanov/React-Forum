@@ -42,32 +42,22 @@ class SignInForm extends React.Component {
         event.preventDefault();
 
         const { history } = this.props;
-        
-        if (this.isValid()) {
-            this.setState({ errors: {}, isLoading: true });
-            this.props.userSignInRequest(this.state).then(
-                (res) => {
-                    if (res.data.success) {
-                        this.props.addFlashMessage({
-                            type: 'success',
-                            text: 'Logged in successfully!'
-                        });
-                        localStorage.setItem('token', res.data.token);
-                        this.setState({ loggedin: true });
-                        this.props.history.push("/forum");
-                    } else {
-                        this.props.addFlashMessage({
-                            type: 'error',
-                            text: 'Username or password is incorrect!'
-                        });
-                        this.setState({ isLoading: false });
-                    }
-                },
-                (err) => {
-                    this.setState({ errors: err.response.data, isLoading: false });
 
-                }
-            );
+        if (this.isValid()) {
+            this.props.userSignInRequest(this.state);
+
+            //if (!this.props.userDetails.error) {
+            //    this.props.addFlashMessage({
+            //        type: 'success',
+            //        text: 'Logged in successfully!'
+            //    });
+            //    this.props.history.push("/forum");
+            //} else {
+            //    this.props.addFlashMessage({
+            //        type: 'error',
+            //        text: 'Username or password is incorrect!'
+            //    });
+            //}
         }
     }
 

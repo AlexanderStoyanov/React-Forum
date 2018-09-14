@@ -8,8 +8,8 @@
     "\\client\\components\\Forums",
     "\\client\\components\\Replies",
     "\\client\\components\\SignIn",
-    "\\server",
-    "\\server\\routes"
+    "\\client\\components\\Topics",
+    "\\client\\reducers"
   ],
   "SelectedNode": "\\client\\components\\common\\ReplyEntry.js",
   "PreviewInSolutionExplorer": false
