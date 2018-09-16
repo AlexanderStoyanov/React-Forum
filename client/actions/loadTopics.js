@@ -27,13 +27,13 @@ function receiveTopics(json) {
     }
 }
 
-export const loadTopics = (directory) => {
+export const loadTopics = (forumid) => {
     return dispatch => {
-        dispatch(requestTopics(directory));
+        dispatch(requestTopics(forumid));
 
         axios.get('/api/topics/load', {
             params: {
-                directory: directory
+                forumid: forumid
             }
         })
             .then(res => {

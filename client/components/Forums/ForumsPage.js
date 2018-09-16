@@ -29,6 +29,7 @@ class ForumsPage extends React.Component {
                         <Forum
                             loadTopics={this.props.loadTopics}
                             forumNames={forumNames}
+                            group={this.props.userDetails.group}
                         />
                     </div>
                 </div>
@@ -45,7 +46,8 @@ ForumsPage.propTypes = {
 
 function mapStateToProps(state) {
     return {
-        forum: state.forum
+        forum: state.forum,
+        userDetails: state.userDetails,
     }
 }
 

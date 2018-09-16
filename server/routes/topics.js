@@ -12,8 +12,8 @@ const pool = new Pool({
 
 router.get('/load', (req, res) => {
     const query = {
-        text: 'select * from topics where forumname = $1',
-        values: [req.query.directory],
+        text: 'select * from topics where forumid = $1',
+        values: [req.query.forumid],
     }
 
     pool.connect((err, client, done) => {

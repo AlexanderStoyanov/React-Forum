@@ -21,6 +21,8 @@ class Forum extends React.Component {
                 key={i}
                 forumName={this.props.forumNames[i].forumname}
                 forumURL={this.props.forumNames[i].forumname}
+                forumID={this.props.forumNames[i].forumid}
+                group={this.props.group}
                 onClick={this.onClick}
             />);
         }

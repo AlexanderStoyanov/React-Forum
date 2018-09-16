@@ -57,8 +57,7 @@ class RepliesPage extends React.Component {
 
         if (this.isValid()) {
             this.setState({ errors: {}, invalid: true });
-            console.log(this.props);
-            this.props.replyPost({ token: localStorage.getItem('token'), topicid: this.props.reply.currentDirectory, reply: JSON.stringify(this.state.contentState), userid: null }).then(
+            this.props.replyPost({ token: this.props.userDetails.token, topicid: this.props.reply.currentDirectory, reply: JSON.stringify(this.state.contentState), userid: null }).then(
                 () => {
                     this.props.addFlashMessage({
                         type: 'success',
@@ -115,7 +114,8 @@ class RepliesPage extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        reply: state.reply
+        reply: state.reply,
+        userDetails: state.userDetails,
     }
 }
 
