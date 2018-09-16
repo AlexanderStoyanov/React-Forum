@@ -32,4 +32,10 @@ router.get('/load', (req, res) => {
     });
 });
 
+router.post('/add', (req, res) => {
+    const query = {
+        text: '',
+    }
+});
+
 export default router;

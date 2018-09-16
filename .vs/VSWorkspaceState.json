@@ -6,11 +6,11 @@
     "\\client\\components",
     "\\client\\components\\common",
     "\\client\\components\\Forums",
+    "\\client\\components\\NavBar",
     "\\client\\components\\Replies",
-    "\\client\\components\\SignIn",
-    "\\client\\components\\Topics",
-    "\\client\\reducers"
+    "\\server",
+    "\\server\\routes"
   ],
-  "SelectedNode": "\\client\\components\\common\\ReplyEntry.js",
+  "SelectedNode": "\\client\\components\\Forums\\ForumsPage.js",
   "PreviewInSolutionExplorer": false
 }
