@@ -18,7 +18,7 @@ export default (state = initialState, action = {}) => {
             return {
                 loading: false,
                 error: null,
-                replies: action.replies,
+                replies: action.payload,
                 currentDirectory: state.currentDirectory
             };
         case REPLIES_REQUEST_FAILURE:

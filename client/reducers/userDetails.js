@@ -16,9 +16,9 @@ export default (state = initialState, action = {}) => {
             return {
                 loading: false,
                 error: null,
-                token: action.userData.token,
-                name: action.userData.name,
-                group: action.userData.groupname
+                token: action.payload.token,
+                name: action.payload.name,
+                group: action.payload.groupname
             };
         case SIGN_IN_FAILURE:
             return {

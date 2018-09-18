@@ -18,7 +18,7 @@ export default (state = initialState, action = {}) => {
             return {
                 loading: false,
                 error: null,
-                topicNames: [action.topics],
+                topicNames: [action.payload],
                 currentDirectory: state.currentDirectory
             };
         case TOPICS_REQUEST_FAILURE:

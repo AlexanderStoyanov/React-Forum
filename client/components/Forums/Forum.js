@@ -11,7 +11,12 @@ class Forum extends React.Component {
     }
 
     onClick(e) {
-        this.props.loadTopics(e.target.name);
+        if (e.target.className === 'nav-link') {
+            this.props.loadTopics(e.target.name);
+        }
+        else if (e.target.name === 'rename') {
+            console.log('rename!');
+        }
     }
 
     render() {

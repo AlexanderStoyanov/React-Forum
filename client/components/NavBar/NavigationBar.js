@@ -38,11 +38,9 @@ class NavigationBar extends React.Component {
                                 </li>
                             </ul>
                             <ul className="navbar-nav ml-auto">
-                                <li className="nav-item">
-                                    <h3>
-                                        Welcome, {name}
-                                    </h3>
-                                </li>
+                                <span className="navbar-text">
+                                    Welcome, {name}
+                                </span>
                                 <li className="nav-item">
                                     <Link to='/signin' name="/signin" className="nav-link" onClick={this.onClick} >Sign In</Link>
                                 </li>

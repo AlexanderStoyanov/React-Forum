@@ -17,7 +17,7 @@ export default (state = initialState, action = {}) => {
             return {
                     loading: false,
                     error: null,
-                    forumNames: [action.forums]
+                    forumNames: [action.payload]
                 };
         case FORUMS_REQUEST_FAILURE:
             return {
