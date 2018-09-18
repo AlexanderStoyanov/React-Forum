@@ -10,8 +10,9 @@ const ForumEntry = ({ forumName, forumURL, forumID, group, onClick }) => {
             <div className="card-body">
                 <h1>
                     <Link to={`/forum/${forumURL}`} className="nav-link" name={`${forumID}`}>{forumName}</Link>
-                    <button className="btn btn-danger" disabled={!(group === 'Administrator')}>Delete</button>
                 </h1>
+                <button className="btn btn-secondary" disabled={!(group === 'Administrator')}>Rename</button>
+                <button className="btn btn-danger" disabled={!(group === 'Administrator')}>Delete</button>
             </div>
         </div>
     );

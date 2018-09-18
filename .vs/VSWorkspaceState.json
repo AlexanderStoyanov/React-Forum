@@ -5,12 +5,12 @@
     "\\client\\actions",
     "\\client\\components",
     "\\client\\components\\common",
+    "\\client\\components\\flash",
     "\\client\\components\\Forums",
-    "\\client\\components\\NavBar",
-    "\\client\\components\\Replies",
-    "\\server",
-    "\\server\\routes"
+    "\\client\\components\\SignUp",
+    "\\client\\components\\Topics",
+    "\\client\\reducers"
   ],
-  "SelectedNode": "\\client\\components\\Forums\\ForumsPage.js",
+  "SelectedNode": "\\client\\components\\common\\ForumEntry.js",
   "PreviewInSolutionExplorer": false
 }
