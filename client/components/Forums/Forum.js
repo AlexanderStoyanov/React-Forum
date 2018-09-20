@@ -27,7 +27,7 @@ class Forum extends React.Component {
     onSubmit(event) {
         event.preventDefault();
         this.props.renameForum(this.props.currentForumid, this.state.renameText);
-        console.log(this.state.renameText);
+        this.setState({ edit: false });
     }
 
     onClick(event) {
@@ -35,7 +35,7 @@ class Forum extends React.Component {
             this.props.loadTopics(event.target.name);
         }
         else if (event.target.title === 'edit') {
-            console.log('edit!');
+            this.props.loadCurrentForumID(event.target.name);
             this.setState({ edit: true });
         }
     }

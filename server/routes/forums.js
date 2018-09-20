@@ -52,7 +52,7 @@ router.post('/rename', (req, res) => {
             if (err) {
                 console.log(err.stack);
             } else {
-                res.status(200);
+                res.status(200).send('Success rename!');
             }
         });
     });

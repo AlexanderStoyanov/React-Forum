@@ -1,5 +1,6 @@
 import { SIGN_IN_FAILURE, SIGN_IN_REQUEST, SIGN_IN_SUCCESS } from '../actions/signInAction';
 import { RECEIVE_TOPICS } from '../actions/loadTopics';
+import { EDIT_FORUM } from '../actions/editForum';
 
 const initialState = {
     token: '',
@@ -27,6 +28,10 @@ export default (state = initialState, action = {}) => {
             return {
                 loading: false,
                 error: action.payload.error
+            };
+        case EDIT_FORUM:
+            return {
+                currentForumID: action.payload.currentForumID,
             };
         case RECEIVE_TOPICS:
             return {

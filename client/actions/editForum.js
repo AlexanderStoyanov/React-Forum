@@ -13,11 +13,20 @@ export const renameForum = (forumid, newName) => {
 
         axios.post('/api/forums/rename', { forumid: forumid, newForumName: newName })
             .then(res => {
-                console.log(res.status);
                 dispatch(receive(RECEIVE_RENAME, res.data.payload));
             })
             .catch(err => {
                 dispatch(error(FORUMS_RENAME_FAILURE, err.message));
             });
+    };
+};
+
+export const EDIT_FORUM = 'EDIT_FORUM';
+export const loadCurrentForumID = (currentForumID) => {
+    return {
+        type: EDIT_FORUM,
+        payload: {
+            currentForumID: currentForumID,
+        }
     };
 };
