@@ -10,7 +10,7 @@ class Forum extends React.Component {
 
         this.state = {
             errors: {},
-            rename: false,
+            edit: false,
             renameText: '',
             currentForumid: 1,
         }
@@ -34,9 +34,9 @@ class Forum extends React.Component {
         if (event.target.className === 'nav-link') {
             this.props.loadTopics(event.target.name);
         }
-        else if (event.target.name === 'rename') {
-            console.log('rename!');
-            this.setState({ rename: true });
+        else if (event.target.title === 'edit') {
+            console.log('edit!');
+            this.setState({ edit: true });
         }
     }
 
@@ -53,7 +53,7 @@ class Forum extends React.Component {
             />);
         }
         
-        if (this.state.rename) {
+        if (this.state.edit) {
             const { errors } = this.state;
             return (
                 <form onSubmit={this.onSubmit} >

@@ -3,7 +3,7 @@ import { ADD_FORUM_FAILURE, ADD_FORUM_REQUEST, ADD_FORUM_SUCCESS } from '../acti
 
 const initialState = {
     loading: false,
-    forums: [],
+    forums: null,
     error: null
 };
 
@@ -17,7 +17,7 @@ export default (state = initialState, action = {}) => {
             return {
                     loading: false,
                     error: null,
-                    forumNames: [action.payload]
+                    forumNames: action.payload,
                 };
         case FORUMS_REQUEST_FAILURE:
             return {

@@ -21,7 +21,7 @@ class ForumsPage extends React.Component {
     render() {
         let forumNames = ['Nothing there yet..'];
         if (this.props.forum.forumNames) {
-            forumNames = this.props.forum.forumNames[0];
+            forumNames = this.props.forum.forumNames;
         }
         return (
             <div className="container">
@@ -44,6 +44,8 @@ class ForumsPage extends React.Component {
 ForumsPage.propTypes = {
     loadForums: PropTypes.func.isRequired,
     loadTopics: PropTypes.func.isRequired,
+    renameForum: PropTypes.func.isRequired,
+    currentForumid: PropTypes.number.isRequired,
     dispatch: PropTypes.func.isRequired,
 }
 
