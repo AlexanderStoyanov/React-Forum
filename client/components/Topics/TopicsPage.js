@@ -9,7 +9,7 @@ class TopicsPage extends React.Component {
     render() {
         let topicNames = ['Nothing there yet..'];
         if (this.props.topic.topicNames) {
-            topicNames = this.props.topic.topicNames[0];
+            topicNames = this.props.topic.topicNames;
         }
 
         return (

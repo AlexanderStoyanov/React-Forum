@@ -11,8 +11,8 @@ const ForumEntry = ({ forumName, forumURL, forumID, group, onClick }) => {
                 <h1>
                     <Link to={`/forum/${forumURL}`} className="nav-link" name={`${forumID}`}>{forumName}</Link>
                 </h1>
-                <button className="btn btn-secondary m-1" name="rename" disabled={!(group === 'Administrator')} onClick={onClick}>Rename</button>
-                <button className="btn btn-danger m-1" name="delete" disabled={!(group === 'Administrator')} onClick={onClick}>Delete</button>
+                <button className="btn btn-secondary m-1" name="rename" disabled={(group === 'Administrator')} onClick={onClick}>Rename</button>
+                <button className="btn btn-danger m-1" name="delete" disabled={(group === 'Administrator')} onClick={onClick}>Delete</button>
             </div>
         </div>
     );

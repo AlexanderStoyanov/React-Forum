@@ -3,7 +3,7 @@ import { TOPICS_REQUEST_FAILURE, REQUEST_TOPICS, RECEIVE_TOPICS } from '../actio
 const initialState = {
     loading: false,
     currentDirectory: null,
-    topics: [],
+    topics: null,
     error: null,
 };
 
@@ -18,7 +18,7 @@ export default (state = initialState, action = {}) => {
             return {
                 loading: false,
                 error: null,
-                topicNames: [action.payload],
+                topicNames: action.payload,
                 currentDirectory: state.currentDirectory
             };
         case TOPICS_REQUEST_FAILURE:

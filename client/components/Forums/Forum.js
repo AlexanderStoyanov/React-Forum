@@ -2,20 +2,41 @@ import React from 'react';
 import ForumEntry from '../common/ForumEntry';
 import { withRouter } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
+import TextFieldGroup from '../common/TextFieldGroup';
 
 class Forum extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            errors: {},
+            rename: false,
+            renameText: '',
+            currentForumid: 1,
+        }
+
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
         this.onClick = this.onClick.bind(this);
     }
 
-    onClick(e) {
-        if (e.target.className === 'nav-link') {
-            this.props.loadTopics(e.target.name);
+    onChange(event) {
+        this.setState({ [event.target.name]: event.target.value });
+    }
+
+    onSubmit(event) {
+        event.preventDefault();
+        this.props.renameForum(this.props.currentForumid, this.state.renameText);
+        console.log(this.state.renameText);
+    }
+
+    onClick(event) {
+        if (event.target.className === 'nav-link') {
+            this.props.loadTopics(event.target.name);
         }
-        else if (e.target.name === 'rename') {
+        else if (event.target.name === 'rename') {
             console.log('rename!');
+            this.setState({ rename: true });
         }
     }
 
@@ -31,12 +52,29 @@ class Forum extends React.Component {
                 onClick={this.onClick}
             />);
         }
-
-        return (
-            <div className="forumEntries">
-                {rows}
-            </div>
-        );
+        
+        if (this.state.rename) {
+            const { errors } = this.state;
+            return (
+                <form onSubmit={this.onSubmit} >
+                    <TextFieldGroup
+                        error={errors.rename}
+                        label="Rename"
+                        onChange={this.onChange}
+                        value={this.state.renameText}
+                        field="renameText"
+                        type="text"
+                    />
+                    <button type="submit" className="btn btn-primary">Rename</button>
+                </form>
+            );
+        } else {
+            return (
+                <div className="forumEntries">
+                    {rows}
+                </div>
+            );
+        }
     }
 }
 

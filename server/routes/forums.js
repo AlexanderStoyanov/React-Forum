@@ -38,4 +38,24 @@ router.post('/add', (req, res) => {
     }
 });
 
+router.post('/rename', (req, res) => {
+    const query = {
+        text: 'update forums set forumname = $1 where forumid = $2',
+        values: [req.body.newForumName, req.body.forumid],
+    }
+
+    pool.connect((err, client, done) => {
+        if (err) throw err
+        client.query(query, (err, ress) => {
+            done();
+
+            if (err) {
+                console.log(err.stack);
+            } else {
+                res.status(200);
+            }
+        });
+    });
+});
+
 export default router;

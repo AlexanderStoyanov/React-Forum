@@ -7,10 +7,10 @@
     "\\client\\components\\common",
     "\\client\\components\\flash",
     "\\client\\components\\Forums",
-    "\\client\\components\\SignUp",
-    "\\client\\components\\Topics",
-    "\\client\\reducers"
+    "\\client\\components\\NavBar",
+    "\\server",
+    "\\server\\routes"
   ],
-  "SelectedNode": "\\client\\components\\common\\ForumEntry.js",
+  "SelectedNode": "\\server\\routes\\forums.js",
   "PreviewInSolutionExplorer": false
 }

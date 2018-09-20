@@ -4,6 +4,7 @@ import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { loadForums } from '../../actions/loadForums';
 import { loadTopics } from '../../actions/loadTopics';
+import { renameForum } from '../../actions/renameForum';
 
 
 class ForumsPage extends React.Component {
@@ -30,6 +31,8 @@ class ForumsPage extends React.Component {
                             loadTopics={this.props.loadTopics}
                             forumNames={forumNames}
                             group={this.props.userDetails.group}
+                            renameForum={this.props.renameForum}
+                            currentForumid={this.props.userDetails.currentForumID}
                         />
                     </div>
                 </div>
@@ -58,6 +61,9 @@ function mapDispatchToProps(dispatch) {
         },
         loadTopics: (directory) => {
             dispatch(loadTopics(directory));
+        },
+        renameForum: (id, name) => {
+            dispatch(renameForum(id, name));
         },
     }
 }
