@@ -1,5 +1,5 @@
 import { FORUMS_REQUEST_FAILURE, REQUEST_FORUMS, RECEIVE_FORUMS } from '../actions/loadForums';
-import { ADD_FORUM_FAILURE, ADD_FORUM_REQUEST, ADD_FORUM_SUCCESS } from '../actions/addForum';
+import { ADD_FORUM_FAILURE, ADD_FORUM_REQUEST, ADD_FORUM_SUCCESS } from '../actions/editForum';
 
 const initialState = {
     loading: false,

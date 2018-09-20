@@ -38,6 +38,12 @@ router.post('/add', (req, res) => {
     }
 });
 
+router.post('/delete', (req, res) => {
+    const query = {
+        text: '',
+    }
+});
+
 router.post('/rename', (req, res) => {
     const query = {
         text: 'update forums set forumname = $1 where forumid = $2',
