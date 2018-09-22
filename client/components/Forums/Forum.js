@@ -63,18 +63,6 @@ class Forum extends React.Component {
     }
 
     render() {
-        var rows = [];
-        for (var i = 0; i < this.props.forumNames.length; i++) {
-            rows.push(<ForumEntry
-                key={i}
-                forumName={this.props.forumNames[i].forumname}
-                forumURL={this.props.forumNames[i].forumname}
-                forumID={this.props.forumNames[i].forumid}
-                group={this.props.group}
-                onClick={this.onClick}
-            />);
-        }
-
         if (this.state.edit) {
             const { errors } = this.state;
             return (
@@ -121,6 +109,20 @@ class Forum extends React.Component {
                 </div>
             );
         } else {
+            var rows = [];
+            for (var i = 0; i < this.props.forumNames.length; i++) {
+                if (this.props.forumNames[i].deleted !== '1') {
+                    rows.push(<ForumEntry
+                        key={i}
+                        forumName={this.props.forumNames[i].forumname}
+                        forumURL={this.props.forumNames[i].forumname}
+                        forumID={this.props.forumNames[i].forumid}
+                        group={this.props.group}
+                        onClick={this.onClick}
+                    />);
+                }
+            }
+
             return (
                 <div className="forumWrap">
                     <div className="row">

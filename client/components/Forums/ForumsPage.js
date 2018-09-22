@@ -15,7 +15,6 @@ class ForumsPage extends React.Component {
 
     componentDidMount() {
         this.props.loadForums();
-
     }
 
     render() {
