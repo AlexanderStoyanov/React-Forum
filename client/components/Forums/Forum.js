@@ -111,13 +111,25 @@ class Forum extends React.Component {
         } else {
             var rows = [];
             for (var i = 0; i < this.props.forumNames.length; i++) {
-                if (this.props.forumNames[i].deleted !== '1') {
+                if (this.props.group === 'Administrator') {
                     rows.push(<ForumEntry
                         key={i}
                         forumName={this.props.forumNames[i].forumname}
                         forumURL={this.props.forumNames[i].forumname}
                         forumID={this.props.forumNames[i].forumid}
                         group={this.props.group}
+                        deleted={this.props.forumNames[i].deleted}
+                        onClick={this.onClick}
+                    />);
+                }
+                else if (this.props.forumNames[i].deleted !== '1') {
+                    rows.push(<ForumEntry
+                        key={i}
+                        forumName={this.props.forumNames[i].forumname}
+                        forumURL={this.props.forumNames[i].forumname}
+                        forumID={this.props.forumNames[i].forumid}
+                        group={this.props.group}
+                        deleted={this.props.forumNames[i].deleted}
                         onClick={this.onClick}
                     />);
                 }

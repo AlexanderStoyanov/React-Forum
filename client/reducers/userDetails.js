@@ -31,10 +31,13 @@ export default (state = initialState, action = {}) => {
             };
         case EDIT_FORUM:
             return {
+                ...state,
                 currentForumID: action.payload.currentForumID,
+
             };
         case RECEIVE_TOPICS:
             return {
+                ...state,
                 currentForumID: action.payload[0].forumid,
             };
         default:
