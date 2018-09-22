@@ -34,8 +34,22 @@ router.get('/load', (req, res) => {
 
 router.post('/add', (req, res) => {
     const query = {
-        text: '',
+        text: 'INSERT INTO forums(forumid, forumname) VALUES($1, $2)',
+        values: [shortid.generate(), req.body.forumName],
     }
+
+    pool.connect((err, client, done) => {
+        if (err) throw err
+        client.query(query, (err, ress) => {
+            done();
+
+            if (err) {
+                console.log(err.stack);
+            } else {
+                res.json({ success: true });
+            }
+        });
+    });
 });
 
 router.post('/delete', (req, res) => {

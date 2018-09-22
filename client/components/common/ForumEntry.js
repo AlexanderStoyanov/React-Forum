@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const ForumEntry = ({ forumName, forumURL, forumID, group, onClick }) => {
     return (
-        <div className="card" name="card" onClick={onClick}>
+        <div className="card m-2" name="card" onClick={onClick}>
             <div className="card-body">
                 <h1>
                     <Link to={`/forum/${forumURL}`} className="nav-link" name={`${forumID}`}>{forumName}</Link>

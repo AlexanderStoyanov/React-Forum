@@ -4,7 +4,7 @@ import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { loadForums } from '../../actions/loadForums';
 import { loadTopics } from '../../actions/loadTopics';
-import { renameForum, loadCurrentForumID } from '../../actions/editForum';
+import { renameForum, loadCurrentForumID, deleteForum, addForum } from '../../actions/editForum';
 
 
 class ForumsPage extends React.Component {
@@ -25,18 +25,16 @@ class ForumsPage extends React.Component {
         }
         return (
             <div className="container">
-                <div className="row">
-                    <div className="col-md">
-                        <Forum
-                            loadTopics={this.props.loadTopics}
-                            forumNames={forumNames}
-                            group={this.props.userDetails.group}
-                            renameForum={this.props.renameForum}
-                            currentForumid={this.props.userDetails.currentForumID}
-                            loadCurrentForumID={this.props.loadCurrentForumID}
-                        />
-                    </div>
-                </div>
+                <Forum
+                    loadTopics={this.props.loadTopics}
+                    forumNames={forumNames}
+                    group={this.props.userDetails.group}
+                    renameForum={this.props.renameForum}
+                    deleteForum={this.props.deleteForum}
+                    addForum={this.props.addForum}
+                    currentForumid={this.props.userDetails.currentForumID}
+                    loadCurrentForumID={this.props.loadCurrentForumID}
+                />
             </div>
         );
     }
@@ -46,6 +44,8 @@ ForumsPage.propTypes = {
     loadForums: PropTypes.func.isRequired,
     loadTopics: PropTypes.func.isRequired,
     renameForum: PropTypes.func.isRequired,
+    deleteForum: PropTypes.func.isRequired,
+    addForum: PropTypes.func.isRequired,
     loadCurrentForumID: PropTypes.func.isRequired,
     currentForumid: PropTypes.number.isRequired,
     dispatch: PropTypes.func.isRequired,
@@ -71,6 +71,12 @@ function mapDispatchToProps(dispatch) {
         },
         loadCurrentForumID: (currentForumID) => {
             dispatch(loadCurrentForumID(currentForumID));
+        },
+        deleteForum: (currentForumID) => {
+            dispatch(deleteForum(currentForumID));
+        },
+        addForum: (currentForumID) => {
+            dispatch(addForum(currentForumID));
         },
     }
 }

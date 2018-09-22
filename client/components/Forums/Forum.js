@@ -11,18 +11,30 @@ class Forum extends React.Component {
         this.state = {
             errors: {},
             edit: false,
+            add: false,
+            newName: '',
             renameText: '',
             currentForumid: 1,
         }
 
+        this.add = this.add.bind(this);
+        this.delete = this.delete.bind(this);
         this.back = this.back.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onClick = this.onClick.bind(this);
     }
 
+    add() {
+        this.setState({ add: true });
+    }
+
+    delete() {
+        this.props.deleteForum(this.props.currentForumid);
+    }
+
     back() {
-        this.setState({ edit: false });
+        this.setState({ edit: false, add: false });
     }
 
     onChange(event) {
@@ -31,8 +43,13 @@ class Forum extends React.Component {
 
     onSubmit(event) {
         event.preventDefault();
-        this.props.renameForum(this.props.currentForumid, this.state.renameText);
-        this.setState({ edit: false });
+        if (this.state.edit) {
+            this.props.renameForum(this.props.currentForumid, this.state.renameText);
+        }
+        else if (this.state.add) {
+            this.props.addForum(this.state.newName);
+        }
+        this.setState({ edit: false, add: false });
     }
 
     onClick(event) {
@@ -61,25 +78,61 @@ class Forum extends React.Component {
         if (this.state.edit) {
             const { errors } = this.state;
             return (
-                <div className="editBlock">
-                    <form onSubmit={this.onSubmit} >
-                        <TextFieldGroup
-                            error={errors.rename}
-                            label="Rename"
-                            onChange={this.onChange}
-                            value={this.state.renameText}
-                            field="renameText"
-                            type="text"
-                        />
-                        <button type="submit" className="btn btn-primary m-1">Rename</button>
-                        <button onClick={this.back} className="btn btn-dark m-1">Back</button>
-                    </form>
+                <div className="row">
+                    <div className="col-md-8 mx-auto">
+                        <div className="editBlock mt-5">
+                            <form onSubmit={this.onSubmit} >
+                                <TextFieldGroup
+                                    error={errors.rename}
+                                    label="Rename"
+                                    onChange={this.onChange}
+                                    value={this.state.renameText}
+                                    field="renameText"
+                                    type="text"
+                                />
+                                <button type="submit" className="btn btn-primary m-1">Rename</button>
+                                <button onClick={this.back} className="btn btn-dark m-1">Back</button>
+                                <button onClick={this.delete} className="btn btn-danger float-right m-1">Delete Forum</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            );
+        } else if (this.state.add) {
+            const { errors } = this.state;
+            return (
+                <div className="row">
+                    <div className="col-md-8 mx-auto">
+                        <div className="editBlock mt-5">
+                            <form onSubmit={this.onSubmit} >
+                                <TextFieldGroup
+                                    error={errors.add}
+                                    label="New Forum Name"
+                                    onChange={this.onChange}
+                                    value={this.state.newName}
+                                    field="newName"
+                                    type="text"
+                                />
+                                <button type="submit" className="btn btn-primary m-1">Add</button>
+                                <button onClick={this.back} className="btn btn-dark m-1">Back</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             );
         } else {
             return (
-                <div className="forumEntries">
-                    {rows}
+                <div className="forumWrap">
+                    <div className="row">
+                        <div className="col-md">
+                            <button onClick={this.add} className="btn btn-primary float-right m-1">Add Forum</button>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md">
+                            {rows}
+                        </div>
+                    </div>
                 </div>
             );
         }
