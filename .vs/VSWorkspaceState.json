@@ -9,8 +9,9 @@
     "\\client\\components\\Forums",
     "\\client\\components\\Topics",
     "\\client\\reducers",
-    "\\server"
+    "\\server",
+    "\\server\\routes"
   ],
-  "SelectedNode": "\\client\\components\\Forums\\Forum.js",
+  "SelectedNode": "\\client\\reducers\\forum.js",
   "PreviewInSolutionExplorer": false
 }

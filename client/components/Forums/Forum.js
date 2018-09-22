@@ -15,9 +15,14 @@ class Forum extends React.Component {
             currentForumid: 1,
         }
 
+        this.back = this.back.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onClick = this.onClick.bind(this);
+    }
+
+    back() {
+        this.setState({ edit: false });
     }
 
     onChange(event) {
@@ -52,21 +57,24 @@ class Forum extends React.Component {
                 onClick={this.onClick}
             />);
         }
-        
+
         if (this.state.edit) {
             const { errors } = this.state;
             return (
-                <form onSubmit={this.onSubmit} >
-                    <TextFieldGroup
-                        error={errors.rename}
-                        label="Rename"
-                        onChange={this.onChange}
-                        value={this.state.renameText}
-                        field="renameText"
-                        type="text"
-                    />
-                    <button type="submit" className="btn btn-primary">Rename</button>
-                </form>
+                <div className="editBlock">
+                    <form onSubmit={this.onSubmit} >
+                        <TextFieldGroup
+                            error={errors.rename}
+                            label="Rename"
+                            onChange={this.onChange}
+                            value={this.state.renameText}
+                            field="renameText"
+                            type="text"
+                        />
+                        <button type="submit" className="btn btn-primary m-1">Rename</button>
+                        <button onClick={this.back} className="btn btn-dark m-1">Back</button>
+                    </form>
+                </div>
             );
         } else {
             return (
