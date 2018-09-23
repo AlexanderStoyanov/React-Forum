@@ -3,6 +3,7 @@ import Topic from './Topic';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { loadReplies } from '../../actions/loadReplies';
+import { loadCurrentTopicID } from '../../actions/topicAction';
 
 
 class TopicsPage extends React.Component {
@@ -19,6 +20,8 @@ class TopicsPage extends React.Component {
                         <Topic
                             topicNames={topicNames}
                             loadReplies={this.props.loadReplies}
+                            loadCurrentTopicID={this.props.loadCurrentTopicID}
+                            renameTopic={this.props.renameTopic}
                             forumURL={this.props.topic.currentDirectory}
                             match={this.props.match}
                         />
@@ -31,6 +34,8 @@ class TopicsPage extends React.Component {
 
 TopicsPage.propTypes = {
     loadReplies: PropTypes.func.isRequired,
+    renameTopic: PropTypes.func.isRequired,
+    loadCurrentTopicID: PropTypes.func.isRequired,
 }
 
 function mapStateToProps(state) {
@@ -43,6 +48,12 @@ function mapDispatchToProps(dispatch) {
     return {
         loadReplies: (id) => {
             dispatch(loadReplies(id));
+        },
+        renameTopic: (id) => {
+            dispatch(renameTopic(id));
+        },
+        loadCurrentTopicID: (currentTopicID) => {
+            dispatch(loadCurrentTopicID(currentTopicID));
         },
     }
 }

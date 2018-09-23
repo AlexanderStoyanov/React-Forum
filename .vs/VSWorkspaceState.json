@@ -12,6 +12,6 @@
     "\\server",
     "\\server\\routes"
   ],
-  "SelectedNode": "\\client\\reducers\\forum.js",
+  "SelectedNode": "\\client\\components\\Forums\\Forum.js",
   "PreviewInSolutionExplorer": false
 }

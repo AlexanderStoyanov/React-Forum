@@ -1,4 +1,4 @@
-import { TOPICS_REQUEST_FAILURE, REQUEST_TOPICS, RECEIVE_TOPICS } from '../actions/loadTopics';
+import { TOPICS_REQUEST_FAILURE, REQUEST_TOPICS, RECEIVE_TOPICS } from '../actions/topicAction';
 
 const initialState = {
     loading: false,

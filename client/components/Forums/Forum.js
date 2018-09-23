@@ -14,7 +14,7 @@ class Forum extends React.Component {
             add: false,
             newName: '',
             renameText: '',
-            currentForumid: 1,
+            currentForumid: -1,
         }
 
         this.add = this.add.bind(this);

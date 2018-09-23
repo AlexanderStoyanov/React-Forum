@@ -2,9 +2,8 @@ import React from 'react';
 import Forum from './Forum';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
-import { loadForums } from '../../actions/loadForums';
-import { loadTopics } from '../../actions/loadTopics';
-import { renameForum, loadCurrentForumID, deleteForum, addForum } from '../../actions/editForum';
+import { loadTopics } from '../../actions/topicAction';
+import { renameForum, loadCurrentForumID, deleteForum, addForum, loadForums } from '../../actions/forumAction';
 
 
 class ForumsPage extends React.Component {

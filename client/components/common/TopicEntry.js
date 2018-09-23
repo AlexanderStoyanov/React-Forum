@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link, withRouter } from "react-router-dom";
 import RepliesPage from '../Replies/RepliesPage';
 
-const TopicEntry = ({ topicName, forumURL, topicURL, id, onClick, match }) => {
+const TopicEntry = ({ topicName, forumURL, topicURL, topicID, onClick, match }) => {
     return (
         <div className="card" onClick={onClick}>
             <div className="card-body">
@@ -12,40 +12,16 @@ const TopicEntry = ({ topicName, forumURL, topicURL, id, onClick, match }) => {
                     <Link
                         to={{ pathname: `${match.url}/${topicURL}` }}
                         className="nav-link"
-                        name={`${topicURL}`}
-                        id={id}
+                        name={`${topicID}`}
                         data-toggle="modal"
                         data-target=".bd-modal-lg"
                     >{topicName}</Link>
                 </h3>
+                <button className="btn btn-secondary m-1" title="edit" name={`${topicID}`} onClick={onClick}>Edit</button>
             </div>
         </div>
     );
 }
-
-//<Switch>
-//    <Route exact path={`/forum/${forumURL}/${topicURL}`} component={RepliesPage} />
-//</Switch>
-
-//<Route exact path={`${match.url}/${topicURL}`} component={RepliesPage} />
-
-//<Link
-//    to={{ pathname: `${match.url}/${topicURL}` }}
-//    className="nav-link"
-//    name={`${topicURL}`}
-//    id={id}
-//    data-toggle="modal"
-//    data-target=".bd-modal-lg"
-//>{topicName}</Link>
-
-//<Route render={({ history }) => (
-//    <button
-//        className="nav-link"
-//        name={`${topicURL}`}
-//        id={id}
-//        onClick={() => { history.push(`${match.url}/${topicURL}`) }}
-//    >{topicName}</button>
-//)} />
 
 TopicEntry.propTypes = {
     topicName: PropTypes.string.isRequired,
