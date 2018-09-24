@@ -22,7 +22,10 @@ class TopicsPage extends React.Component {
                             loadReplies={this.props.loadReplies}
                             loadCurrentTopicID={this.props.loadCurrentTopicID}
                             currentTopicid={this.props.userDetails.currentTopicID}
+                            currentForumid={this.props.userDetails.currentForumID}
                             renameTopic={this.props.renameTopic}
+                            deleteTopic={this.props.deleteTopic}
+                            addTopic={this.props.addTopic}
                             forumURL={this.props.topic.currentDirectory}
                             match={this.props.match}
                         />
@@ -40,6 +43,7 @@ TopicsPage.propTypes = {
     deleteTopic: PropTypes.func.isRequired,
     loadCurrentTopicID: PropTypes.func.isRequired,
     currentTopicid: PropTypes.number.isRequired,
+    currentForumid: PropTypes.number.isRequired,
     dispatch: PropTypes.func.isRequired,
 }
 
@@ -57,6 +61,12 @@ function mapDispatchToProps(dispatch) {
         },
         renameTopic: (id, name) => {
             dispatch(renameTopic(id, name));
+        },
+        addTopic: (currentForumID, name) => {
+            dispatch(addTopic(currentForumID, name));
+        },
+        deleteTopic: (id) => {
+            dispatch(deleteTopic(id));
         },
         loadCurrentTopicID: (currentTopicID) => {
             dispatch(loadCurrentTopicID(currentTopicID));

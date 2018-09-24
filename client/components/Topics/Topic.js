@@ -45,7 +45,7 @@ class Topic extends React.Component {
             this.props.renameTopic(this.props.currentTopicid, this.state.renameText);
         }
         else if (this.state.add) {
-            this.props.addTopic(this.state.newName);
+            this.props.addTopic(this.props.currentForumid, this.state.newName);
         }
         this.setState({ edit: false, add: false });
     }
@@ -61,8 +61,6 @@ class Topic extends React.Component {
     }
 
     render() {
-        var rows = [];
-
         if (this.state.edit) {
             const { errors } = this.state;
             return (
@@ -86,9 +84,30 @@ class Topic extends React.Component {
                     </div>
                 </div>
             );
-        }
-        
-        if (this.props.topicNames) {
+        } else if (this.state.add) {
+            const { errors } = this.state;
+            return (
+                <div className="row">
+                    <div className="col-md-8 mx-auto">
+                        <div className="editBlock mt-5">
+                            <form onSubmit={this.onSubmit} >
+                                <TextFieldGroup
+                                    error={errors.add}
+                                    label="New Topic Name"
+                                    onChange={this.onChange}
+                                    value={this.state.newName}
+                                    field="newName"
+                                    type="text"
+                                />
+                                <button type="submit" className="btn btn-primary m-1">Add</button>
+                                <button onClick={this.back} className="btn btn-dark m-1">Back</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            );
+        } else {
+            var rows = [];
             for (var i = 0; i < this.props.topicNames.length; i++) {
                 rows.push(<TopicEntry
                     key={i}
@@ -102,11 +121,19 @@ class Topic extends React.Component {
             }
         }
 
-
         return (
-            <div className="topicEntries">
-                {rows}
+        <div className="topicWrap">
+            <div className="row">
+                <div className="col-md">
+                    <button onClick={this.add} className="btn btn-primary float-right m-1">Add Topic</button>
+                </div>
             </div>
+            <div className="row">
+                <div className="col-md">
+                    {rows}
+                </div>
+            </div>
+        </div>
         );
     }
 }

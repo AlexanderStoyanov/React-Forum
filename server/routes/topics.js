@@ -36,8 +36,8 @@ router.get('/load', (req, res) => {
 
 router.post('/add', (req, res) => {
     const query = {
-        text: 'INSERT INTO topics(topicid, topicname, forumid) VALUES($1, $2)',
-        values: [shortid.generate(), req.body.topicName],
+        text: 'INSERT INTO topics(topicid, topicname, forumid, deleted) VALUES($1, $2, $3, $4)',
+        values: [shortid.generate(), req.body.topicName, req.body.forumid, null],
     }
 
     pool.connect((err, client, done) => {
@@ -56,8 +56,8 @@ router.post('/add', (req, res) => {
 
 router.post('/delete', (req, res) => {
     const query = {
-        text: 'update topics set deleted = $1 where topicid = $2',
-        values: [1, req.body.topicid],
+        text: 'update topics set deleted = 1 where topicid = $2;',
+        values: [req.body.topicid],
     }
 
     pool.connect((err, client, done) => {

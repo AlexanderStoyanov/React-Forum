@@ -23,11 +23,11 @@ export const renameTopic = (topicid, newName) => {
 export const ADD_TOPIC_REQUEST = 'ADD_TOPIC_REQUEST';
 export const ADD_TOPIC_SUCCESS = 'ADD_TOPIC_SUCCESS';
 export const ADD_TOPIC_FAILURE = 'ADD_TOPIC_FAILURE';
-export const addTopic = (topicName) => {
+export const addTopic = (forumid, topicName) => {
     return dispatch => {
         dispatch(request(ADD_TOPIC_REQUEST));
 
-        axios.post('/api/topics/add', { topicName: topicName })
+        axios.post('/api/topics/add', { forumid: forumid, topicName: topicName })
             .then(res => {
                 console.log(res);
                 dispatch(receive(ADD_TOPIC_SUCCESS, res.status));
