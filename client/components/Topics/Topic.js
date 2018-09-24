@@ -27,7 +27,8 @@ class Topic extends React.Component {
         this.setState({ add: true });
     }
 
-    delete() {
+    delete(event) {
+        event.preventDefault();
         this.props.deleteTopic(this.props.currentTopicid);
     }
 

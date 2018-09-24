@@ -29,11 +29,9 @@ export const addTopic = (forumid, topicName) => {
 
         axios.post('/api/topics/add', { forumid: forumid, topicName: topicName })
             .then(res => {
-                console.log(res);
                 dispatch(receive(ADD_TOPIC_SUCCESS, res.status));
             })
             .catch(err => {
-                console.log(err);
                 dispatch(error(ADD_TOPIC_FAILURE, err.message));
             });
     };
@@ -48,7 +46,7 @@ export const deleteTopic = (topicid) => {
 
         axios.post('/api/topics/delete', { topicid: topicid })
             .then(res => {
-                dispatch(receive(RECEIVE_DELETE, res.data.payload));
+                dispatch(receive(RECEIVE_DELETE, res.status));
             })
             .catch(err => {
                 dispatch(error(TOPIC_DELETE_FAILURE, err.message));

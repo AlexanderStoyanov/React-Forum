@@ -56,8 +56,8 @@ router.post('/add', (req, res) => {
 
 router.post('/delete', (req, res) => {
     const query = {
-        text: 'update topics set deleted = 1 where topicid = $2;',
-        values: [req.body.topicid],
+        text: 'update topics set deleted = $1 where topicid = $2;',
+        values: [1, req.body.topicid],
     }
 
     pool.connect((err, client, done) => {

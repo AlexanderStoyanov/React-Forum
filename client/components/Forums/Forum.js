@@ -28,7 +28,8 @@ class Forum extends React.Component {
         this.setState({ add: true });
     }
 
-    delete() {
+    delete(event) {
+        event.preventDefault();
         this.props.deleteForum(this.props.currentForumid);
     }
 
