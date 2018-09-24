@@ -13,7 +13,6 @@ class Topic extends React.Component {
             add: false,
             newName: '',
             renameText: '',
-            currentTopicid: -1,
         }
 
         this.add = this.add.bind(this);

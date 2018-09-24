@@ -3,7 +3,7 @@ import Topic from './Topic';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { loadReplies } from '../../actions/loadReplies';
-import { loadCurrentTopicID } from '../../actions/topicAction';
+import { loadCurrentTopicID, renameTopic, deleteTopic, addTopic } from '../../actions/topicAction';
 
 
 class TopicsPage extends React.Component {
@@ -21,6 +21,7 @@ class TopicsPage extends React.Component {
                             topicNames={topicNames}
                             loadReplies={this.props.loadReplies}
                             loadCurrentTopicID={this.props.loadCurrentTopicID}
+                            currentTopicid={this.props.userDetails.currentTopicID}
                             renameTopic={this.props.renameTopic}
                             forumURL={this.props.topic.currentDirectory}
                             match={this.props.match}
@@ -35,12 +36,17 @@ class TopicsPage extends React.Component {
 TopicsPage.propTypes = {
     loadReplies: PropTypes.func.isRequired,
     renameTopic: PropTypes.func.isRequired,
+    addTopic: PropTypes.func.isRequired,
+    deleteTopic: PropTypes.func.isRequired,
     loadCurrentTopicID: PropTypes.func.isRequired,
+    currentTopicid: PropTypes.number.isRequired,
+    dispatch: PropTypes.func.isRequired,
 }
 
 function mapStateToProps(state) {
     return {
-        topic: state.topic
+        topic: state.topic,
+        userDetails: state.userDetails,
     }
 }
 
@@ -49,8 +55,8 @@ function mapDispatchToProps(dispatch) {
         loadReplies: (id) => {
             dispatch(loadReplies(id));
         },
-        renameTopic: (id) => {
-            dispatch(renameTopic(id));
+        renameTopic: (id, name) => {
+            dispatch(renameTopic(id, name));
         },
         loadCurrentTopicID: (currentTopicID) => {
             dispatch(loadCurrentTopicID(currentTopicID));

@@ -5,13 +5,13 @@
     "\\client\\actions",
     "\\client\\components",
     "\\client\\components\\common",
-    "\\client\\components\\flash",
     "\\client\\components\\Forums",
+    "\\client\\components\\Replies",
     "\\client\\components\\Topics",
     "\\client\\reducers",
     "\\server",
     "\\server\\routes"
   ],
-  "SelectedNode": "\\client\\components\\Forums\\Forum.js",
+  "SelectedNode": "\\client\\components\\Topics\\Topic.js",
   "PreviewInSolutionExplorer": false
 }

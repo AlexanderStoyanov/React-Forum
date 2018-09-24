@@ -34,4 +34,64 @@ router.get('/load', (req, res) => {
     });
 });
 
+router.post('/add', (req, res) => {
+    const query = {
+        text: 'INSERT INTO topics(topicid, topicname, forumid) VALUES($1, $2)',
+        values: [shortid.generate(), req.body.topicName],
+    }
+
+    pool.connect((err, client, done) => {
+        if (err) throw err
+        client.query(query, (err, ress) => {
+            done();
+
+            if (err) {
+                console.log(err.stack);
+            } else {
+                res.json({ success: true });
+            }
+        });
+    });
+});
+
+router.post('/delete', (req, res) => {
+    const query = {
+        text: 'update topics set deleted = $1 where topicid = $2',
+        values: [1, req.body.topicid],
+    }
+
+    pool.connect((err, client, done) => {
+        if (err) throw err
+        client.query(query, (err, ress) => {
+            done();
+
+            if (err) {
+                console.log(err.stack);
+            } else {
+                res.json({ success: true });
+            }
+        });
+    });
+});
+
+router.post('/rename', (req, res) => {
+    const query = {
+        text: 'update topics set topicname = $1 where topicid = $2',
+        values: [req.body.newTopicName, req.body.topicid],
+    }
+
+    pool.connect((err, client, done) => {
+        if (err) throw err
+        client.query(query, (err, ress) => {
+            done();
+
+            if (err) {
+                console.log(err.stack);
+            } else {
+                res.json({ success: true });
+            }
+        });
+    });
+});
+
 export default router;
