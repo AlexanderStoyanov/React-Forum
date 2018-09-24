@@ -54,6 +54,23 @@ export const deleteTopic = (topicid) => {
     };
 };
 
+export const REQUEST_RESTORE = 'REQUEST_RESTORE';
+export const RECEIVE_RESTORE = 'RECEIVE_RESTORE';
+export const TOPIC_RESTORE_FAILURE = 'TOPIC_RESTORE_FAILURE';
+export const restoreTopic = (topicid) => {
+    return dispatch => {
+        dispatch(request(REQUEST_RESTORE));
+
+        axios.post('/api/topics/restore', { topicid: topicid })
+            .then(res => {
+                dispatch(receive(RECEIVE_RESTORE, res.status));
+            })
+            .catch(err => {
+                dispatch(error(TOPIC_RESTORE_FAILURE, err.message));
+            });
+    };
+};
+
 export const REQUEST_TOPICS = 'REQUEST_TOPICS';
 export const RECEIVE_TOPICS = 'RECEIVE_TOPICS';
 export const TOPICS_REQUEST_FAILURE = 'TOPICS_REQUEST_FAILURE';

@@ -74,6 +74,26 @@ router.post('/delete', (req, res) => {
     });
 });
 
+router.post('/restore', (req, res) => {
+    const query = {
+        text: 'update topics set deleted = $1 where topicid = $2;',
+        values: [null, req.body.topicid],
+    }
+
+    pool.connect((err, client, done) => {
+        if (err) throw err
+        client.query(query, (err, ress) => {
+            done();
+
+            if (err) {
+                console.log(err.stack);
+            } else {
+                res.json({ success: true });
+            }
+        });
+    });
+});
+
 router.post('/rename', (req, res) => {
     const query = {
         text: 'update topics set topicname = $1 where topicid = $2',

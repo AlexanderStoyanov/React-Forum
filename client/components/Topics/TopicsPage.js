@@ -3,7 +3,7 @@ import Topic from './Topic';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { loadReplies } from '../../actions/loadReplies';
-import { loadCurrentTopicID, renameTopic, deleteTopic, addTopic } from '../../actions/topicAction';
+import { loadCurrentTopicID, renameTopic, deleteTopic, addTopic, restoreTopic } from '../../actions/topicAction';
 
 
 class TopicsPage extends React.Component {
@@ -25,8 +25,10 @@ class TopicsPage extends React.Component {
                             currentForumid={this.props.userDetails.currentForumID}
                             renameTopic={this.props.renameTopic}
                             deleteTopic={this.props.deleteTopic}
+                            restoreTopic={this.props.restoreTopic}
                             addTopic={this.props.addTopic}
                             forumURL={this.props.topic.currentDirectory}
+                            group={this.props.userDetails.group}
                             match={this.props.match}
                         />
                     </div>
@@ -41,6 +43,7 @@ TopicsPage.propTypes = {
     renameTopic: PropTypes.func.isRequired,
     addTopic: PropTypes.func.isRequired,
     deleteTopic: PropTypes.func.isRequired,
+    restoreTopic: PropTypes.func.isRequired,
     loadCurrentTopicID: PropTypes.func.isRequired,
     currentTopicid: PropTypes.number.isRequired,
     currentForumid: PropTypes.number.isRequired,
@@ -70,6 +73,9 @@ function mapDispatchToProps(dispatch) {
         },
         loadCurrentTopicID: (currentTopicID) => {
             dispatch(loadCurrentTopicID(currentTopicID));
+        },
+        restoreTopic: (id) => {
+            dispatch(restoreTopic(id));
         },
     }
 }

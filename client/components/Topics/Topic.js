@@ -59,6 +59,10 @@ class Topic extends React.Component {
             this.props.loadCurrentTopicID(event.target.name);
             this.setState({ edit: true });
         } 
+        else if (event.target.title === 'restore') {
+            event.preventDefault();
+            this.props.restoreTopic(event.target.name);
+        } 
     }
 
     render() {
@@ -110,15 +114,32 @@ class Topic extends React.Component {
         } else {
             var rows = [];
             for (var i = 0; i < this.props.topicNames.length; i++) {
-                rows.push(<TopicEntry
-                    key={i}
-                    topicName={this.props.topicNames[i].topicname}
-                    forumURL={this.props.forumURL}
-                    topicURL={this.props.topicNames[i].topicname}
-                    onClick={this.onClick}
-                    topicID={this.props.topicNames[i].topicid}
-                    match={this.props.match}
-                />);
+                if (this.props.group === 'Administrator') {
+                    rows.push(<TopicEntry
+                        key={i}
+                        topicName={this.props.topicNames[i].topicname}
+                        forumURL={this.props.forumURL}
+                        topicURL={this.props.topicNames[i].topicname}
+                        onClick={this.onClick}
+                        topicID={this.props.topicNames[i].topicid}
+                        group={this.props.group}
+                        deleted={this.props.topicNames[i].deleted}
+                        match={this.props.match}
+                    />);
+                }
+                else if (this.props.topicNames[i].deleted !== '1') {
+                    rows.push(<TopicEntry
+                        key={i}
+                        topicName={this.props.topicNames[i].topicname}
+                        forumURL={this.props.forumURL}
+                        topicURL={this.props.topicNames[i].topicname}
+                        onClick={this.onClick}
+                        topicID={this.props.topicNames[i].topicid}
+                        group={this.props.group}
+                        deleted={this.props.topicNames[i].deleted}
+                        match={this.props.match}
+                    />);
+                }
             }
         }
 
