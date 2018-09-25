@@ -3,7 +3,7 @@ import Forum from './Forum';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { loadTopics } from '../../actions/topicAction';
-import { renameForum, loadCurrentForumID, deleteForum, addForum, loadForums } from '../../actions/forumAction';
+import { renameForum, loadCurrentForumID, deleteForum, addForum, loadForums, restoreForum } from '../../actions/forumAction';
 
 
 class ForumsPage extends React.Component {
@@ -29,6 +29,7 @@ class ForumsPage extends React.Component {
                     group={this.props.userDetails.group}
                     renameForum={this.props.renameForum}
                     deleteForum={this.props.deleteForum}
+                    restoreForum={this.props.restoreForum}
                     addForum={this.props.addForum}
                     currentForumid={this.props.userDetails.currentForumID}
                     loadCurrentForumID={this.props.loadCurrentForumID}
@@ -43,6 +44,7 @@ ForumsPage.propTypes = {
     loadTopics: PropTypes.func.isRequired,
     renameForum: PropTypes.func.isRequired,
     deleteForum: PropTypes.func.isRequired,
+    restoreForum: PropTypes.func.isRequired,
     addForum: PropTypes.func.isRequired,
     loadCurrentForumID: PropTypes.func.isRequired,
     currentForumid: PropTypes.number.isRequired,
@@ -75,6 +77,9 @@ function mapDispatchToProps(dispatch) {
         },
         addForum: (currentForumID) => {
             dispatch(addForum(currentForumID));
+        },
+        restoreForum: (currentForumID) => {
+            dispatch(restoreForum(currentForumID));
         },
     }
 }

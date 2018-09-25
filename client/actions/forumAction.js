@@ -56,6 +56,23 @@ export const deleteForum = (forumid) => {
     };
 };
 
+export const REQUEST_RESTORE = 'REQUEST_RESTORE';
+export const RECEIVE_RESTORE = 'RECEIVE_RESTORE';
+export const FORUM_RESTORE_FAILURE = 'FORUM_RESTORE_FAILURE';
+export const restoreForum = (forumid) => {
+    return dispatch => {
+        dispatch(request(REQUEST_RESTORE));
+
+        axios.post('/api/forums/restore', { forumid: forumid })
+            .then(res => {
+                dispatch(receive(RECEIVE_RESTORE, res.data.payload));
+            })
+            .catch(err => {
+                dispatch(error(FORUM_RESTORE_FAILURE, err.message));
+            });
+    };
+};
+
 export const REQUEST_FORUMS = 'REQUEST_FORUMS';
 export const RECEIVE_FORUMS = 'RECEIVE_FORUMS';
 export const FORUMS_REQUEST_FAILURE = 'FORUMS_REQUEST_FAILURE';

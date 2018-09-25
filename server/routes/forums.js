@@ -72,6 +72,26 @@ router.post('/delete', (req, res) => {
     });
 });
 
+router.post('/restore', (req, res) => {
+    const query = {
+        text: 'update forums set deleted = $1 where forumid = $2',
+        values: [null, req.body.forumid],
+    }
+
+    pool.connect((err, client, done) => {
+        if (err) throw err
+        client.query(query, (err, ress) => {
+            done();
+
+            if (err) {
+                console.log(err.stack);
+            } else {
+                res.json({ success: true });
+            }
+        });
+    });
+});
+
 router.post('/rename', (req, res) => {
     const query = {
         text: 'update forums set forumname = $1 where forumid = $2',

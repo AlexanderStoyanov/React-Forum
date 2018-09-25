@@ -60,6 +60,10 @@ class Forum extends React.Component {
             this.props.loadCurrentForumID(event.target.name);
             this.setState({ edit: true });
         }
+        else if (event.target.title === 'restore') {
+            event.preventDefault();
+            this.props.restoreForum(event.target.name);
+        } 
     }
 
     render() {

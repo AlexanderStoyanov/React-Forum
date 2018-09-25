@@ -12,6 +12,12 @@ const ForumEntry = ({ forumName, forumURL, forumID, group, deleted, onClick }) =
                     <Link to={`/forum/${forumURL}`} className="nav-link" name={`${forumID}`} style={{ opacity: (group === 'Administrator' && deleted === '1') ? '0.5' : '1' }}>{forumName}</Link>
                 </h1>
                 <button className="btn btn-secondary m-1" title="edit" name={`${forumID}`} disabled={(group === 'Administrator1')} onClick={onClick}>Edit</button>
+                <button
+                    className="btn btn-success m-1"
+                    title="restore" name={`${forumID}`}
+                    onClick={onClick}
+                    style={{ opacity: (group === 'Administrator' && deleted === '1') ? '1' : '0' }}
+                >Restore</button>
             </div>
         </div>
     );
