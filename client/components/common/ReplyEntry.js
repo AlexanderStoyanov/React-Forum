@@ -14,16 +14,22 @@ const ReplyEntry = ({ text, firstname }) => {
     return (
         <div className="row">
             <div className="col-md-3">
-                <div className="card mt-2">
+                <div className="card">
                     <div className="card-body">
                         <h5 className="card-title">{firstname}</h5>
+                        <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
                     </div>
                 </div>
             </div>
             <div className="col-md-9">
-                <div className="card mt-2">
+                <div className="card p-3 mb-3 bg-white">
+                    <div className="card-header">
+                        Date and time of the reply
+                    </div>
                     <div className="card-body">
-                        {myComponent()}
+                        <p className="card-text">
+                            {myComponent()}
+                        </p>
                     </div>
                 </div>
             </div>

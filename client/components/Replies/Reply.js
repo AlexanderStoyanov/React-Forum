@@ -15,7 +15,7 @@ class Reply extends React.Component {
             }
         }
         return (
-            <div className="reply">
+            <div className="reply mt-5">
                 {rows}
             </div>
         );
