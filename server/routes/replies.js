@@ -30,7 +30,6 @@ function verifyToken(req, res, next) {
 }
 
 router.get('/load', (req, res) => {
-    console.log(req.query);
     const query = {
         text: 'select replies.*, users.firstname from replies left join users on replies.userid = users.userid where topicid = $1',
         values: [req.query.id],
