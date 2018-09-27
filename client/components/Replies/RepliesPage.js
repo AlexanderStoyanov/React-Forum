@@ -76,10 +76,12 @@ class RepliesPage extends React.Component {
     render() {
         let replies = [];
         let names = [];
+        let dates = []
         if (this.props.reply.replies) {
             for (let i = 0; i < this.props.reply.replies.length; i++) {
                 replies.push(draftToHtml(JSON.parse(this.props.reply.replies[i].text)));
                 names.push(this.props.reply.replies[i].firstname);
+                dates.push(this.props.reply.replies[i].date);
             }
         }
 
@@ -88,6 +90,7 @@ class RepliesPage extends React.Component {
                 <Reply
                     replies={replies}
                     names={names}
+                    dates={dates}
                 />
                 <div className="row mt-3">
                     <div className="col-md">

@@ -11,6 +11,7 @@ class Reply extends React.Component {
                     key={i}
                     text={this.props.replies[i]}
                     firstname={this.props.names[i]}
+                    date={this.props.dates[i]}
                 />);
             }
         }

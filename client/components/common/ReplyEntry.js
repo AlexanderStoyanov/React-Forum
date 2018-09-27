@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
-const ReplyEntry = ({ text, firstname }) => {
+const ReplyEntry = ({ text, firstname, date }) => {
     function createMarkup() {
         return { __html: text };
     }
@@ -10,7 +10,8 @@ const ReplyEntry = ({ text, firstname }) => {
     function myComponent() {
         return <div dangerouslySetInnerHTML={createMarkup()} />;
     }
-
+    var d = Date(date);
+    console.log(date);
     return (
         <div className="row">
             <div className="col-md-3">
@@ -24,7 +25,7 @@ const ReplyEntry = ({ text, firstname }) => {
             <div className="col-md-9">
                 <div className="card p-3 mb-3 bg-white">
                     <div className="card-header">
-                        Date and time of the reply
+                        {d}
                     </div>
                     <div className="card-body">
                         <p className="card-text">
