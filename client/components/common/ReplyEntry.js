@@ -10,8 +10,7 @@ const ReplyEntry = ({ text, firstname, date }) => {
     function myComponent() {
         return <div dangerouslySetInnerHTML={createMarkup()} />;
     }
-    var d = Date(date);
-    console.log(date);
+
     return (
         <div className="row">
             <div className="col-md-3">
@@ -25,7 +24,7 @@ const ReplyEntry = ({ text, firstname, date }) => {
             <div className="col-md-9">
                 <div className="card p-3 mb-3 bg-white">
                     <div className="card-header">
-                        {d}
+                        {new Date(Number(date)).toLocaleString()}
                     </div>
                     <div className="card-body">
                         <p className="card-text">
@@ -39,7 +38,9 @@ const ReplyEntry = ({ text, firstname, date }) => {
 }
 
 ReplyEntry.propTypes = {
+    firstname: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
+    date: PropTypes.number.isRequired,
 }
 
 export default ReplyEntry;
