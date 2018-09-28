@@ -2,6 +2,17 @@ import React from 'react';
 import ReplyEntry from '../common/ReplyEntry';
 
 class Reply extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.onClick = this.onClick.bind(this);
+    }
+
+    onClick(event) {
+        event.preventDefault();
+        this.props.deleteReply(event.target.name);
+    }
+
     render() {
         var rows = [];
 
@@ -12,6 +23,8 @@ class Reply extends React.Component {
                     text={this.props.replies[i]}
                     firstname={this.props.names[i]}
                     date={this.props.dates[i]}
+                    onClick={this.onClick}
+                    id={this.props.ids[i]}
                 />);
             }
         }

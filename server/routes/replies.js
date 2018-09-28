@@ -73,4 +73,24 @@ router.post('/post', verifyToken, (req, res) => {
     });
 });
 
+router.post('/delete', (req, res) => {
+    const query = {
+        text: 'DELETE FROM replies WHERE replyid = $1',
+        values: [req.body.replyid],
+    }
+
+    pool.connect((err, client, done) => {
+        if (err) throw err
+        client.query(query, (err, ress) => {
+            done();
+
+            if (err) {
+                console.log(err);
+            } else {
+                res.json({ success: true });
+            }
+        });
+    });
+});
+
 export default router;

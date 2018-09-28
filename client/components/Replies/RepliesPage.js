@@ -10,7 +10,7 @@ import './Editor.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import validateReply from '../../../server/shared/validations/reply';
-import { replyPost } from '../../actions/replyAction';
+import { postReply, deleteReply } from '../../actions/replyAction';
 import { addFlashMessage } from '../../actions/flashMessages';
 
 const content = {
@@ -57,7 +57,7 @@ class RepliesPage extends React.Component {
 
         if (this.isValid()) {
             this.setState({ errors: {}, invalid: true });
-            this.props.replyPost({ token: this.props.userDetails.token, topicid: this.props.reply.currentDirectory, reply: JSON.stringify(this.state.contentState), userid: null }).then(
+            this.props.postReply({ token: this.props.userDetails.token, topicid: this.props.reply.currentDirectory, reply: JSON.stringify(this.state.contentState), userid: null }).then(
                 () => {
                     this.props.addFlashMessage({
                         type: 'success',
@@ -76,12 +76,14 @@ class RepliesPage extends React.Component {
     render() {
         let replies = [];
         let names = [];
-        let dates = []
+        let dates = [];
+        let ids = [];
         if (this.props.reply.replies) {
             for (let i = 0; i < this.props.reply.replies.length; i++) {
                 replies.push(draftToHtml(JSON.parse(this.props.reply.replies[i].text)));
                 names.push(this.props.reply.replies[i].firstname);
                 dates.push(this.props.reply.replies[i].date);
+                ids.push(this.props.reply.replies[i].replyid);
             }
         }
 
@@ -91,6 +93,8 @@ class RepliesPage extends React.Component {
                     replies={replies}
                     names={names}
                     dates={dates}
+                    ids={ids}
+                    deleteReply={this.props.deleteReply}
                 />
                 <div className="row mt-3">
                     <div className="col-md">
@@ -122,4 +126,18 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { replyPost, addFlashMessage })(RepliesPage);
+function mapDispatchToProps(dispatch) {
+    return {
+        deleteReply: (id) => {
+            dispatch(deleteReply(id));
+        },
+        postReply: () => {
+            dispatch(postReply());
+        },
+        addFlashMessage: () => {
+            dispatch(addFlashMessage());
+        },
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RepliesPage);

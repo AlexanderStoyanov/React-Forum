@@ -9,8 +9,7 @@
     "\\client\\components\\Replies",
     "\\client\\components\\Topics",
     "\\client\\reducers",
-    "\\server",
-    "\\server\\routes"
+    "\\server"
   ],
   "SelectedNode": "\\client\\components\\common\\ReplyEntry.js",
   "PreviewInSolutionExplorer": false
