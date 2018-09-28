@@ -53,6 +53,7 @@ class Topic extends React.Component {
 
     onClick(event) {
         if (event.target.className === 'nav-link') {
+            this.props.loadCurrentTopicID(event.target.name);
             this.props.loadReplies(event.target.name);
         }
         else if (event.target.title === 'edit') {

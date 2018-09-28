@@ -17,6 +17,7 @@ function verifyToken(req, res, next) {
         return res.status(401).send('Unauthorized request');
     }
     let token = req.body.token;
+    console.log(req.body);
     if (token === 'null') {
         return res.status(401).send('Unauthorized request');
     }
@@ -25,6 +26,7 @@ function verifyToken(req, res, next) {
         return res.status(401).send('Unauthorized request');
     }
     req.body.userid = payload.subject;
+    console.log(payload.subject);
     req.isAdmin = payload.isAdmin;
     next()
 }

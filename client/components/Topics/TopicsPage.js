@@ -2,7 +2,7 @@ import React from 'react';
 import Topic from './Topic';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
-import { loadReplies } from '../../actions/loadReplies';
+import { loadReplies } from '../../actions/replyAction';
 import { loadCurrentTopicID, renameTopic, deleteTopic, addTopic, restoreTopic } from '../../actions/topicAction';
 
 

@@ -1,4 +1,4 @@
-import { REPLIES_REQUEST_FAILURE, REQUEST_REPLIES, RECEIVE_REPLIES } from '../actions/loadReplies';
+import { REPLIES_REQUEST_FAILURE, REQUEST_REPLIES, RECEIVE_REPLIES } from '../actions/replyAction';
 
 const initialState = {
     loading: false,

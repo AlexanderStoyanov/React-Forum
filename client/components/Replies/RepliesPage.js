@@ -10,7 +10,7 @@ import './Editor.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import validateReply from '../../../server/shared/validations/reply';
-import { postReply, deleteReply } from '../../actions/replyAction';
+import { postReply, deleteReply, loadReplies } from '../../actions/replyAction';
 import { addFlashMessage } from '../../actions/flashMessages';
 
 const content = {
@@ -57,19 +57,12 @@ class RepliesPage extends React.Component {
 
         if (this.isValid()) {
             this.setState({ errors: {}, invalid: true });
-            this.props.postReply({ token: this.props.userDetails.token, topicid: this.props.reply.currentDirectory, reply: JSON.stringify(this.state.contentState), userid: null }).then(
-                () => {
-                    this.props.addFlashMessage({
-                        type: 'success',
-                        text: 'Reply has been posted!'
-                    });
-                    this.setState({ invalid: false });
-                },
-                (err) => {
-                    this.setState({ errors: err.response.data, invalid: false });
-
-                }
-            );
+            this.props.postReply({
+                token: this.props.userDetails.token,
+                topicid: this.props.userDetails.currentTopicID,
+                reply: JSON.stringify(this.state.contentState),
+                userid: null
+            });
         }
     }
 
@@ -95,6 +88,7 @@ class RepliesPage extends React.Component {
                     dates={dates}
                     ids={ids}
                     deleteReply={this.props.deleteReply}
+                    currentTopicID={this.props.userDetails.currentTopicID}
                 />
                 <div className="row mt-3">
                     <div className="col-md">
@@ -131,12 +125,15 @@ function mapDispatchToProps(dispatch) {
         deleteReply: (id) => {
             dispatch(deleteReply(id));
         },
-        postReply: () => {
-            dispatch(postReply());
+        postReply: (userDetails) => {
+            dispatch(postReply(userDetails));
         },
         addFlashMessage: () => {
             dispatch(addFlashMessage());
         },
+        loadReplies: (topicid) => {
+            dispatch(loadReplies(topicid));
+        }
     }
 }
 
