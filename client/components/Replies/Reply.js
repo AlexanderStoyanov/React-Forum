@@ -1,38 +1,161 @@
 import React from 'react';
 import ReplyEntry from '../common/ReplyEntry';
 
+import { Editor } from 'react-draft-wysiwyg';
+import { convertFromRaw, convertToRaw } from 'draft-js';
+import htmlToDraft from 'html-to-draftjs';
+import draftToHtml from 'draftjs-to-html';
+import validateReply from '../../../server/shared/validations/reply';
+import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import './Editor.css';
+
+const content = {
+    "entityMap": {},
+    "blocks": [{ "key": "637gr", "text": "Initialized from content state.", "type": "unstyled", "depth": 0, "inlineStyleRanges": [], "entityRanges": [], "data": {} }]
+};
+
 class Reply extends React.Component {
     constructor(props) {
         super(props);
 
+        const contentState = convertFromRaw(content);
+        this.state = {
+            edit: false,
+            contentState,
+            isValid: false,
+            errors: {},
+        }
+
+        this.onContentStateChange = this.onContentStateChange.bind(this);
+        this.isValid = this.isValid.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
         this.onClick = this.onClick.bind(this);
+    }
+
+    onContentStateChange(contentState) {
+        this.setState({
+            contentState,
+        });
+    };
+
+    isValid() {
+        const { errors, isValid } = validateReply(this.state.contentState.blocks[0]);
+
+        if (!isValid) {
+            this.setState({ errors });
+        }
+
+        return isValid;
+    }
+
+    onSubmit(event) {
+        event.preventDefault();
+
+        if (this.isValid()) {
+            this.setState({ errors: {}, invalid: true });
+            this.props.postReply({
+                token: this.props.token,
+                topicid: this.props.currentTopicID,
+                reply: JSON.stringify(this.state.contentState),
+                userid: null
+            });
+        }
     }
 
     onClick(event) {
         event.preventDefault();
-        this.props.deleteReply(event.target.name);
+        console.log(event.target);
+        console.log(event.target.getAttribute('data-order'));
+        if (event.target.title === 'Edit') {
+            this.setState({ edit: true, contentState: JSON.parse(this.props.replies[Number(event.target.getAttribute('data-order'))]) });
+        }
+        else if (event.target.title === 'Delete') {
+            this.props.deleteReply(event.target.name);
+        }
+        else if (event.target.title === 'Back') {
+            this.setState({ edit: false });
+        }
     }
 
     render() {
-        var rows = [];
+        if (this.state.edit) {
+            return (
+                <div className="container pt-1" style={{ background: '#e4e4e4' }}>
+                    <div className="reply mt-5">
+                        bla bla
+                        <button title="Back" class="btn btn-dark m-1" onClick={this.onClick} >Back</button>
+                    </div>
+                    
 
-        if (this.props.replies) {
-            for (var i = 0; i < this.props.replies.length; i++) {
-                rows.push(<ReplyEntry
-                    key={i}
-                    text={this.props.replies[i]}
-                    firstname={this.props.names[i]}
-                    date={this.props.dates[i]}
-                    onClick={this.onClick}
-                    id={this.props.ids[i]}
-                />);
-            }
+                    <div className="row mt-3">
+                        <div className="col-md">
+                            <textarea
+                                disabled
+                                value={JSON.stringify(this.state.contentState, null, 4)}
+                            />
+                            <form onSubmit={this.onSubmit}>
+                                <Editor
+                                    defaultContentState={this.state.contentState}
+                                    toolbarClassName="toolbarClass"
+                                    editorClassName="editorClass"
+                                    onContentStateChange={this.onContentStateChange}
+                                    toolbar={{
+                                        inline: {
+                                            inDropdown: false,
+                                            className: 'red',
+                                        }
+                                    }}
+                                />
+                                <button disabled={this.state.invalid} type="submit" className="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            );
         }
-        return (
-            <div className="reply mt-5">
-                {rows}
-            </div>
-        );
+        else {
+            var rows = [];
+            if (this.props.replies) {
+                for (var i = 0; i < this.props.replies.length; i++) {
+                    rows.push(<ReplyEntry
+                        key={i}
+                        text={draftToHtml(JSON.parse(this.props.replies[i]))}
+                        firstname={this.props.names[i]}
+                        date={this.props.dates[i]}
+                        onClick={this.onClick}
+                        id={this.props.ids[i]}
+                        order={i}
+                    />);
+                }
+            }
+            return (
+                <div className="container pt-1" style={{ background: '#e4e4e4' }}>
+                    <div className="reply mt-5">
+                        {rows}
+                    </div>
+
+
+                    <div className="row mt-3">
+                        <div className="col-md">
+                            <form onSubmit={this.onSubmit}>
+                                <Editor
+                                    toolbarClassName="toolbarClass"
+                                    editorClassName="editorClass"
+                                    onContentStateChange={this.onContentStateChange}
+                                    toolbar={{
+                                        inline: {
+                                            inDropdown: false,
+                                            className: 'red',
+                                        }
+                                    }}
+                                />
+                                <button disabled={this.state.invalid} type="submit" className="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
     }
 }
 

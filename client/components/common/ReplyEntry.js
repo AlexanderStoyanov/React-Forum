@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
-const ReplyEntry = ({ text, firstname, date, onClick, id }) => {
+const ReplyEntry = ({ text, firstname, date, onClick, id, order }) => {
     function createMarkup() {
         return { __html: text };
     }
@@ -26,7 +26,8 @@ const ReplyEntry = ({ text, firstname, date, onClick, id }) => {
                     <div className="card-header">
                         {new Date(Number(date)).toLocaleString()}
                         <div className="float-right">
-                            <button name={id} type="button" class="btn btn-danger" onClick={onClick} > Delete</button>
+                            <button name={id} data-order={order} title="Edit" class="btn btn-secondary m-1" onClick={onClick} >Edit</button>
+                            <button name={id} title="Delete" class="btn btn-danger m-1" onClick={onClick} >Delete</button>
                         </div>
                     </div>
                     <div className="card-body">
