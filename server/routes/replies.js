@@ -93,4 +93,24 @@ router.post('/delete', (req, res) => {
     });
 });
 
+router.post('/update', (req, res) => {
+    const query = {
+        text: 'UPDATE replies SET text = $1 WHERE replyid = $2',
+        values: [req.body.reply, req.body.replyid],
+    }
+
+    pool.connect((err, client, done) => {
+        if (err) throw err
+        client.query(query, (err, ress) => {
+            done();
+
+            if (err) {
+                console.log(err);
+            } else {
+                res.json({ success: true });
+            }
+        });
+    });
+});
+
 export default router;

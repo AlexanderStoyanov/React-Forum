@@ -50,23 +50,31 @@ class Reply extends React.Component {
 
     onSubmit(event) {
         event.preventDefault();
-
         if (this.isValid()) {
+            console.log(this.state.edit);
             this.setState({ errors: {}, invalid: true });
-            this.props.postReply({
-                token: this.props.token,
-                topicid: this.props.currentTopicID,
-                reply: JSON.stringify(this.state.contentState),
-                userid: null
-            });
+            if (this.state.edit) {
+                this.props.updateReply({
+                    token: this.props.token,
+                    replyid: this.props.currentReplyID,
+                    reply: JSON.stringify(this.state.contentState),
+                });
+            }
+            else {
+                this.props.postReply({
+                    token: this.props.token,
+                    topicid: this.props.currentTopicID,
+                    reply: JSON.stringify(this.state.contentState),
+                    userid: null
+                });
+            }
         }
     }
 
     onClick(event) {
         event.preventDefault();
-        console.log(event.target);
-        console.log(event.target.getAttribute('data-order'));
         if (event.target.title === 'Edit') {
+            this.props.loadCurrentReplyID(event.target.name);
             this.setState({ edit: true, contentState: JSON.parse(this.props.replies[Number(event.target.getAttribute('data-order'))]) });
         }
         else if (event.target.title === 'Delete') {
@@ -89,10 +97,6 @@ class Reply extends React.Component {
 
                     <div className="row mt-3">
                         <div className="col-md">
-                            <textarea
-                                disabled
-                                value={JSON.stringify(this.state.contentState, null, 4)}
-                            />
                             <form onSubmit={this.onSubmit}>
                                 <Editor
                                     defaultContentState={this.state.contentState}

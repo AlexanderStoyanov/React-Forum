@@ -1,9 +1,8 @@
 import React from 'react';
 import Reply from './Reply';
 import { connect } from 'react-redux';
-import { postReply, deleteReply } from '../../actions/replyAction';
+import { postReply, deleteReply, loadCurrentReplyID, updateReply } from '../../actions/replyAction';
 import { addFlashMessage } from '../../actions/flashMessages';
-//import draftToHtml from 'draftjs-to-html';
 
 class RepliesPage extends React.Component {
     render() {
@@ -28,6 +27,9 @@ class RepliesPage extends React.Component {
                 deleteReply={this.props.deleteReply}
                 currentTopicID={this.props.userDetails.currentTopicID}
                 token={this.props.userDetails.token}
+                loadCurrentReplyID={this.props.loadCurrentReplyID}
+                currentReplyID={this.props.userDetails.currentReplyID}
+                updateReply={this.props.updateReply}
             />
         );
     }
@@ -50,6 +52,12 @@ function mapDispatchToProps(dispatch) {
         },
         addFlashMessage: () => {
             dispatch(addFlashMessage());
+        },
+        loadCurrentReplyID: (replyid) => {
+            dispatch(loadCurrentReplyID(replyid));
+        },
+        updateReply: (replyData) => {
+            dispatch(updateReply(replyData));
         },
     }
 }

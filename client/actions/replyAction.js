@@ -56,3 +56,30 @@ export const deleteReply = (replyid) => {
             });
     };
 };
+
+export const REQUEST_UPDATE_REPLY = 'REQUEST_UPDATE_REPLY';
+export const RECEIVE_UPDATE_REPLY = 'RECEIVE_UPDATE_REPLY';
+export const REPLY_UPDATE_FAILURE = 'REPLY_UPDATE_FAILURE';
+export const updateReply = (replyData) => {
+    return dispatch => {
+        dispatch(request(REQUEST_UPDATE_REPLY));
+
+        axios.post('/api/replies/update', replyData)
+            .then(res => {
+                dispatch(receive(RECEIVE_UPDATE_REPLY, res.status));
+            })
+            .catch(err => {
+                dispatch(error(REPLY_UPDATE_FAILURE, err.message));
+            });
+    };
+};
+
+export const EDIT_REPLY = 'EDIT_REPLY';
+export const loadCurrentReplyID = (currentReplyID) => {
+    return {
+        type: EDIT_REPLY,
+        payload: {
+            currentReplyID: currentReplyID,
+        }
+    };
+};
