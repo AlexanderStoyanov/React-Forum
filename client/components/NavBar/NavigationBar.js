@@ -42,6 +42,9 @@ class NavigationBar extends React.Component {
                                     Welcome, {name}
                                 </span>
                                 <li className="nav-item">
+                                    <Link to='/groups' name="/groups" className="nav-link" onClick={this.onClick} >Groups</Link>
+                                </li>
+                                <li className="nav-item">
                                     <Link to='/signin' name="/signin" className="nav-link" onClick={this.onClick} >Sign In</Link>
                                 </li>
                                 <li className="nav-item">

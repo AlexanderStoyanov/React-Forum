@@ -6,6 +6,7 @@ import forum from './reducers/forum';
 import topic from './reducers/topic';
 import reply from './reducers/reply';
 import userDetails from './reducers/userDetails';
+import groups from './reducers/groups';
 
 export default combineReducers({
     flashMessages,
@@ -14,4 +15,5 @@ export default combineReducers({
     topic,
     reply,
     userDetails,
+    groups,
 });

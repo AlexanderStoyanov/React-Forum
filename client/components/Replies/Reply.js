@@ -51,7 +51,6 @@ class Reply extends React.Component {
     onSubmit(event) {
         event.preventDefault();
         if (this.isValid()) {
-            console.log(this.state.edit);
             this.setState({ errors: {}, invalid: true });
             if (this.state.edit) {
                 this.props.updateReply({
@@ -76,7 +75,6 @@ class Reply extends React.Component {
         if (event.target.title === 'Edit') {
             this.props.loadCurrentReplyID(event.target.name);
             this.setState({ edit: true, contentState: JSON.parse(this.props.replies[Number(event.target.getAttribute('data-order'))]) });
-            console.log(this.state.contentState);
         }
         else if (event.target.title === 'Delete') {
             this.props.deleteReply(event.target.name);
@@ -98,8 +96,8 @@ class Reply extends React.Component {
 
                     <div className="row mt-3">
                         <div className="col-md">
-                            {/*Apparently, this textarea below is necessary to properly set defaultContentState of the Editor.
-                                If removed, Editor would be empty on Edit event
+                            {/*Apparently, this textarea below is necessary to properly set defaultContentState prop of the Editor.
+                                If removed, Editor would be empty on EDIT_REPLY action
                             */}
                             <textarea
                                 hidden
