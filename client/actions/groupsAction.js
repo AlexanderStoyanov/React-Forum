@@ -10,9 +10,9 @@ export const loadGroups = () => {
     return dispatch => {
         dispatch(request(REQUEST_GROUPS));
 
-        axios.post('/api/users/loadGroups')
+        axios.get('/api/groups/load')
             .then(res => {
-                dispatch(receive(RECEIVE_GROUPS, res.data.payload));
+                dispatch(receive(RECEIVE_GROUPS, res.data));
             })
             .catch(err => {
                 dispatch(error(GROUPS_REQUEST_FAILURE, err.message));

@@ -3,15 +3,15 @@
     "",
     "\\client",
     "\\client\\actions",
+    "\\client\\actions\\common",
     "\\client\\components",
-    "\\client\\components\\common",
-    "\\client\\components\\Forums",
-    "\\client\\components\\Replies",
-    "\\client\\components\\Topics",
-    "\\client\\reducers",
+    "\\client\\components\\GroupsDash",
+    "\\client\\components\\NavBar",
     "\\server",
-    "\\server\\routes"
+    "\\server\\routes",
+    "\\server\\shared",
+    "\\server\\shared\\validations"
   ],
-  "SelectedNode": "\\client\\components\\Replies\\Reply.js",
+  "SelectedNode": "\\client\\components\\GroupsDash\\GroupsPage.js",
   "PreviewInSolutionExplorer": false
 }

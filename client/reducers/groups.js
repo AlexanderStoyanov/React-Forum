@@ -6,7 +6,7 @@ import {
 
 const initialState = {
     loading: false,
-    groups: null,
+    groupsData: null,
     error: null
 };
 
@@ -20,7 +20,7 @@ export default (state = initialState, action = {}) => {
             return {
                 loading: false,
                 error: null,
-                groups: action.payload,
+                groupsData: action.payload,
             };
         case GROUPS_REQUEST_FAILURE:
             return {

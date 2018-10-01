@@ -11,6 +11,7 @@ import users from './routes/users';
 import forums from './routes/forums';
 import topics from './routes/topics';
 import replies from './routes/replies';
+import groups from './routes/groups';
 
 let app = express();
 
@@ -20,6 +21,7 @@ app.use('/api/users', users);
 app.use('/api/forums', forums);
 app.use('/api/topics', topics);
 app.use('/api/replies', replies);
+app.use('/api/groups', groups);
 
 const compiler = webpack(webpackConfig);
 

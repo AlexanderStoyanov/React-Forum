@@ -2,7 +2,6 @@ import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from "react-router-dom";
-import RepliesPage from '../Replies/RepliesPage';
 
 const TopicEntry = ({ topicName, forumURL, topicURL, topicID, onClick, group, deleted, match }) => {
     return (
