@@ -27,10 +27,29 @@ router.get('/load', (req, res) => {
             if (err) {
                 console.log(err.stack);
             } else if (ress.rowCount > 0) {
-                console.log(ress.rows);
                 res.json(ress.rows);
             } else {
                 res.status(401);
+            }
+        });
+    });
+});
+
+router.post('/add', (req, res) => {
+    const query = {
+        text: 'insert into groups values($1, $2)',
+        values: [shortid.generate(), req.body.newGroupName]
+    }
+
+    pool.connect((err, client, done) => {
+        if (err) throw err
+        client.query(query, (err, ress) => {
+            done();
+
+            if (err) {
+                console.log(err);
+            } else {
+                res.status(200);
             }
         });
     });

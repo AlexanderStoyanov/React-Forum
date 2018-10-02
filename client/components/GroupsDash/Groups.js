@@ -19,6 +19,8 @@ class Groups extends React.Component {
         this.edit = this.edit.bind(this);
         this.manageUsers = this.manageUsers.bind(this);
         this.back = this.back.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     add() {
@@ -35,6 +37,17 @@ class Groups extends React.Component {
 
     back() {
         this.setState({ edit: false, add: false, manageUsers: false });
+    }
+
+    onChange(event) {
+        this.setState({ [event.target.name]: event.target.value });
+    }
+
+    onSubmit(event) {
+        event.preventDefault();
+        if (this.state.add) {
+            this.props.addGroup(this.state.newName);
+        }
     }
 
     render() {

@@ -19,3 +19,20 @@ export const loadGroups = () => {
             });
     };
 };
+
+export const REQUEST_ADD_GROUP = 'REQUEST_ADD_GROUP';
+export const RECEIVE_ADD_GROUP = 'RECEIVE_ADD_GROUP';
+export const GROUP_ADD_FAILURE = 'GROUP_ADD_FAILURE';
+export const addGroup = (newGroupName) => {
+    return dispatch => {
+        dispatch(request(REQUEST_ADD_GROUP));
+
+        axios.post('/api/groups/add', {newGroupName: newGroupName})
+            .then(res => {
+                dispatch(receive(RECEIVE_ADD_GROUP, res.data));
+            })
+            .catch(err => {
+                dispatch(error(GROUP_ADD_FAILURE, err.message));
+            });
+    };
+};
