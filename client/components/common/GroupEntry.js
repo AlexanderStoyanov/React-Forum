@@ -1,11 +1,11 @@
 import React from 'react';
 
-const GroupEntry = ({ groupName, onClick }) => {
+const GroupEntry = ({ groupName, groupid, onClick }) => {
     return (
         <tr>
             <th scope="row">
                 {groupName}
-                <button className="btn btn-secondary ml-2" title="edit" onClick={onClick}>Edit</button>
+                <button className="btn btn-secondary ml-2" title="edit" data-id={groupid} onClick={onClick}>Edit</button>
             </th>
             <td>
                 <input className="form-check-input position-static mx-auto" type="checkbox" id="inlineCheckbox1" value="option1" />

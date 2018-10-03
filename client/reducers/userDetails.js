@@ -2,6 +2,7 @@ import { SIGN_IN_FAILURE, SIGN_IN_REQUEST, SIGN_IN_SUCCESS } from '../actions/si
 import { RECEIVE_TOPICS, EDIT_TOPIC } from '../actions/topicAction';
 import { EDIT_FORUM } from '../actions/forumAction';
 import { EDIT_REPLY } from '../actions/replyAction';
+import { EDIT_GROUP } from '../actions/groupsAction';
 
 const initialState = {
     token: '',
@@ -10,6 +11,7 @@ const initialState = {
     currentForumID: '',
     currentTopicID: '',
     currentReplyID: '',
+    currentGroupID: '',
 };
 
 export default (state = initialState, action = {}) => {
@@ -45,6 +47,11 @@ export default (state = initialState, action = {}) => {
             return {
                 ...state,
                 currentReplyID: action.payload.currentReplyID,
+            };
+        case EDIT_GROUP:
+            return {
+                ...state,
+                currentGroupID: action.payload.currentGroupID,
             };
         case RECEIVE_TOPICS:
             return {

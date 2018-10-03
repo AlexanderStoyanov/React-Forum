@@ -36,3 +36,13 @@ export const addGroup = (newGroupName) => {
             });
     };
 };
+
+export const EDIT_GROUP = 'EDIT_GROUP';
+export const loadCurrentGroupID = (currentGroupID) => {
+    return {
+        type: EDIT_GROUP,
+        payload: {
+            currentGroupID: currentGroupID,
+        }
+    };
+};

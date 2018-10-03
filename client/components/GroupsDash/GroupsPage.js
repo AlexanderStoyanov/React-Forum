@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Groups from './Groups';
-import { loadGroups, addGroup } from '../../actions/groupsAction';
+import { loadGroups, addGroup, loadCurrentGroupID } from '../../actions/groupsAction';
 
 class GroupsPage extends React.Component {
     componentDidMount() {
@@ -32,6 +32,8 @@ class GroupsPage extends React.Component {
                     firstname={firstname}
                     currentGroup={currentGroup}
                     addGroup={this.props.addGroup}
+                    loadCurrentGroupID={this.props.loadCurrentGroupID}
+                    groupid={this.props.userDetails.currentGroupID}
                 />
             </div>
         );
@@ -41,6 +43,7 @@ class GroupsPage extends React.Component {
 function mapStateToProps(state) {
     return {
         groups: state.groups,
+        userDetails: state.userDetails,
     }
 }
 
@@ -51,6 +54,9 @@ function mapDispatchToProps(dispatch) {
         },
         addGroup: (newGroupName) => {
             dispatch(addGroup(newGroupName));
+        },
+        loadCurrentGroupID: (currentGroupID) => {
+            dispatch(loadCurrentGroupID(currentGroupID));
         }
     }
 }

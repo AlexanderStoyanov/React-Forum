@@ -16,19 +16,15 @@ class Groups extends React.Component {
         }
 
         this.add = this.add.bind(this);
-        this.edit = this.edit.bind(this);
         this.manageUsers = this.manageUsers.bind(this);
         this.back = this.back.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onClick = this.onClick.bind(this);
     }
 
     add() {
         this.setState({ add: true });
-    }
-
-    edit() {
-        this.setState({ edit: true });
     }
 
     manageUsers() {
@@ -48,6 +44,17 @@ class Groups extends React.Component {
         if (this.state.add) {
             this.props.addGroup(this.state.newName);
         }
+    }
+
+    onClick(event) {
+        if (event.target.title === 'edit') {
+            this.props.loadCurrentGroupID(event.target.getAttribute('data-id'));
+            this.setState({ edit: true });
+        }
+        else if (event.target.title === 'restore') {
+            event.preventDefault();
+            this.props.restoreForum(event.target.name);
+        } 
     }
 
     render() {
@@ -137,7 +144,8 @@ class Groups extends React.Component {
                 rows.push(<GroupEntry
                     key={i}
                     groupName={this.props.groupsData[i].groupname}
-                    onClick={this.edit}
+                    onClick={this.onClick}
+                    groupid={this.props.groupsData[i].groupid}
                 />);
             }
             return (

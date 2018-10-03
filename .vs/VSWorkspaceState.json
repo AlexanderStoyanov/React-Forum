@@ -5,13 +5,12 @@
     "\\client\\actions",
     "\\client\\actions\\common",
     "\\client\\components",
+    "\\client\\components\\common",
     "\\client\\components\\GroupsDash",
-    "\\client\\components\\NavBar",
-    "\\server",
-    "\\server\\routes",
-    "\\server\\shared",
-    "\\server\\shared\\validations"
+    "\\client\\components\\Replies",
+    "\\client\\components\\Topics",
+    "\\client\\reducers"
   ],
-  "SelectedNode": "\\client\\components\\GroupsDash\\GroupsPage.js",
+  "SelectedNode": "\\client\\components\\GroupsDash\\Groups.js",
   "PreviewInSolutionExplorer": false
 }
