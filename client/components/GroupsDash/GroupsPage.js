@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Groups from './Groups';
-import { loadGroups, addGroup, loadCurrentGroupID } from '../../actions/groupsAction';
+import { loadGroups, deleteGroup, renameGroup, addGroup, loadCurrentGroupID } from '../../actions/groupsAction';
 
 class GroupsPage extends React.Component {
     componentDidMount() {
@@ -32,6 +32,8 @@ class GroupsPage extends React.Component {
                     firstname={firstname}
                     currentGroup={currentGroup}
                     addGroup={this.props.addGroup}
+                    deleteGroup={this.props.deleteGroup}
+                    renameGroup={this.props.renameGroup}
                     loadCurrentGroupID={this.props.loadCurrentGroupID}
                     groupid={this.props.userDetails.currentGroupID}
                 />
@@ -57,7 +59,13 @@ function mapDispatchToProps(dispatch) {
         },
         loadCurrentGroupID: (currentGroupID) => {
             dispatch(loadCurrentGroupID(currentGroupID));
-        }
+        },
+        deleteGroup: (groupid) => {
+            dispatch(deleteGroup(groupid));
+        },
+        renameGroup: (groupid, newName) => {
+            dispatch(renameGroup(groupid, newName));
+        },
     }
 }
 

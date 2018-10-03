@@ -1,9 +1,5 @@
 import express from 'express';
-import validateInput from '../shared/validations/signup';
 import shortid from 'shortid';
-import pg from 'pg';
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
 
 let router = express.Router();
 
@@ -43,13 +39,53 @@ router.post('/add', (req, res) => {
 
     pool.connect((err, client, done) => {
         if (err) throw err
-        client.query(query, (err, ress) => {
+        client.query(query, (err) => {
             done();
 
             if (err) {
                 console.log(err);
             } else {
                 res.status(200);
+            }
+        });
+    });
+});
+
+router.post('/delete', (req, res) => {
+    const query = {
+        text: 'delete from groups where groupid = $1;',
+        values: [req.body.groupid],
+    }
+
+    pool.connect((err, client, done) => {
+        if (err) throw err
+        client.query(query, (err, ress) => {
+            done();
+
+            if (err) {
+                console.log(err.stack);
+            } else {
+                res.json({ success: true });
+            }
+        });
+    });
+});
+
+router.post('/rename', (req, res) => {
+    const query = {
+        text: 'update groups set groupname = $1 where groupid = $2',
+        values: [req.body.newGroupName, req.body.groupid],
+    }
+
+    pool.connect((err, client, done) => {
+        if (err) throw err
+        client.query(query, (err, ress) => {
+            done();
+
+            if (err) {
+                console.log(err.stack);
+            } else {
+                res.json({ success: true });
             }
         });
     });

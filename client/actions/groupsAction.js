@@ -37,6 +37,40 @@ export const addGroup = (newGroupName) => {
     };
 };
 
+export const REQUEST_DELETE = 'REQUEST_DELETE';
+export const RECEIVE_DELETE = 'RECEIVE_DELETE';
+export const GROUP_DELETE_FAILURE = 'GROUP_DELETE_FAILURE';
+export const deleteGroup = (groupid) => {
+    return dispatch => {
+        dispatch(request(REQUEST_DELETE));
+
+        axios.post('/api/groups/delete', { groupid: groupid })
+            .then(res => {
+                dispatch(receive(RECEIVE_DELETE, res.data.payload));
+            })
+            .catch(err => {
+                dispatch(error(GROUP_DELETE_FAILURE, err.message));
+            });
+    };
+};
+
+export const REQUEST_RENAME = 'REQUEST_GROUPS';
+export const RECEIVE_RENAME = 'RECEIVE_GROUPS';
+export const GROUP_RENAME_FAILURE = 'GROUPS_REQUEST_FAILURE';
+export const renameGroup = (groupid, newName) => {
+    return dispatch => {
+        dispatch(request(REQUEST_RENAME));
+
+        axios.post('/api/groups/rename', { groupid: groupid, newGroupName: newName })
+            .then(res => {
+                dispatch(receive(RECEIVE_RENAME, res.data.payload));
+            })
+            .catch(err => {
+                dispatch(error(GROUP_RENAME_FAILURE, err.message));
+            });
+    };
+};
+
 export const EDIT_GROUP = 'EDIT_GROUP';
 export const loadCurrentGroupID = (currentGroupID) => {
     return {

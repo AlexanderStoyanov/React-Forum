@@ -1,7 +1,5 @@
 import express from 'express';
-import validateInput from '../shared/validations/signup';
 import shortid from 'shortid';
-import pg from 'pg';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
@@ -15,30 +13,9 @@ const pool = new Pool({
 });
 
 
-//CREATE TABLE users(userid VARCHAR(10) PRIMARY KEY, username VARCHAR(10) not null unique, password VARCHAR(100) not null, firstname VARCHAR(20) not null)
-//CREATE TABLE forums(forumid VARCHAR(5) PRIMARY KEY, forumname VARCHAR(40) not null)
-//CREATE TABLE topics(id VARCHAR(10) PRIMARY KEY, topicname VARCHAR(40) not null, forumid VARCHAR(5))
-
-//Verifies token
-function verifyToken(req, res, next) {
-    if (!req.headers.authorization) {
-        return res.status(401).send('Unauthorized request')
-    }
-    let token = req.headers.authorization.split(' ')[1]
-    if (token === 'null') {
-        return res.status(401).send('Unauthorized request')
-    }
-    let payload = jwt.verify(token, 'raccoon')
-    if (!payload) {
-        return res.status(401).send('Unauthorized request')
-    }
-    req.userId = payload.subject
-    req.isAdmin = payload.isAdmin
-    next()
-}
 
 //Checks for uniqueness of username
-function userUniquenessCheck(req, res, next) {
+function userUniquenessCheck(req, next) {
     const query = {
         text: 'select * from users where username = $1',
         values: [req.body.username],
@@ -77,7 +54,7 @@ router.post('/signup', userUniquenessCheck, (req, res) => {
 
             pool.connect((err, client, done) => {
                 if (err) throw err
-                client.query(query, (err, ress) => {
+                client.query(query, (err) => {
                     done();
 
                     if (err) {

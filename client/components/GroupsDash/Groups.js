@@ -16,6 +16,7 @@ class Groups extends React.Component {
         }
 
         this.add = this.add.bind(this);
+        this.deleteGroup = this.deleteGroup.bind(this);
         this.manageUsers = this.manageUsers.bind(this);
         this.back = this.back.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -25,6 +26,11 @@ class Groups extends React.Component {
 
     add() {
         this.setState({ add: true });
+    }
+    
+    deleteGroup(event) {
+        event.preventDefault();
+        this.props.deleteGroup(this.props.groupid);
     }
 
     manageUsers() {
@@ -44,17 +50,18 @@ class Groups extends React.Component {
         if (this.state.add) {
             this.props.addGroup(this.state.newName);
         }
+        else if (this.state.edit) {
+            this.props.renameGroup(this.props.groupid, this.state.renameText);
+        }
+        this.setState({ edit: false, add: false });
     }
 
     onClick(event) {
+        event.preventDefault();
         if (event.target.title === 'edit') {
             this.props.loadCurrentGroupID(event.target.getAttribute('data-id'));
             this.setState({ edit: true });
         }
-        else if (event.target.title === 'restore') {
-            event.preventDefault();
-            this.props.restoreForum(event.target.name);
-        } 
     }
 
     render() {
@@ -75,7 +82,7 @@ class Groups extends React.Component {
                                 />
                                 <button type="submit" className="btn btn-primary m-1">Rename</button>
                                 <button onClick={this.back} className="btn btn-dark m-1">Back</button>
-                                <button onClick={this.delete} className="btn btn-danger float-right m-1">Delete Group</button>
+                                <button onClick={this.deleteGroup} className="btn btn-danger float-right m-1">Delete Group</button>
                             </form>
                         </div>
                     </div>
