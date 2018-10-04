@@ -1,9 +1,8 @@
 import React from 'react';
-import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from "react-router-dom";
 
-const TopicEntry = ({ topicName, forumURL, topicURL, topicID, onClick, group, deleted, match }) => {
+const TopicEntry = ({ topicName, topicURL, topicID, onClick, group, deleted, match }) => {
     return (
         <div className="card" onClick={onClick}>
             <div className="card-body">
