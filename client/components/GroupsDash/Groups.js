@@ -2,7 +2,14 @@ import React from 'react';
 import GroupEntry from '../common/GroupEntry';
 import UserEntry from '../common/UserEntry';
 import TextFieldGroup from '../common/TextFieldGroup';
-import { throws } from 'assert';
+
+const permissionTemplate = {
+    edittopics: null,
+    deletetopics: null,
+    editreplies: null,
+    deletereplies: null,
+    blocked: null,
+}
 
 class Groups extends React.Component {
     constructor(props) {
@@ -15,13 +22,7 @@ class Groups extends React.Component {
             newName: '',
             renameText: '',
             edittopics: null,
-            permissions: {
-                editreplies: null,
-                deletereplies: null,
-                edittopics: null,
-                deletetopics: null,
-                blocked: null
-            }
+            permissions: {}
         }
 
         this.add = this.add.bind(this);
@@ -57,20 +58,41 @@ class Groups extends React.Component {
 
     onChange(event) {
         console.log(event.target);
-        console.log(this.state.edittopics);
-        this.setState({ [event.target.name]: event.target.value });
+        //if we are checking or unchecking checkboxes
+        if (event.target.type === "checkbox") {
+            //find if groupid is already in the state's permissions
+            let id = event.target.getAttribute('data-id');
+            if (this.state.permissions[id]) {
+                //if it is, modify existing permission entry
+                this.setState({ permissions: {...this.state.permissions, [id]: { ...this.state.permissions[id], [event.target.name]: event.target.checked }} }, function () {
+                    console.log(this.state.permissions);
+                });
+            } else {
+                //if it is not, create new permission entry
+                this.setState({permissions: {...this.state.permissions, [id]: { ...permissionTemplate, [event.target.name]: event.target.checked }} }, function () {
+                    console.log(this.state.permissions);
+                });
+            }
+        }
+        //if we are changing text-field state 
+        else {
+            this.setState({ [event.target.name]: event.target.value });
+        }
     }
 
     onSubmit(event) {
         event.preventDefault();
+        //if we are adding new group
         if (this.state.add) {
             this.props.addGroup(this.state.newName);
         }
+        //if we are editing existing group
         else if (this.state.edit) {
             this.props.renameGroup(this.props.groupid, this.state.renameText);
         }
+        //if we are submitting group permissions (default onSubmit value, since it is rendered first on the groups page)
         else {
-            console.log(this.state.edittopics);
+            console.log(this.state.permissions);
             this.props.loadPermissions(this.state.permissions);
         }
         this.setState({ edit: false, add: false });
@@ -175,8 +197,6 @@ class Groups extends React.Component {
                         onChange={this.onChange}
                         groupName={this.props.groupsData[i].groupname}
                         groupid={this.props.groupsData[i].groupid}
-                        field="edittopics"
-                        checked={this.state.edittopics}
                     />
                 );
             }

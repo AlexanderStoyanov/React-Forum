@@ -92,30 +92,34 @@ router.post('/rename', (req, res) => {
 });
 
 router.post('/loadPermissions', (req, res) => {
-    const query = {
-        text: 'update groups set edittopics = $2, deletetopics = $3, editreplies = $4, deletereplies = $5, blocked = $6 where groupid = $1',
-        values: [
-            req.body.groupid,
-            req.body.edittopics, 
-            req.body.deletetopics, 
-            req.body.editreplies, 
-            req.body.deletereplies, 
-            req.body.blocked,
-        ],
-    }
-
-    pool.connect((err, client, done) => {
-        if (err) throw err
-        client.query(query, (err, ress) => {
-            done();
-
-            if (err) {
-                console.log(err.stack);
-            } else {
-                res.json({ success: true });
-            }
+    //get all groupid in the array
+    var arr = Object.keys(req.body);
+    for (var i = 0; i < arr.length; i++) {
+        const query = {
+            text: 'update groups set edittopics = $2, deletetopics = $3, editreplies = $4, deletereplies = $5, blocked = $6 where groupid = $1',
+            values: [
+                arr[i],
+                req.body[arr[i]].edittopics === true ? '1' : '0',
+                req.body[arr[i]].deletetopics === true ? '1' : '0',
+                req.body[arr[i]].editreplies === true ? '1' : '0',
+                req.body[arr[i]].deletereplies === true ? '1' : '0',
+                req.body[arr[i]].blocked === true ? '1' : '0',
+            ],
+        }
+    
+        pool.connect((err, client, done) => {
+            if (err) throw err
+            client.query(query, (err, ress) => {
+                done();
+    
+                if (err) {
+                    res.json(err.stack);
+                }
+            });
         });
-    });
+
+    }
+    res.json({ success: true });
 });
 
 export default router;
