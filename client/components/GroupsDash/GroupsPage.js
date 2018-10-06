@@ -2,11 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Groups from './Groups';
-import { loadGroups, deleteGroup, renameGroup, addGroup, loadCurrentGroupID, loadPermissions } from '../../actions/groupsAction';
+import { loadGroups, deleteGroup, renameGroup, addGroup, loadCurrentGroupID, loadPermissions, loadUserList } from '../../actions/groupsAction';
 
 class GroupsPage extends React.Component {
-    componentDidMount() {
-        this.props.loadGroups();
+    //async await for two functions to be called simultaneously
+    async componentDidMount() {
+        await this.props.loadGroups();
+        this.props.loadUserList();
     }
 
     render() {
@@ -15,12 +17,12 @@ class GroupsPage extends React.Component {
             groupsData = this.props.groups.groupsData;
         }
 
-        let userid = [], firstname = [], currentGroup = [];
-        if (this.props.groups.userData) {
-            for (i = 0; i < this.props.groups.userData; i++) {
-                userid.push(this.props.groups.userData[i].userid);
-                firstname.push(this.props.groups.userData[i].firstname);
-                currentGroup.push(this.props.groups.userData[i].currentGroup);
+        var userid = [], firstname = [], currentGroup = [];
+        if (this.props.groups.userList) {
+            for (var i = 0; i < this.props.groups.userList.length; i++) {
+                userid.push(this.props.groups.userList[i].userid);
+                firstname.push(this.props.groups.userList[i].firstname);
+                currentGroup.push(this.props.groups.userList[i].groupid);
             }
         }
 
@@ -37,6 +39,7 @@ class GroupsPage extends React.Component {
                     loadCurrentGroupID={this.props.loadCurrentGroupID}
                     groupid={this.props.userDetails.currentGroupID}
                     loadPermissions={this.props.loadPermissions}
+                    loadUserList={this.props.loadUserList}
                 />
             </div>
         );
@@ -69,6 +72,9 @@ function mapDispatchToProps(dispatch) {
         },
         loadPermissions: (data) => {
             dispatch(loadPermissions(data));
+        },
+        loadUserList: () => {
+            dispatch(loadUserList());
         },
     }
 }

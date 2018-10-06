@@ -88,6 +88,23 @@ export const loadPermissions = (data) => {
     };
 };
 
+export const REQUEST_LOAD_USER_LIST = 'REQUEST_LOAD_USER_LIST';
+export const RECEIVE_LOAD_USER_LIST = 'RECEIVE_LOAD_USER_LIST';
+export const LOAD_USER_LIST_FAILURE = 'LOAD_USER_LIST_FAILURE';
+export const loadUserList = () => {
+    return dispatch => {
+        dispatch(request(REQUEST_LOAD_USER_LIST));
+
+        axios.get('/api/groups/loadUserList')
+            .then(res => {
+                dispatch(receive(RECEIVE_LOAD_USER_LIST, res.data));
+            })
+            .catch(err => {
+                dispatch(error(LOAD_USER_LIST_FAILURE, err.message));
+            });
+    };
+};
+
 export const EDIT_GROUP = 'EDIT_GROUP';
 export const loadCurrentGroupID = (currentGroupID) => {
     return {

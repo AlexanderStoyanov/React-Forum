@@ -122,4 +122,23 @@ router.post('/loadPermissions', (req, res) => {
     res.json({ success: true });
 });
 
+router.get('/loadUserList', (req, res) => {
+    const query = {
+        text: 'select * from users',
+    }
+
+    pool.connect((err, client, done) => {
+        if (err) throw err
+        client.query(query, (err, ress) => {
+            done();
+
+            if (err) {
+                console.log(err.stack);
+            } else {
+                res.json(ress.rows);
+            }
+        });
+    });
+});
+
 export default router;

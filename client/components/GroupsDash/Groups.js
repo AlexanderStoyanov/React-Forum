@@ -57,21 +57,16 @@ class Groups extends React.Component {
     }
 
     onChange(event) {
-        console.log(event.target);
         //if we are checking or unchecking checkboxes
         if (event.target.type === "checkbox") {
             //find if groupid is already in the state's permissions
             let id = event.target.getAttribute('data-id');
             if (this.state.permissions[id]) {
                 //if it is, modify existing permission entry
-                this.setState({ permissions: {...this.state.permissions, [id]: { ...this.state.permissions[id], [event.target.name]: event.target.checked }} }, function () {
-                    console.log(this.state.permissions);
-                });
+                this.setState({ permissions: {...this.state.permissions, [id]: { ...this.state.permissions[id], [event.target.name]: event.target.checked }} });
             } else {
                 //if it is not, create new permission entry
-                this.setState({permissions: {...this.state.permissions, [id]: { ...permissionTemplate, [event.target.name]: event.target.checked }} }, function () {
-                    console.log(this.state.permissions);
-                });
+                this.setState({permissions: {...this.state.permissions, [id]: { ...permissionTemplate, [event.target.name]: event.target.checked }} });
             }
         }
         //if we are changing text-field state 
@@ -86,13 +81,12 @@ class Groups extends React.Component {
         if (this.state.add) {
             this.props.addGroup(this.state.newName);
         }
-        //if we are editing existing group
+        //else if we are editing existing group
         else if (this.state.edit) {
             this.props.renameGroup(this.props.groupid, this.state.renameText);
         }
         //if we are submitting group permissions (default onSubmit value, since it is rendered first on the groups page)
         else {
-            console.log(this.state.permissions);
             this.props.loadPermissions(this.state.permissions);
         }
         this.setState({ edit: false, add: false });
@@ -153,13 +147,19 @@ class Groups extends React.Component {
                 </div>
             );
         } else if (this.state.manageUsers) {
-            var rows = [];
+            var rows = [], groupIDs = [], groupNames = [];
             for (var i = 0; i < this.props.groupsData.length; i++) {
+                groupIDs.push(this.props.groupsData[i].groupid);
+                groupNames.push(this.props.groupsData[i].groupname)
+            }
+            for (var i = 0; i < this.props.userid.length; i++) {
                 rows.push(<UserEntry
                     key={i}
                     userid={this.props.userid[i]}
                     firstname={this.props.firstname[i]}
                     currentGroup={this.props.currentGroup[i]}
+                    groupIDs={groupIDs}
+                    groupNames={groupNames}
                 />);
             }
             return (
