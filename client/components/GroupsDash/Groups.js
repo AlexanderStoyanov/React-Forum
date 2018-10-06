@@ -2,6 +2,7 @@ import React from 'react';
 import GroupEntry from '../common/GroupEntry';
 import UserEntry from '../common/UserEntry';
 import TextFieldGroup from '../common/TextFieldGroup';
+import { throws } from 'assert';
 
 class Groups extends React.Component {
     constructor(props) {
@@ -13,12 +14,21 @@ class Groups extends React.Component {
             manageUsers: false,
             newName: '',
             renameText: '',
+            edittopics: null,
+            permissions: {
+                editreplies: null,
+                deletereplies: null,
+                edittopics: null,
+                deletetopics: null,
+                blocked: null
+            }
         }
 
         this.add = this.add.bind(this);
         this.deleteGroup = this.deleteGroup.bind(this);
         this.manageUsers = this.manageUsers.bind(this);
         this.back = this.back.bind(this);
+        this.loadNewPermissions = this.loadNewPermissions.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onClick = this.onClick.bind(this);
@@ -27,7 +37,7 @@ class Groups extends React.Component {
     add() {
         this.setState({ add: true });
     }
-    
+
     deleteGroup(event) {
         event.preventDefault();
         this.props.deleteGroup(this.props.groupid);
@@ -41,7 +51,13 @@ class Groups extends React.Component {
         this.setState({ edit: false, add: false, manageUsers: false });
     }
 
+    loadNewPermissions() {
+        this.props.loadPermissions(this.state.permissions);
+    }
+
     onChange(event) {
+        console.log(event.target);
+        console.log(this.state.edittopics);
         this.setState({ [event.target.name]: event.target.value });
     }
 
@@ -52,6 +68,10 @@ class Groups extends React.Component {
         }
         else if (this.state.edit) {
             this.props.renameGroup(this.props.groupid, this.state.renameText);
+        }
+        else {
+            console.log(this.state.edittopics);
+            this.props.loadPermissions(this.state.permissions);
         }
         this.setState({ edit: false, add: false });
     }
@@ -148,12 +168,17 @@ class Groups extends React.Component {
         } else {
             var rows = [];
             for (var i = 0; i < this.props.groupsData.length; i++) {
-                rows.push(<GroupEntry
-                    key={i}
-                    groupName={this.props.groupsData[i].groupname}
-                    onClick={this.onClick}
-                    groupid={this.props.groupsData[i].groupid}
-                />);
+                rows.push(
+                    <GroupEntry
+                        key={i}
+                        onClick={this.onClick}
+                        onChange={this.onChange}
+                        groupName={this.props.groupsData[i].groupname}
+                        groupid={this.props.groupsData[i].groupid}
+                        field="edittopics"
+                        checked={this.state.edittopics}
+                    />
+                );
             }
             return (
                 <div className="groupsWrap">
@@ -165,21 +190,24 @@ class Groups extends React.Component {
                     </div>
                     <div className="row">
                         <div className="col-md">
-                            <table class="table table-striped table-dark mt-5">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Groupname</th>
-                                        <th scope="col">Edit Topics</th>
-                                        <th scope="col">Delete Topics</th>
-                                        <th scope="col">Edit Replies</th>
-                                        <th scope="col">Delete Replies</th>
-                                        <th scope="col">Blocked</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {rows}
-                                </tbody>
-                            </table>
+                            <form onSubmit={this.onSubmit}>
+                                <table class="table table-striped table-dark mt-5">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Groupname</th>
+                                            <th scope="col">Edit Topics</th>
+                                            <th scope="col">Delete Topics</th>
+                                            <th scope="col">Edit Replies</th>
+                                            <th scope="col">Delete Replies</th>
+                                            <th scope="col">Blocked</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {rows}
+                                    </tbody>
+                                </table>
+                                <button type="submit" class="btn btn-primary">Submit Changes</button>
+                            </form>
                         </div>
                     </div>
                 </div>

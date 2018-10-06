@@ -71,6 +71,23 @@ export const renameGroup = (groupid, newName) => {
     };
 };
 
+export const REQUEST_LOAD_PERMISSIONS = 'REQUEST_LOAD_PERMISSIONS';
+export const RECEIVE_LOAD_PERMISSIONS = 'RECEIVE_LOAD_PERMISSIONS';
+export const LOAD_PERMISSIONS_FAILURE = 'LOAD_PERMISSIONS_FAILURE';
+export const loadPermissions = (data) => {
+    return dispatch => {
+        dispatch(request(REQUEST_LOAD_PERMISSIONS));
+
+        axios.post('/api/groups/loadPermissions', data)
+            .then(res => {
+                dispatch(receive(RECEIVE_LOAD_PERMISSIONS, res.data.payload));
+            })
+            .catch(err => {
+                dispatch(error(LOAD_PERMISSIONS_FAILURE, err.message));
+            });
+    };
+};
+
 export const EDIT_GROUP = 'EDIT_GROUP';
 export const loadCurrentGroupID = (currentGroupID) => {
     return {
