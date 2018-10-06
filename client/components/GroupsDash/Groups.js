@@ -22,7 +22,8 @@ class Groups extends React.Component {
             newName: '',
             renameText: '',
             edittopics: null,
-            permissions: {}
+            permissions: {},
+            newUserGroups: {},
         }
 
         this.add = this.add.bind(this);
@@ -63,11 +64,18 @@ class Groups extends React.Component {
             let id = event.target.getAttribute('data-id');
             if (this.state.permissions[id]) {
                 //if it is, modify existing permission entry
-                this.setState({ permissions: {...this.state.permissions, [id]: { ...this.state.permissions[id], [event.target.name]: event.target.checked }} });
+                this.setState({ permissions: { ...this.state.permissions, [id]: { ...this.state.permissions[id], [event.target.name]: event.target.checked } } });
             } else {
                 //if it is not, create new permission entry
-                this.setState({permissions: {...this.state.permissions, [id]: { ...permissionTemplate, [event.target.name]: event.target.checked }} });
+                this.setState({ permissions: { ...this.state.permissions, [id]: { ...permissionTemplate, [event.target.name]: event.target.checked } } });
             }
+        }
+        //else if we are selecting new group from grouplist
+        else if (event.target.tagName.toLowerCase() === "select") {
+            //console.log(event.target);
+            //console.log(event.target.value); //groupid
+            var userID = event.target.getAttribute("data-userid");
+            this.setState({ newUserGroups: { ...this.state.newUserGroups, [userID]: event.target.value }});
         }
         //if we are changing text-field state 
         else {
@@ -85,11 +93,15 @@ class Groups extends React.Component {
         else if (this.state.edit) {
             this.props.renameGroup(this.props.groupid, this.state.renameText);
         }
+        //else if we are managing users (assigning groups to users)
+        else if (this.state.manageUsers) {
+            this.props.updateUsers(this.state.newUserGroups);
+        }
         //if we are submitting group permissions (default onSubmit value, since it is rendered first on the groups page)
         else {
             this.props.loadPermissions(this.state.permissions);
         }
-        this.setState({ edit: false, add: false });
+        this.setState({ edit: false, add: false, manageUsers: false });
     }
 
     onClick(event) {
@@ -155,6 +167,7 @@ class Groups extends React.Component {
             for (var i = 0; i < this.props.userid.length; i++) {
                 rows.push(<UserEntry
                     key={i}
+                    onChange={this.onChange}
                     userid={this.props.userid[i]}
                     firstname={this.props.firstname[i]}
                     currentGroup={this.props.currentGroup[i]}
@@ -171,18 +184,21 @@ class Groups extends React.Component {
                     </div>
                     <div className="row">
                         <div className="col-md">
-                            <table class="table table-striped table-dark mt-5">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Username</th>
-                                        <th scope="col">Current Group</th>
-                                        <th scope="col">New Group</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {rows}
-                                </tbody>
-                            </table>
+                            <form onSubmit={this.onSubmit}>
+                                <table class="table table-striped table-dark mt-5">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Username</th>
+                                            <th scope="col">Current Group</th>
+                                            <th scope="col">New Group</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {rows}
+                                    </tbody>
+                                </table>
+                                <button type="submit" class="btn btn-primary">Submit Changes</button>
+                            </form>
                         </div>
                     </div>
                 </div>

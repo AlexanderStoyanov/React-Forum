@@ -1,7 +1,7 @@
 import React from 'react';
 import GroupSelectionEntry from './GroupSelectionEntry';
 
-const UserEntry = ({ userid, firstname, currentGroup, groupIDs, groupNames }) => {
+const UserEntry = ({ userid, firstname, currentGroup, groupIDs, groupNames, onChange }) => {
     var rows = [];
     for (var i = 0; i < groupIDs.length; i++) {
         rows.push(<GroupSelectionEntry
@@ -19,7 +19,8 @@ const UserEntry = ({ userid, firstname, currentGroup, groupIDs, groupNames }) =>
             </td>
             <td>
                 <div class="form-group">
-                    <select class="form-control" id="exampleFormControlSelect1">
+                    <select class="form-control" id="exampleFormControlSelect1" data-userid={userid} onChange={onChange}>
+                    <option>Default</option>
                         {rows}
                     </select>
                 </div>

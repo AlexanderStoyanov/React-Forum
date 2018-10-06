@@ -124,7 +124,7 @@ router.post('/loadPermissions', (req, res) => {
 
 router.get('/loadUserList', (req, res) => {
     const query = {
-        text: 'select * from users',
+        text: 'select users.userid, users.username, users.firstname, users.groupid, groups.groupname from users left join groups on users.groupid = groups.groupid',
     }
 
     pool.connect((err, client, done) => {
@@ -139,6 +139,28 @@ router.get('/loadUserList', (req, res) => {
             }
         });
     });
+});
+
+router.post('/updateUsers', (req, res) => {
+    var arr = Object.keys(req.body);
+    for (var i = 0; i < arr.length; i++) {
+        const query = {
+            text: 'update users set groupid = $2 where userid = $1',
+            values: [arr[i], req.body[arr[i]]],
+        }
+    
+        pool.connect((err, client, done) => {
+            if (err) throw err
+            client.query(query, (err, ress) => {
+                done();
+    
+                if (err) {
+                    console.log(err.stack);
+                }
+            });
+        });
+    }
+    res.json({ success: true });
 });
 
 export default router;

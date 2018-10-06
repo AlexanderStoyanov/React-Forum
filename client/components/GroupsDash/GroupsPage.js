@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Groups from './Groups';
-import { loadGroups, deleteGroup, renameGroup, addGroup, loadCurrentGroupID, loadPermissions, loadUserList } from '../../actions/groupsAction';
+import { loadGroups, deleteGroup, renameGroup, addGroup, loadCurrentGroupID, loadPermissions, loadUserList, updateUsers } from '../../actions/groupsAction';
 
 class GroupsPage extends React.Component {
     //async await for two functions to be called simultaneously
@@ -22,7 +22,7 @@ class GroupsPage extends React.Component {
             for (var i = 0; i < this.props.groups.userList.length; i++) {
                 userid.push(this.props.groups.userList[i].userid);
                 firstname.push(this.props.groups.userList[i].firstname);
-                currentGroup.push(this.props.groups.userList[i].groupid);
+                currentGroup.push(this.props.groups.userList[i].groupname);
             }
         }
 
@@ -40,6 +40,7 @@ class GroupsPage extends React.Component {
                     groupid={this.props.userDetails.currentGroupID}
                     loadPermissions={this.props.loadPermissions}
                     loadUserList={this.props.loadUserList}
+                    updateUsers={this.props.updateUsers}
                 />
             </div>
         );
@@ -76,6 +77,9 @@ function mapDispatchToProps(dispatch) {
         loadUserList: () => {
             dispatch(loadUserList());
         },
+        updateUsers: (data) => {
+            dispatch(updateUsers(data));
+        }
     }
 }
 

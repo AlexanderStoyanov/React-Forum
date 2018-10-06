@@ -105,6 +105,23 @@ export const loadUserList = () => {
     };
 };
 
+export const REQUEST_UPDATE_USERS_LIST = 'REQUEST_UPDATE_USERS_LIST';
+export const RECEIVE_UPDATE_USERS_LIST = 'RECEIVE_UPDATE_USERS_LIST';
+export const UPDATE_USERS_LIST_FAILURE = 'UPDATE_USERS_LIST_FAILURE';
+export const updateUsers = (data) => {
+    return dispatch => {
+        dispatch(request(REQUEST_UPDATE_USERS_LIST));
+
+        axios.post('/api/groups/updateUsers', data)
+            .then(res => {
+                dispatch(receive(RECEIVE_UPDATE_USERS_LIST, res.data));
+            })
+            .catch(err => {
+                dispatch(error(UPDATE_USERS_LIST_FAILURE, err.message));
+            });
+    };
+};
+
 export const EDIT_GROUP = 'EDIT_GROUP';
 export const loadCurrentGroupID = (currentGroupID) => {
     return {
