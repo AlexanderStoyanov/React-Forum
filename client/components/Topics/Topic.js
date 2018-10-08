@@ -68,6 +68,10 @@ class Topic extends React.Component {
 
     render() {
         if (this.state.edit) {
+            let deleteButton = null;
+            if (this.props.deletetopics === '1') {
+                deleteButton = <button onClick={this.delete} className="btn btn-danger float-right m-1">Delete Topic</button>;
+            }
             const { errors } = this.state;
             return (
                 <div className="row">
@@ -84,7 +88,7 @@ class Topic extends React.Component {
                                 />
                                 <button type="submit" className="btn btn-primary m-1">Rename</button>
                                 <button onClick={this.back} className="btn btn-dark m-1">Back</button>
-                                <button onClick={this.delete} className="btn btn-danger float-right m-1">Delete Topic</button>
+                                {deleteButton}
                             </form>
                         </div>
                     </div>

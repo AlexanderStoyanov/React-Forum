@@ -85,9 +85,12 @@ router.post('/signin', (req, res) => {
         if (err) throw err
         client.query(query, (err, ress) => {
             done();
-
-            let passwordIsValid = bcrypt.compareSync(req.body.password, ress.rows[0].password);
             
+            var passwordIsValid = null;
+            if (ress.rows.length > 0) {
+                passwordIsValid = bcrypt.compareSync(req.body.password, ress.rows[0].password);
+            }
+
             if (err) {
                 console.log(err.stack);
             } else if (!passwordIsValid) { 
