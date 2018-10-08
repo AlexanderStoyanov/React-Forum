@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import ReplyEntry from '../common/ReplyEntry';
 
 import { Editor } from 'react-draft-wysiwyg';
-import { convertFromRaw, convertToRaw } from 'draft-js';
-import htmlToDraft from 'html-to-draftjs';
+import { convertFromRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import validateReply from '../../../server/shared/validations/reply';
 import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
@@ -92,7 +93,7 @@ class Reply extends React.Component {
                         bla bla
                         <button title="Back" class="btn btn-dark m-1" onClick={this.onClick} >Back</button>
                     </div>
-                    
+
 
                     <div className="row mt-3">
                         <div className="col-md">
@@ -140,29 +141,42 @@ class Reply extends React.Component {
                     />);
                 }
             }
+
+            let editor = null;
+            if (this.props.token) {
+                editor = <form onSubmit={this.onSubmit}>
+                    <Editor
+                        toolbarClassName="toolbarClass"
+                        editorClassName="editorClass"
+                        onContentStateChange={this.onContentStateChange}
+                        toolbar={{
+                            inline: {
+                                inDropdown: false,
+                                className: 'red',
+                            }
+                        }}
+                    />
+                    <button disabled={this.state.invalid} type="submit" className="btn btn-primary">Submit</button>
+                </form>;
+            } else {
+                editor = <div class="alert alert-info text-center" role="alert">
+                    Please, 
+                    <Link to="/signin" className="nav-link d-inline" >Sign In</Link>
+                    or
+                    <Link to="/signup" className="nav-link d-inline" >Sign Up</Link>
+                    to comment!
+              </div>;
+            }
+
             return (
                 <div className="container pt-1" style={{ background: '#e4e4e4' }}>
                     <div className="reply mt-5">
                         {rows}
                     </div>
 
-
                     <div className="row mt-3">
                         <div className="col-md">
-                            <form onSubmit={this.onSubmit}>
-                                <Editor
-                                    toolbarClassName="toolbarClass"
-                                    editorClassName="editorClass"
-                                    onContentStateChange={this.onContentStateChange}
-                                    toolbar={{
-                                        inline: {
-                                            inDropdown: false,
-                                            className: 'red',
-                                        }
-                                    }}
-                                />
-                                <button disabled={this.state.invalid} type="submit" className="btn btn-primary">Submit</button>
-                            </form>
+                            {editor}
                         </div>
                     </div>
                 </div>

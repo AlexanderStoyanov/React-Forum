@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
 class NavigationBar extends React.Component {
     constructor(props) {
@@ -12,6 +13,7 @@ class NavigationBar extends React.Component {
     signOut(event) {
         event.preventDefault();
         this.props.signOut();
+        this.props.history.push('/');
     }
 
     onClick(event) {
@@ -70,4 +72,4 @@ class NavigationBar extends React.Component {
     }
 }
 
-export default NavigationBar;
+export default withRouter(NavigationBar);

@@ -1,15 +1,6 @@
 import React from 'react';
-//import PropTypes from 'prop-types';
-//import classnames from 'classnames';
-import validateInput from '../../../server/shared/validations/signup';
 import TextFieldGroup from '../common/TextFieldGroup';
-import {
-    BrowserRouter as Router,
-    Route,
-    Link,
-    Redirect,
-    withRouter
-} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 class SignInForm extends React.Component {
     constructor(props) {
