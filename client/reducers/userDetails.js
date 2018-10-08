@@ -3,15 +3,16 @@ import { RECEIVE_TOPICS, EDIT_TOPIC } from '../actions/topicAction';
 import { EDIT_FORUM } from '../actions/forumAction';
 import { EDIT_REPLY } from '../actions/replyAction';
 import { EDIT_GROUP } from '../actions/groupsAction';
+import { SIGN_OUT } from '../actions/navigationBarActions';
 
 const initialState = {
-    token: '',
-    name: '',
-    group: '',
-    currentForumID: '',
-    currentTopicID: '',
-    currentReplyID: '',
-    currentGroupID: '',
+    token: null,
+    name: null,
+    group: null,
+    currentForumID: null,
+    currentTopicID: null,
+    currentReplyID: null,
+    currentGroupID: null,
     permissions: {},
 };
 
@@ -34,6 +35,10 @@ export default (state = initialState, action = {}) => {
             return {
                 loading: false,
                 error: action.payload.error
+            };
+        case SIGN_OUT:
+            return {
+                state: initialState,
             };
         case EDIT_FORUM:
             return {

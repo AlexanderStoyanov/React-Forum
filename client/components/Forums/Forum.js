@@ -62,7 +62,7 @@ class Forum extends React.Component {
         else if (event.target.title === 'restore') {
             event.preventDefault();
             this.props.restoreForum(event.target.name);
-        } 
+        }
     }
 
     render() {
@@ -140,11 +140,14 @@ class Forum extends React.Component {
 
             return (
                 <div className="forumWrap">
-                    <div className="row">
-                        <div className="col-md">
-                            <button onClick={this.add} className="btn btn-primary float-right m-1">Add Forum</button>
-                        </div>
-                    </div>
+                    {
+                        (this.props.group === 'Administrator') ?
+                            (<div className="row">
+                                <div className="col-md">
+                                    <button onClick={this.add} className="btn btn-primary float-right m-1">Add Forum</button>
+                                </div>
+                            </div>) : (null)
+                    }
                     <div className="row">
                         <div className="col-md">
                             {rows}
