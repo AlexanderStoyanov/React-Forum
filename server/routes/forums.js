@@ -12,7 +12,7 @@ const pool = new Pool({
 
 router.get('/load', (req, res) => {
     const query = {
-        text: 'select * from forums',
+        text: 'select * from forums order by deleted desc',
     }
 
     pool.connect((err, client, done) => {

@@ -53,7 +53,7 @@ class Forum extends React.Component {
     }
 
     onClick(event) {
-        if (event.target.className === 'nav-link') {
+        if (event.target.tagName.toLowerCase() === 'a') {
             this.props.loadTopics(event.target.name);
         }
         else if (event.target.title === 'edit') {

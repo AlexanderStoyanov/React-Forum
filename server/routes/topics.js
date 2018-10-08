@@ -12,7 +12,7 @@ const pool = new Pool({
 
 router.get('/load', (req, res) => {
     const query = {
-        text: 'select * from topics where forumid = $1',
+        text: 'select * from topics where forumid = $1 order by topicname',
         values: [req.query.forumid],
     }
 

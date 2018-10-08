@@ -52,7 +52,7 @@ class Topic extends React.Component {
     }
 
     onClick(event) {
-        if (event.target.className === 'nav-link') {
+        if (event.target.tagName.toLowerCase() === 'a') {
             this.props.loadCurrentTopicID(event.target.name);
             this.props.loadReplies(event.target.name);
         }

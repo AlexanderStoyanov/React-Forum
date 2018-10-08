@@ -9,20 +9,21 @@ const TopicEntry = ({ topicName, topicURL, topicID, onClick, group, deleted, mat
                 <h3>
                     <Link
                         to={{ pathname: `${match.url}/${topicURL}` }}
-                        className="nav-link"
+                        className="nav-link d-inline"
                         name={`${topicID}`}
                         style={{
                             opacity: (group === 'Administrator' && deleted === '1') ? '0.5' : '1',
                         }}
-                    >{topicName}</Link>
+                    >{topicName}
+                    </Link>
+                    <button className="btn btn-secondary m-1 d-inline float-right" title="edit" name={`${topicID}`} onClick={onClick}>Edit</button>
+                    <button
+                        className="btn btn-success m-1 d-inline float-right"
+                        title="restore" name={`${topicID}`}
+                        onClick={onClick}
+                        style={{ opacity: (group === 'Administrator' && deleted === '1') ? '1' : '0' }}
+                    >Restore</button>
                 </h3>
-                <button className="btn btn-secondary m-1" title="edit" name={`${topicID}`} onClick={onClick}>Edit</button>
-                <button
-                    className="btn btn-success m-1"
-                    title="restore" name={`${topicID}`}
-                    onClick={onClick}
-                    style={{ opacity: (group === 'Administrator' && deleted === '1') ? '1' : '0' }}
-                >Restore</button>
             </div>
         </div>
     );

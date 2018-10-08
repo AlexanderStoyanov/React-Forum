@@ -16,8 +16,8 @@ const ReplyEntry = ({ text, firstname, date, onClick, id, order }) => {
             <div className="col-md-3">
                 <div className="card">
                     <div className="card-body">
-                        <h5 className="card-title">{firstname}</h5>
-                        <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <h5 className="card-title text-center">{firstname}</h5>
+                        <p className="card-text"> </p>
                     </div>
                 </div>
             </div>
@@ -26,8 +26,8 @@ const ReplyEntry = ({ text, firstname, date, onClick, id, order }) => {
                     <div className="card-header">
                         {new Date(Number(date)).toLocaleString()}
                         <div className="float-right">
-                            <button name={id} data-order={order} title="Edit" class="btn btn-secondary m-1" onClick={onClick} >Edit</button>
-                            <button name={id} title="Delete" class="btn btn-danger m-1" onClick={onClick} >Delete</button>
+                            <button name={id} data-order={order} title="Edit" class="btn btn-secondary mx-1" onClick={onClick} >Edit</button>
+                            <button name={id} title="Delete" class="btn btn-danger mx-1" onClick={onClick} >Delete</button>
                         </div>
                     </div>
                     <div className="card-body">

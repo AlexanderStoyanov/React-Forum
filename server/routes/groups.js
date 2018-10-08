@@ -12,7 +12,7 @@ const pool = new Pool({
 
 router.get('/load', (req, res) => {
     const query = {
-        text: 'select * from groups',
+        text: 'select * from groups order by groupname',
     }
 
     pool.connect((err, client, done) => {
@@ -124,7 +124,7 @@ router.post('/loadPermissions', (req, res) => {
 
 router.get('/loadUserList', (req, res) => {
     const query = {
-        text: 'select users.userid, users.username, users.firstname, users.groupid, groups.groupname from users left join groups on users.groupid = groups.groupid',
+        text: 'select users.userid, users.username, users.firstname, users.groupid, groups.groupname from users left join groups on users.groupid = groups.groupid order by groupname',
     }
 
     pool.connect((err, client, done) => {
