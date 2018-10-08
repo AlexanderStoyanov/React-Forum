@@ -1,8 +1,6 @@
 import React from 'react';
-import classnames from 'classnames';
-import PropTypes from 'prop-types';
 
-const ReplyEntry = ({ text, firstname, date, onClick, id, order }) => {
+const ReplyEntry = ({ text, firstname, date, onClick, id, order, groupname }) => {
     function createMarkup() {
         return { __html: text };
     }
@@ -17,6 +15,7 @@ const ReplyEntry = ({ text, firstname, date, onClick, id, order }) => {
                 <div className="card">
                     <div className="card-body">
                         <h5 className="card-title text-center">{firstname}</h5>
+                        <h6 className="card-title text-center">Group: {groupname}</h6>
                         <p className="card-text"> </p>
                     </div>
                 </div>
@@ -39,12 +38,6 @@ const ReplyEntry = ({ text, firstname, date, onClick, id, order }) => {
             </div>
         </div>
     );
-}
-
-ReplyEntry.propTypes = {
-    firstname: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-    date: PropTypes.number.isRequired,
 }
 
 export default ReplyEntry;

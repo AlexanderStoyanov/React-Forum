@@ -134,6 +134,7 @@ class Reply extends React.Component {
                         onClick={this.onClick}
                         id={this.props.ids[i]}
                         order={i}
+                        groupname={this.props.groups[i]}
                     />);
                 }
             }
