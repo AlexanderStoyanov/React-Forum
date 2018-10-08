@@ -144,21 +144,23 @@ router.get('/loadUserList', (req, res) => {
 router.post('/updateUsers', (req, res) => {
     var arr = Object.keys(req.body);
     for (var i = 0; i < arr.length; i++) {
-        const query = {
-            text: 'update users set groupid = $2 where userid = $1',
-            values: [arr[i], req.body[arr[i]]],
-        }
-    
-        pool.connect((err, client, done) => {
-            if (err) throw err
-            client.query(query, (err, ress) => {
-                done();
-    
-                if (err) {
-                    console.log(err.stack);
-                }
+        if (req.body[arr[i]] !== "Default") {
+            const query = {
+                text: 'update users set groupid = $2 where userid = $1',
+                values: [arr[i], req.body[arr[i]]],
+            }
+        
+            pool.connect((err, client, done) => {
+                if (err) throw err
+                client.query(query, (err, ress) => {
+                    done();
+        
+                    if (err) {
+                        console.log(err.stack);
+                    }
+                });
             });
-        });
+        }
     }
     res.json({ success: true });
 });

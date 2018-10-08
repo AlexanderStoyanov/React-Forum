@@ -17,11 +17,12 @@ class GroupsPage extends React.Component {
             groupsData = this.props.groups.groupsData;
         }
 
-        var userid = [], firstname = [], currentGroup = [];
+        var userid = [], firstname = [], username = [], currentGroup = [];
         if (this.props.groups.userList) {
             for (var i = 0; i < this.props.groups.userList.length; i++) {
                 userid.push(this.props.groups.userList[i].userid);
                 firstname.push(this.props.groups.userList[i].firstname);
+                username.push(this.props.groups.userList[i].username);
                 currentGroup.push(this.props.groups.userList[i].groupname);
             }
         }
@@ -32,6 +33,7 @@ class GroupsPage extends React.Component {
                     groupsData={groupsData}
                     userid={userid}
                     firstname={firstname}
+                    username={username}
                     currentGroup={currentGroup}
                     addGroup={this.props.addGroup}
                     deleteGroup={this.props.deleteGroup}

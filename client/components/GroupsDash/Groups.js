@@ -170,6 +170,7 @@ class Groups extends React.Component {
                     onChange={this.onChange}
                     userid={this.props.userid[i]}
                     firstname={this.props.firstname[i]}
+                    username={this.props.username[i]}
                     currentGroup={this.props.currentGroup[i]}
                     groupIDs={groupIDs}
                     groupNames={groupNames}
@@ -188,7 +189,7 @@ class Groups extends React.Component {
                                 <table class="table table-striped table-dark mt-5">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Username</th>
+                                            <th scope="col">Username (First name)</th>
                                             <th scope="col">Current Group</th>
                                             <th scope="col">New Group</th>
                                         </tr>

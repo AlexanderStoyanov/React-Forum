@@ -1,7 +1,7 @@
 import React from 'react';
 import GroupSelectionEntry from './GroupSelectionEntry';
 
-const UserEntry = ({ userid, firstname, currentGroup, groupIDs, groupNames, onChange }) => {
+const UserEntry = ({ userid, username, firstname, currentGroup, groupIDs, groupNames, onChange }) => {
     var rows = [];
     for (var i = 0; i < groupIDs.length; i++) {
         rows.push(<GroupSelectionEntry
@@ -12,7 +12,7 @@ const UserEntry = ({ userid, firstname, currentGroup, groupIDs, groupNames, onCh
     return (
         <tr>
             <th scope="row">
-                {firstname}
+                 {username} ({firstname})
             </th>
             <td>
                 {currentGroup}

@@ -77,7 +77,7 @@ router.post('/signup', userUniquenessCheck, (req, res) => {
 router.post('/signin', (req, res) => {
 
     const query = {
-        text: 'select users.userid, users.password, users.firstname, groups.groupname from users inner join groups on users.groupid = groups.groupid where username=$1',
+        text: 'select users.userid, users.password, users.firstname, groups.* from users inner join groups on users.groupid = groups.groupid where username=$1',
         values: [req.body.username],
     }
 
@@ -95,7 +95,17 @@ router.post('/signin', (req, res) => {
             } else if (ress.rowCount > 0 && passwordIsValid) {
                 let payload = { subject: ress.rows[0].userid };
                 let token = jwt.sign(payload, 'raccoon', { expiresIn: 86400 });
-                res.status(200).send({ token: token, name: ress.rows[0].firstname, groupname: ress.rows[0].groupname });
+                res.status(200).send({ 
+                    token: token, 
+                    name: ress.rows[0].firstname, 
+                    groupname: ress.rows[0].groupname, 
+                    permissions: { 
+                        edittopics: ress.rows[0].edittopics,
+                        deletetopics: ress.rows[0].deletetopics,
+                        editreplies: ress.rows[0].editreplies,
+                        deletereplies: ress.rows[0].deletereplies,
+                        blocked: ress.rows[0].blocked,
+                     } });
             } else {
                 res.json({ success: false });
             }

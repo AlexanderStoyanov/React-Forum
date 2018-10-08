@@ -12,6 +12,7 @@ const initialState = {
     currentTopicID: '',
     currentReplyID: '',
     currentGroupID: '',
+    permissions: {},
 };
 
 export default (state = initialState, action = {}) => {
@@ -26,7 +27,8 @@ export default (state = initialState, action = {}) => {
                 error: null,
                 token: action.payload.token,
                 name: action.payload.name,
-                group: action.payload.groupname
+                group: action.payload.groupname,
+                permissions: action.payload.permissions,
             };
         case SIGN_IN_FAILURE:
             return {
