@@ -135,6 +135,8 @@ class Reply extends React.Component {
                         id={this.props.ids[i]}
                         order={i}
                         groupname={this.props.groups[i]}
+                        editreplies={this.props.editreplies}
+                        deletereplies={this.props.deletereplies}
                     />);
                 }
             }

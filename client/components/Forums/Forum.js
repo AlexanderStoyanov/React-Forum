@@ -1,7 +1,6 @@
 import React from 'react';
 import ForumEntry from '../common/ForumEntry';
 import { withRouter } from 'react-router-dom';
-import { PropTypes } from 'prop-types';
 import TextFieldGroup from '../common/TextFieldGroup';
 
 class Forum extends React.Component {
@@ -155,11 +154,6 @@ class Forum extends React.Component {
             );
         }
     }
-}
-
-Forum.propTypes = {
-    forumNames: PropTypes.array,
-    loadTopics: PropTypes.func.isRequired,
 }
 
 export default withRouter(Forum)

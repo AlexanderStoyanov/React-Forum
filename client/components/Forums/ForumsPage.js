@@ -1,17 +1,11 @@
 import React from 'react';
 import Forum from './Forum';
-import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { loadTopics } from '../../actions/topicAction';
 import { renameForum, loadCurrentForumID, deleteForum, addForum, loadForums, restoreForum } from '../../actions/forumAction';
 
 
 class ForumsPage extends React.Component {
-    constructor(props) {
-        super(props);
-
-    }
-
     componentDidMount() {
         this.props.loadForums();
     }
@@ -37,18 +31,6 @@ class ForumsPage extends React.Component {
             </div>
         );
     }
-}
-
-ForumsPage.propTypes = {
-    loadForums: PropTypes.func.isRequired,
-    loadTopics: PropTypes.func.isRequired,
-    renameForum: PropTypes.func.isRequired,
-    deleteForum: PropTypes.func.isRequired,
-    restoreForum: PropTypes.func.isRequired,
-    addForum: PropTypes.func.isRequired,
-    loadCurrentForumID: PropTypes.func.isRequired,
-    currentForumid: PropTypes.number.isRequired,
-    dispatch: PropTypes.func.isRequired,
 }
 
 function mapStateToProps(state) {

@@ -30,6 +30,8 @@ class TopicsPage extends React.Component {
                             forumURL={this.props.topic.currentDirectory}
                             group={this.props.userDetails.group}
                             match={this.props.match}
+                            edittopics={this.props.userDetails.permissions.edittopics}
+                            deletetopics={this.props.userDetails.permissions.deletetopics}
                         />
                     </div>
                 </div>

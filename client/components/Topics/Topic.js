@@ -115,7 +115,7 @@ class Topic extends React.Component {
         } else {
             var rows = [];
             for (var i = 0; i < this.props.topicNames.length; i++) {
-                if (this.props.group === 'Administrator') {
+                if (this.props.deletetopics === '1') {
                     rows.push(<TopicEntry
                         key={i}
                         topicName={this.props.topicNames[i].topicname}
@@ -126,6 +126,8 @@ class Topic extends React.Component {
                         group={this.props.group}
                         deleted={this.props.topicNames[i].deleted}
                         match={this.props.match}
+                        edittopics={this.props.edittopics}
+                        deletetopics={this.props.deletetopics}
                     />);
                 }
                 else if (this.props.topicNames[i].deleted !== '1') {
@@ -139,6 +141,8 @@ class Topic extends React.Component {
                         group={this.props.group}
                         deleted={this.props.topicNames[i].deleted}
                         match={this.props.match}
+                        edittopics={this.props.edittopics}
+                        deletetopics={this.props.deletetopics}
                     />);
                 }
             }

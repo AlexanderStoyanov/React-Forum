@@ -32,6 +32,8 @@ class RepliesPage extends React.Component {
                 loadCurrentReplyID={this.props.loadCurrentReplyID}
                 currentReplyID={this.props.userDetails.currentReplyID}
                 updateReply={this.props.updateReply}
+                editreplies={this.props.userDetails.permissions.editreplies}
+                deletereplies={this.props.userDetails.permissions.deletereplies}
             />
         );
     }
