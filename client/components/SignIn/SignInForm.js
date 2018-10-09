@@ -29,26 +29,24 @@ class SignInForm extends React.Component {
         return true;
     }
 
-    onSubmit(event) {
+    async onSubmit(event) {
         event.preventDefault();
 
-        const { history } = this.props;
-
         if (this.isValid()) {
-            this.props.userSignInRequest(this.state);
+            await this.props.userSignInRequest(this.state);
 
-            //if (!this.props.userDetails.error) {
-            //    this.props.addFlashMessage({
-            //        type: 'success',
-            //        text: 'Logged in successfully!'
-            //    });
-            //    this.props.history.push("/forum");
-            //} else {
-            //    this.props.addFlashMessage({
-            //        type: 'error',
-            //        text: 'Username or password is incorrect!'
-            //    });
-            //}
+            if (this.props.userDetails.token) {
+               this.props.addFlashMessage({
+                   type: 'success',
+                   text: 'Logged in successfully!'
+               });
+               this.props.history.push("/forum");
+            } else {
+               this.props.addFlashMessage({
+                   type: 'error',
+                   text: 'Username or password is incorrect!'
+               });
+            }
         }
     }
 

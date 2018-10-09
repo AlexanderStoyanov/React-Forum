@@ -1,4 +1,4 @@
-import { SIGN_IN_FAILURE, SIGN_IN_REQUEST, SIGN_IN_SUCCESS } from '../actions/signInAction';
+import { SIGN_IN_FAILURE, SIGN_IN_REQUEST, SIGN_IN_SUCCESS } from '../actions/authentication';
 import { RECEIVE_TOPICS, EDIT_TOPIC } from '../actions/topicAction';
 import { EDIT_FORUM } from '../actions/forumAction';
 import { EDIT_REPLY } from '../actions/replyAction';

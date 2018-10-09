@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from "react-router-dom";
 
 import NavigationBarContainer from './NavBar/NavigationBarContainer';
-import FlashMessagesList from './flash/FlashMessagesList';
+import FlashMessagesList from './FlashMessages/FlashMessagesList';
 import ForumsPage from './Forums/ForumsPage';
 import TopicsPage from './Topics/TopicsPage';
 import RepliesPage from './Replies/RepliesPage';

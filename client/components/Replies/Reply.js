@@ -124,22 +124,20 @@ class Reply extends React.Component {
             );
         }
         else {
-            var rows = [];
             if (this.props.replies) {
-                for (var i = 0; i < this.props.replies.length; i++) {
-                    rows.push(<ReplyEntry
-                        key={i}
-                        text={draftToHtml(JSON.parse(this.props.replies[i]))}
-                        firstname={this.props.names[i]}
-                        date={this.props.dates[i]}
+                var rows = this.props.replies.map(reply => 
+                    <ReplyEntry
+                        key={reply.replyid}
+                        text={draftToHtml(JSON.parse(reply.text))}
+                        firstname={reply.firstname}
+                        date={reply.date}
+                        id={reply.replyid}
+                        groupname={reply.groupname}
                         onClick={this.onClick}
-                        id={this.props.ids[i]}
-                        order={i}
-                        groupname={this.props.groups[i]}
                         editreplies={this.props.editreplies}
                         deletereplies={this.props.deletereplies}
-                    />);
-                }
+                    />
+                );
             }
 
             let editor = null;

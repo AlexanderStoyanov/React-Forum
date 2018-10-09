@@ -8,7 +8,7 @@ class GroupsPage extends React.Component {
     //async await for two functions to be called simultaneously
     async componentDidMount() {
         await this.props.loadGroups();
-        this.props.loadUserList();
+        await this.props.loadUserList();
     }
 
     render() {

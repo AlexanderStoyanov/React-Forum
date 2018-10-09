@@ -2,7 +2,7 @@ import React from 'react';
 import SignUpForm from './SignUpForm';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { userSignUpRequest, doesUserExist } from '../../actions/signUpAction';
+import { userSignUpRequest, doesUserExist } from '../../actions/authentication';
 import { addFlashMessage } from '../../actions/flashMessages';
 
 

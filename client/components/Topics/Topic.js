@@ -76,14 +76,14 @@ class Topic extends React.Component {
             }
             if (this.props.edittopics === '1') {
                 renameComponents = <div className="d-inline">
-                <TextFieldGroup
-                    error={errors.rename}
-                    label="Rename"
-                    onChange={this.onChange}
-                    value={this.state.renameText}
-                    field="renameText"
-                    type="text"
-                />
+                    <TextFieldGroup
+                        error={errors.rename}
+                        label="Rename"
+                        onChange={this.onChange}
+                        value={this.state.renameText}
+                        field="renameText"
+                        type="text"
+                    />
                     <button type="submit" className="btn btn-primary m-1">Rename</button>
                 </div>
             }
@@ -123,39 +123,35 @@ class Topic extends React.Component {
                 </div>
             );
         } else {
-            var rows = [];
-            for (var i = 0; i < this.props.topicNames.length; i++) {
+            var rows = this.props.topicNames.map(topic => {
                 if (this.props.deletetopics === '1') {
-                    rows.push(<TopicEntry
-                        key={i}
-                        topicName={this.props.topicNames[i].topicname}
+                    return <TopicEntry
+                        key={topic.topicid}
+                        topicID={topic.topicid}
+                        topicName={topic.topicname}
+                        deleted={topic.deleted}
                         forumURL={this.props.forumURL}
-                        topicURL={this.props.topicNames[i].topicname}
                         onClick={this.onClick}
-                        topicID={this.props.topicNames[i].topicid}
                         group={this.props.group}
-                        deleted={this.props.topicNames[i].deleted}
                         match={this.props.match}
                         edittopics={this.props.edittopics}
                         deletetopics={this.props.deletetopics}
-                    />);
-                }
-                else if (this.props.topicNames[i].deleted !== '1') {
-                    rows.push(<TopicEntry
-                        key={i}
-                        topicName={this.props.topicNames[i].topicname}
+                    />;
+                } else if (topic.deleted !== '1') {
+                    return <TopicEntry
+                        key={topic.topicid}
+                        topicID={topic.topicid}
+                        topicName={topic.topicname}
+                        deleted={topic.deleted}
                         forumURL={this.props.forumURL}
-                        topicURL={this.props.topicNames[i].topicname}
                         onClick={this.onClick}
-                        topicID={this.props.topicNames[i].topicid}
                         group={this.props.group}
-                        deleted={this.props.topicNames[i].deleted}
                         match={this.props.match}
                         edittopics={this.props.edittopics}
                         deletetopics={this.props.deletetopics}
-                    />);
+                    />;
                 }
-            }
+            });
         }
 
         return (

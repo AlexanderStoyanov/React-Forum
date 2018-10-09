@@ -113,34 +113,31 @@ class Forum extends React.Component {
                 </div>
             );
         } else {
-            var rows = [];
+            var rows = null;
             if (this.props.token) {
-                for (var i = 0; i < this.props.forumNames.length; i++) {
+                rows = this.props.forumNames.map(forum => {
                     if (this.props.group === 'Administrator') {
-                        rows.push(<ForumEntry
-                            key={i}
-                            forumName={this.props.forumNames[i].forumname}
-                            forumURL={this.props.forumNames[i].forumname}
-                            forumID={this.props.forumNames[i].forumid}
+                        return <ForumEntry
+                            key={forum.forumID}
+                            forumName={forum.forumname}
+                            forumID={forum.forumid}
+                            deleted={forum.deleted}
                             group={this.props.group}
-                            deleted={this.props.forumNames[i].deleted}
                             onClick={this.onClick}
-                        />);
-                    }
-                    else if (this.props.forumNames[i].deleted !== '1') {
-                        rows.push(<ForumEntry
-                            key={i}
-                            forumName={this.props.forumNames[i].forumname}
-                            forumURL={this.props.forumNames[i].forumname}
-                            forumID={this.props.forumNames[i].forumid}
+                        />;
+                    } else if (forum.deleted !== '1') {
+                        return <ForumEntry
+                            key={forum.forumID}
+                            forumName={forum.forumname}
+                            forumID={forum.forumid}
+                            deleted={forum.deleted}
                             group={this.props.group}
-                            deleted={this.props.forumNames[i].deleted}
                             onClick={this.onClick}
-                        />);
+                        />;
                     }
-                }
+                });
             } else {
-                rows.push(<div className="alert alert-info text-center mt-5" role="alert">
+                rows = (<div className="alert alert-info text-center mt-5" role="alert">
                     Please, &nbsp;
                     <Link to="/signin" className="alert-link d-inline" >Sign In</Link>
                     &nbsp; or &nbsp;

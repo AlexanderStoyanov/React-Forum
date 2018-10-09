@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-const ForumEntry = ({ forumName, forumURL, forumID, group, deleted, onClick }) => {
+const ForumEntry = ({ forumName, forumID, group, deleted, onClick }) => {
     let editButton = null;
     let restoreButton = null;
     //if group is Administrator, allow editing/restoring of forums
@@ -25,7 +25,7 @@ const ForumEntry = ({ forumName, forumURL, forumID, group, deleted, onClick }) =
             <div className="card-body">
                 <h1>
                     <Link
-                        to={`/forum/${forumURL}`}
+                        to={`/forum/${forumName}`}
                         className="nav-link d-inline"
                         name={`${forumID}`}
                         style={{ opacity: (deleted === '1') ? '0.5' : '1' }}

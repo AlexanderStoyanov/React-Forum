@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from "react-router-dom";
 
-const TopicEntry = ({ topicName, topicURL, topicID, onClick, deleted, match, edittopics, deletetopics }) => {
+const TopicEntry = ({ topicName, topicID, onClick, deleted, match, edittopics, deletetopics }) => {
     let editButton = null;
     let restoreButton = null;
 
@@ -29,7 +29,7 @@ const TopicEntry = ({ topicName, topicURL, topicID, onClick, deleted, match, edi
             <div className="card-body">
                 <h3>
                     <Link
-                        to={{ pathname: `${match.url}/${topicURL}` }}
+                        to={{ pathname: `${match.url}/${topicName}` }}
                         className="nav-link d-inline"
                         name={`${topicID}`}
                         style={{

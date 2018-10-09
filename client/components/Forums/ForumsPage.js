@@ -7,7 +7,10 @@ import { renameForum, loadCurrentForumID, deleteForum, addForum, loadForums, res
 
 class ForumsPage extends React.Component {
     componentDidMount() {
-        this.props.loadForums();
+        //If signed in, load forums
+        if (this.props.userDetails.token) {
+            this.props.loadForums();
+        }
     }
 
     render() {

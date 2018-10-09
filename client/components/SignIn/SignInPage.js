@@ -2,7 +2,7 @@ import React from 'react';
 import SignInForm from './SignInForm';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { userSignInRequest } from '../../actions/signInAction';
+import { userSignInRequest } from '../../actions/authentication';
 import { addFlashMessage } from '../../actions/flashMessages';
 
 
