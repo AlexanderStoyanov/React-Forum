@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ReplyEntry = ({ text, firstname, date, onClick, id, groupname, editreplies, deletereplies }) => {
+const ReplyEntry = ({ text, firstname, date, onClick, id, order, groupname, editreplies, deletereplies }) => {
     function createMarkup() {
         return { __html: text };
     }
@@ -13,7 +13,7 @@ const ReplyEntry = ({ text, firstname, date, onClick, id, groupname, editreplies
     let deleteButton = null;
 
     if (editreplies === '1') {
-        editButton = <button name={id} title="Edit" class="btn btn-secondary mx-1" onClick={onClick} >Edit</button>;
+        editButton = <button name={id} data-order={order} title="Edit" class="btn btn-secondary mx-1" onClick={onClick} >Edit</button>;
     }
     if (deletereplies === '1') {
         deleteButton = <button name={id} title="Delete" class="btn btn-danger mx-1" onClick={onClick} >Delete</button>;

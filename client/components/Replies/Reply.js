@@ -75,7 +75,7 @@ class Reply extends React.Component {
         event.preventDefault();
         if (event.target.title === 'Edit') {
             this.props.loadCurrentReplyID(event.target.name);
-            this.setState({ edit: true, contentState: JSON.parse(this.props.replies[Number(event.target.getAttribute('data-order'))]) });
+            this.setState({ edit: true, contentState: JSON.parse(this.props.replies[Number(event.target.getAttribute('data-order'))].text) });
         }
         else if (event.target.title === 'Delete') {
             this.props.deleteReply(event.target.name);
@@ -125,13 +125,14 @@ class Reply extends React.Component {
         }
         else {
             if (this.props.replies) {
-                var rows = this.props.replies.map(reply => 
+                var rows = this.props.replies.map((reply, index) => 
                     <ReplyEntry
                         key={reply.replyid}
                         text={draftToHtml(JSON.parse(reply.text))}
                         firstname={reply.firstname}
                         date={reply.date}
                         id={reply.replyid}
+                        order={index}
                         groupname={reply.groupname}
                         onClick={this.onClick}
                         editreplies={this.props.editreplies}

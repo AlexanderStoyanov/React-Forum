@@ -6,18 +6,6 @@ import { addFlashMessage } from '../../actions/flashMessages';
 
 class RepliesPage extends React.Component {
     render() {
-        // let replies = [], names = [], dates = [], ids = [], groups = [];
-
-        // if (this.props.reply.replies) {
-        //     for (let i = 0; i < this.props.reply.replies.length; i++) {
-        //         replies.push(this.props.reply.replies[i].text);
-        //         names.push(this.props.reply.replies[i].firstname);
-        //         dates.push(this.props.reply.replies[i].date);
-        //         ids.push(this.props.reply.replies[i].replyid);
-        //         groups.push(this.props.reply.replies[i].groupname);
-        //     }
-        // }
-
         return (
             <Reply
                 replies = {this.props.reply.replies}
