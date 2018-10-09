@@ -21,7 +21,7 @@ router.get('/load', (req, res) => {
             done();
 
             if (err) {
-                console.log(err.stack);
+                res.json(err.stack);
             } else if (ress.rowCount > 0) {
                 res.json(ress.rows);
             } else {
@@ -43,9 +43,9 @@ router.post('/add', (req, res) => {
             done();
 
             if (err) {
-                console.log(err);
+                res.json(err.stack);
             } else {
-                res.status(200);
+                res.json({ success: true });
             }
         });
     });
@@ -63,7 +63,7 @@ router.post('/delete', (req, res) => {
             done();
 
             if (err) {
-                console.log(err.stack);
+                res.json(err.stack);
             } else {
                 res.json({ success: true });
             }
@@ -83,7 +83,7 @@ router.post('/rename', (req, res) => {
             done();
 
             if (err) {
-                console.log(err.stack);
+                res.json(err.stack);
             } else {
                 res.json({ success: true });
             }
@@ -114,6 +114,8 @@ router.post('/loadPermissions', (req, res) => {
     
                 if (err) {
                     res.json(err.stack);
+                } else {
+                    res.json({ success: true });
                 }
             });
         });
@@ -156,7 +158,9 @@ router.post('/updateUsers', (req, res) => {
                     done();
         
                     if (err) {
-                        console.log(err.stack);
+                        res.json(err.stack);
+                    } else {
+                        res.json({ success: true });
                     }
                 });
             });

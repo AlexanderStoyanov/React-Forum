@@ -21,6 +21,8 @@ class ForumsPage extends React.Component {
                     loadTopics={this.props.loadTopics}
                     forumNames={forumNames}
                     group={this.props.userDetails.group}
+                    token={this.props.userDetails.token}
+                    blocked={this.props.userDetails.permissions.blocked}
                     renameForum={this.props.renameForum}
                     deleteForum={this.props.deleteForum}
                     restoreForum={this.props.restoreForum}

@@ -59,34 +59,40 @@ class Topic extends React.Component {
         else if (event.target.title === 'edit') {
             this.props.loadCurrentTopicID(event.target.name);
             this.setState({ edit: true });
-        } 
+        }
         else if (event.target.title === 'restore') {
             event.preventDefault();
             this.props.restoreTopic(event.target.name);
-        } 
+        }
     }
 
     render() {
         if (this.state.edit) {
+            const { errors } = this.state;
+            let renameComponents = null;
             let deleteButton = null;
             if (this.props.deletetopics === '1') {
                 deleteButton = <button onClick={this.delete} className="btn btn-danger float-right m-1">Delete Topic</button>;
             }
-            const { errors } = this.state;
+            if (this.props.edittopics === '1') {
+                renameComponents = <div className="d-inline">
+                <TextFieldGroup
+                    error={errors.rename}
+                    label="Rename"
+                    onChange={this.onChange}
+                    value={this.state.renameText}
+                    field="renameText"
+                    type="text"
+                />
+                    <button type="submit" className="btn btn-primary m-1">Rename</button>
+                </div>
+            }
             return (
                 <div className="row">
                     <div className="col-md-8 mx-auto">
                         <div className="editBlock mt-5">
                             <form onSubmit={this.onSubmit} >
-                                <TextFieldGroup
-                                    error={errors.rename}
-                                    label="Rename"
-                                    onChange={this.onChange}
-                                    value={this.state.renameText}
-                                    field="renameText"
-                                    type="text"
-                                />
-                                <button type="submit" className="btn btn-primary m-1">Rename</button>
+                                {renameComponents}
                                 <button onClick={this.back} className="btn btn-dark m-1">Back</button>
                                 {deleteButton}
                             </form>
@@ -153,18 +159,18 @@ class Topic extends React.Component {
         }
 
         return (
-        <div className="topicWrap">
-            <div className="row">
-                <div className="col-md">
-                    <button onClick={this.add} className="btn btn-primary float-right m-1">Add Topic</button>
+            <div className="topicWrap">
+                <div className="row">
+                    <div className="col-md">
+                        <button onClick={this.add} className="btn btn-primary float-right m-1">Add Topic</button>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md">
+                        {rows}
+                    </div>
                 </div>
             </div>
-            <div className="row">
-                <div className="col-md">
-                    {rows}
-                </div>
-            </div>
-        </div>
         );
     }
 }

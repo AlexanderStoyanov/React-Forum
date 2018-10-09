@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from "react-router-dom";
 
-const TopicEntry = ({ topicName, topicURL, topicID, onClick, group, deleted, match, edittopics, deletetopics }) => {
+const TopicEntry = ({ topicName, topicURL, topicID, onClick, deleted, match, edittopics, deletetopics }) => {
     let editButton = null;
     let restoreButton = null;
 
     //if editing of topics is allowed, reder edit button
-    if (edittopics === '1') {
+    if (edittopics === '1' || deletetopics === '1') {
         editButton = <button
             className="btn btn-secondary m-1 d-inline float-right"
             title="edit"

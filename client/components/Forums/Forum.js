@@ -1,6 +1,7 @@
 import React from 'react';
 import ForumEntry from '../common/ForumEntry';
 import { withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import TextFieldGroup from '../common/TextFieldGroup';
 
 class Forum extends React.Component {
@@ -113,29 +114,39 @@ class Forum extends React.Component {
             );
         } else {
             var rows = [];
-            for (var i = 0; i < this.props.forumNames.length; i++) {
-                if (this.props.group === 'Administrator') {
-                    rows.push(<ForumEntry
-                        key={i}
-                        forumName={this.props.forumNames[i].forumname}
-                        forumURL={this.props.forumNames[i].forumname}
-                        forumID={this.props.forumNames[i].forumid}
-                        group={this.props.group}
-                        deleted={this.props.forumNames[i].deleted}
-                        onClick={this.onClick}
-                    />);
+            if (this.props.token) {
+                for (var i = 0; i < this.props.forumNames.length; i++) {
+                    if (this.props.group === 'Administrator') {
+                        rows.push(<ForumEntry
+                            key={i}
+                            forumName={this.props.forumNames[i].forumname}
+                            forumURL={this.props.forumNames[i].forumname}
+                            forumID={this.props.forumNames[i].forumid}
+                            group={this.props.group}
+                            deleted={this.props.forumNames[i].deleted}
+                            onClick={this.onClick}
+                        />);
+                    }
+                    else if (this.props.forumNames[i].deleted !== '1') {
+                        rows.push(<ForumEntry
+                            key={i}
+                            forumName={this.props.forumNames[i].forumname}
+                            forumURL={this.props.forumNames[i].forumname}
+                            forumID={this.props.forumNames[i].forumid}
+                            group={this.props.group}
+                            deleted={this.props.forumNames[i].deleted}
+                            onClick={this.onClick}
+                        />);
+                    }
                 }
-                else if (this.props.forumNames[i].deleted !== '1') {
-                    rows.push(<ForumEntry
-                        key={i}
-                        forumName={this.props.forumNames[i].forumname}
-                        forumURL={this.props.forumNames[i].forumname}
-                        forumID={this.props.forumNames[i].forumid}
-                        group={this.props.group}
-                        deleted={this.props.forumNames[i].deleted}
-                        onClick={this.onClick}
-                    />);
-                }
+            } else {
+                rows.push(<div className="alert alert-info text-center mt-5" role="alert">
+                    Please, &nbsp;
+                    <Link to="/signin" className="alert-link d-inline" >Sign In</Link>
+                    &nbsp; or &nbsp;
+                    <Link to="/signup" className="alert-link d-inline" >Sign Up</Link>
+                    &nbsp; to participate!
+            </div>);
             }
 
             return (
@@ -150,7 +161,12 @@ class Forum extends React.Component {
                     }
                     <div className="row">
                         <div className="col-md">
-                            {rows}
+                            {
+                                (this.props.blocked === '1') ?
+                                    (<div className="alert alert-warning text-center mt-5" role="alert">
+                                        Your account has been terminated!
+                                    </div>) : (rows)
+                            }
                         </div>
                     </div>
                 </div>
