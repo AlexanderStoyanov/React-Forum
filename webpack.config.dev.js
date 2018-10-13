@@ -29,7 +29,7 @@ export default {
                 exclude: /node_modules/
             },
             { test: /\.css$/, loader: "style-loader!css-loader" },
-        ]
+        ],
     },
     resolve: {
         extensions: ['.js', '.jsx', '.css'],
@@ -39,5 +39,6 @@ export default {
     },
     devServer: {
         historyApiFallback: true
-    }
+    },
+    mode: 'production',
 }

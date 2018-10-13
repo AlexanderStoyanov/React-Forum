@@ -10,13 +10,15 @@ class SignInPage extends React.Component {
     render() {
         const { userSignInRequest, addFlashMessage, userDetails } = this.props;
         return (
-            <div className="row mt-5">
-                <div className="col-md-2 mx-auto">
-                    <SignInForm
-                        userSignInRequest={userSignInRequest}
-                        addFlashMessage={addFlashMessage}
-                        userDetails={userDetails}
-                    />
+            <div className="container">
+                <div className="row mt-5">
+                    <div className="col-md-3 mx-auto">
+                        <SignInForm
+                            userSignInRequest={userSignInRequest}
+                            addFlashMessage={addFlashMessage}
+                            userDetails={userDetails}
+                        />
+                    </div>
                 </div>
             </div>
         );

@@ -10,13 +10,15 @@ class SignUpPage extends React.Component {
     render() {
         const { userSignUpRequest, addFlashMessage, doesUserExist } = this.props;
         return (
-            <div className="row mt-5">
-                <div className="col-md-2 mx-auto">
-                    <SignUpForm
-                        userSignUpRequest={userSignUpRequest}
-                        addFlashMessage={addFlashMessage}
-                        doesUserExist={doesUserExist}
-                    />
+            <div className="container">
+                <div className="row mt-5">
+                    <div className="col-md-3 mx-auto">
+                        <SignUpForm
+                            userSignUpRequest={userSignUpRequest}
+                            addFlashMessage={addFlashMessage}
+                            doesUserExist={doesUserExist}
+                        />
+                    </div>
                 </div>
             </div>
         );
