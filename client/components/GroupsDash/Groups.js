@@ -75,7 +75,7 @@ class Groups extends React.Component {
             //console.log(event.target);
             //console.log(event.target.value); //groupid
             var userID = event.target.getAttribute("data-userid");
-            this.setState({ newUserGroups: { ...this.state.newUserGroups, [userID]: event.target.value }});
+            this.setState({ newUserGroups: { ...this.state.newUserGroups, [userID]: event.target.value } });
         }
         //if we are changing text-field state 
         else {
@@ -205,18 +205,21 @@ class Groups extends React.Component {
                 </div>
             );
         } else {
-            var rows = [];
-            for (var i = 0; i < this.props.groupsData.length; i++) {
-                rows.push(
-                    <GroupEntry
-                        key={i}
-                        onClick={this.onClick}
-                        onChange={this.onChange}
-                        groupName={this.props.groupsData[i].groupname}
-                        groupid={this.props.groupsData[i].groupid}
-                    />
-                );
-            }
+            var rows = this.props.groupsData.map(data =>
+                <GroupEntry
+                    key={data.groupid}
+                    onClick={this.onClick}
+                    onChange={this.onChange}
+                    groupid={data.groupid}
+                    groupName={data.groupname}
+                    edittopics={data.edittopics}
+                    deletetopics={data.deletetopics}
+                    editreplies={data.editreplies}
+                    deletereplies={data.deletereplies}
+                    blocked={data.blocked}
+                    disabled={(data.groupname === 'Administrator') ? true : false }
+                />
+            );
             return (
                 <div className="groupsWrap">
                     <div className="row">

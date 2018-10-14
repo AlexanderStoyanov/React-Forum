@@ -39,7 +39,6 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-draft-wysiwyg": "^1.12.13",
-    "react-particles-js": "^2.3.0",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",

@@ -10,13 +10,10 @@ import SignUpPage from './SignUp/SignUpPage';
 import SignInPage from './SignIn/SignInPage';
 import GroupsPage from './GroupsDash/GroupsPage';
 
-import Particles from 'react-particles-js';
-
 class App extends React.Component {
     render() {
         return (
             <div className="App">
-                
                 <NavigationBarContainer />
                 <FlashMessagesList />
                 <main>
