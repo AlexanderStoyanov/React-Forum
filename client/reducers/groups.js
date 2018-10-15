@@ -3,6 +3,8 @@ import {
     RECEIVE_GROUPS,
     GROUPS_REQUEST_FAILURE,
     RECEIVE_LOAD_USER_LIST,
+    REQUEST_ADD_GROUP,
+    RECEIVE_ADD_GROUP,
 } from '../actions/groupsAction';
 
 const initialState = {
@@ -35,6 +37,17 @@ export default (state = initialState, action = {}) => {
                 ...state,
                 error: null,
                 userList: action.payload,
+            }
+        case REQUEST_ADD_GROUP:
+            return {
+                ...state,
+                loading: true,
+            }
+        case RECEIVE_ADD_GROUP:
+            return {
+                ...state,
+                loading: false,
+                success: true,
             }
         default:
             return state;

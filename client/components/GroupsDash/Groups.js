@@ -2,6 +2,7 @@ import React from 'react';
 import GroupEntry from '../common/GroupEntry';
 import UserEntry from '../common/UserEntry';
 import TextFieldGroup from '../common/TextFieldGroup';
+import GroupSelectionEntry from '../common/GroupSelectionEntry';
 
 const permissionTemplate = {
     edittopics: null,
@@ -64,10 +65,12 @@ class Groups extends React.Component {
             let id = event.target.getAttribute('data-id');
             if (this.state.permissions[id]) {
                 //if it is, modify existing permission entry
-                this.setState({ permissions: { ...this.state.permissions, [id]: { ...this.state.permissions[id], [event.target.name]: event.target.checked } } });
+                this.setState({ permissions: { ...this.state.permissions, [id]: { ...this.state.permissions[id], [event.target.name]: event.target.checked } } },
+                    () => { console.log(this.state.permissions) });
             } else {
                 //if it is not, create new permission entry
-                this.setState({ permissions: { ...this.state.permissions, [id]: { ...permissionTemplate, [event.target.name]: event.target.checked } } });
+                this.setState({ permissions: { ...this.state.permissions, [id]: { ...permissionTemplate, [event.target.name]: event.target.checked } } },
+                    () => { console.log(this.state.permissions) });
             }
         }
         //else if we are selecting new group from grouplist
@@ -88,6 +91,11 @@ class Groups extends React.Component {
         //if we are adding new group
         if (this.state.add) {
             this.props.addGroup(this.state.newName);
+            // this.props.addFlashMessage({
+            //     type:  'success',
+            //     text: 'Group has been added!'
+            // });
+
         }
         //else if we are editing existing group
         else if (this.state.edit) {
@@ -159,23 +167,25 @@ class Groups extends React.Component {
                 </div>
             );
         } else if (this.state.manageUsers) {
-            var rows = [], groupIDs = [], groupNames = [];
-            for (var i = 0; i < this.props.groupsData.length; i++) {
-                groupIDs.push(this.props.groupsData[i].groupid);
-                groupNames.push(this.props.groupsData[i].groupname)
-            }
-            for (var i = 0; i < this.props.userid.length; i++) {
-                rows.push(<UserEntry
-                    key={i}
+            var groupSelectionArray = this.props.groups.groupsData.map(group =>
+                <GroupSelectionEntry
+                    groupID={group.groupid}
+                    groupName={group.groupname}
+                />
+            );
+
+            var userEntryArray = this.props.groups.userList.map(user =>
+                <UserEntry
+                    key={user.userid}
                     onChange={this.onChange}
-                    userid={this.props.userid[i]}
-                    firstname={this.props.firstname[i]}
-                    username={this.props.username[i]}
-                    currentGroup={this.props.currentGroup[i]}
-                    groupIDs={groupIDs}
-                    groupNames={groupNames}
-                />);
-            }
+                    userid={user.userid}
+                    firstname={user.firstname}
+                    username={user.username}
+                    currentGroup={user.groupname}
+                    groupSelectionArray={groupSelectionArray}
+                />
+            );
+
             return (
                 <div className="manageUsers">
                     <div className="row">
@@ -195,7 +205,7 @@ class Groups extends React.Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {rows}
+                                        {userEntryArray}
                                     </tbody>
                                 </table>
                                 <button type="submit" class="btn btn-primary">Submit Changes</button>
@@ -217,7 +227,7 @@ class Groups extends React.Component {
                     editreplies={data.editreplies}
                     deletereplies={data.deletereplies}
                     blocked={data.blocked}
-                    disabled={(data.groupname === 'Administrator') ? true : false }
+                    disabled={(data.groupname === 'Administrator') ? true : false}
                 />
             );
             return (

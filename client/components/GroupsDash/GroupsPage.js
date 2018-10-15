@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Groups from './Groups';
+import { addFlashMessage } from '../../actions/flashMessages';
 import { loadGroups, deleteGroup, renameGroup, addGroup, loadCurrentGroupID, loadPermissions, loadUserList, updateUsers } from '../../actions/groupsAction';
 
 class GroupsPage extends React.Component {
@@ -30,6 +31,7 @@ class GroupsPage extends React.Component {
         return (
             <div className="container">
                 <Groups
+                    groups={this.props.groups}
                     groupsData={groupsData}
                     userid={userid}
                     firstname={firstname}
@@ -43,6 +45,8 @@ class GroupsPage extends React.Component {
                     loadPermissions={this.props.loadPermissions}
                     loadUserList={this.props.loadUserList}
                     updateUsers={this.props.updateUsers}
+                    addFlashMessage={addFlashMessage}
+                    loadGroups={this.props.loadGroups}
                 />
             </div>
         );

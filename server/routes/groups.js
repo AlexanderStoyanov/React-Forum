@@ -114,8 +114,6 @@ router.post('/loadPermissions', (req, res) => {
     
                 if (err) {
                     res.json(err.stack);
-                } else {
-                    res.json({ success: true });
                 }
             });
         });
@@ -159,8 +157,6 @@ router.post('/updateUsers', (req, res) => {
         
                     if (err) {
                         res.json(err.stack);
-                    } else {
-                        res.json({ success: true });
                     }
                 });
             });
