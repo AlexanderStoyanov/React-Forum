@@ -20,8 +20,8 @@ class Groups extends React.Component {
             add: false,
             edit: false,
             manageUsers: false,
-            newName: '',
-            renameText: '',
+            newName: null,
+            renameText: null,
             edittopics: null,
             permissions: {},
             newUserGroups: {},
@@ -41,9 +41,25 @@ class Groups extends React.Component {
         this.setState({ add: true });
     }
 
-    deleteGroup(event) {
+    async deleteGroup(event) {
         event.preventDefault();
-        this.props.deleteGroup(this.props.groupid);
+        await this.props.deleteGroup(this.props.groupid);
+        //refresh group list
+        this.props.loadGroups();
+        //if no error, add success message
+        if (!this.props.groups.error) {
+            this.props.addFlashMessage({
+                type: 'success',
+                text: 'Group has been deleted!',
+            });
+        //else if error, add error message
+        } else {
+            this.props.addFlashMessage({
+                type: 'error',
+                text: this.props.groups.error,
+            });
+        }
+        this.setState({ edit: false, add: false, manageUsers: false });
     }
 
     manageUsers() {
@@ -86,28 +102,46 @@ class Groups extends React.Component {
         }
     }
 
-    onSubmit(event) {
+    async onSubmit(event) {
         event.preventDefault();
+        var text = null;
         //if we are adding new group
         if (this.state.add) {
-            this.props.addGroup(this.state.newName);
-            // this.props.addFlashMessage({
-            //     type:  'success',
-            //     text: 'Group has been added!'
-            // });
-
+            await this.props.addGroup(this.state.newName);
+            //refresh group list
+            this.props.loadGroups();
+            text = 'Group has been added!';
         }
         //else if we are editing existing group
         else if (this.state.edit) {
-            this.props.renameGroup(this.props.groupid, this.state.renameText);
+            await this.props.renameGroup(this.props.groupid, this.state.renameText);
+                //refresh group list
+                this.props.loadGroups();
+                text = 'Renamed successfully!';
         }
         //else if we are managing users (assigning groups to users)
         else if (this.state.manageUsers) {
-            this.props.updateUsers(this.state.newUserGroups);
+            await this.props.updateUsers(this.state.newUserGroups);
+            text = 'Groups assigned successfully!';
         }
         //if we are submitting group permissions (default onSubmit value, since it is rendered first on the groups page)
         else {
-            this.props.loadPermissions(this.state.permissions);
+            await this.props.loadPermissions(this.state.permissions);
+            text = 'Permissions changed successfully!';
+        }
+
+        //if no error, add success message
+        if (!this.props.groups.error) {
+            this.props.addFlashMessage({
+                type: 'success',
+                text: text,
+            });
+            //else if error, add error message
+        } else {
+            this.props.addFlashMessage({
+                type: 'error',
+                text: this.props.groups.error,
+            });
         }
         this.setState({ edit: false, add: false, manageUsers: false });
     }
@@ -167,24 +201,27 @@ class Groups extends React.Component {
                 </div>
             );
         } else if (this.state.manageUsers) {
-            var groupSelectionArray = this.props.groups.groupsData.map(group =>
-                <GroupSelectionEntry
-                    groupID={group.groupid}
-                    groupName={group.groupname}
-                />
-            );
-
-            var userEntryArray = this.props.groups.userList.map(user =>
-                <UserEntry
-                    key={user.userid}
-                    onChange={this.onChange}
-                    userid={user.userid}
-                    firstname={user.firstname}
-                    username={user.username}
-                    currentGroup={user.groupname}
-                    groupSelectionArray={groupSelectionArray}
-                />
-            );
+            //null check
+            if (this.props.groups.groupsData && this.props.groups.userList) {
+                var groupSelectionArray = this.props.groups.groupsData.map(group =>
+                    <GroupSelectionEntry
+                        groupID={group.groupid}
+                        groupName={group.groupname}
+                    />
+                );
+    
+                var userEntryArray = this.props.groups.userList.map(user =>
+                    <UserEntry
+                        key={user.userid}
+                        onChange={this.onChange}
+                        userid={user.userid}
+                        firstname={user.firstname}
+                        username={user.username}
+                        currentGroup={user.groupname}
+                        groupSelectionArray={groupSelectionArray}
+                    />
+                );
+            }
 
             return (
                 <div className="manageUsers">
@@ -215,21 +252,24 @@ class Groups extends React.Component {
                 </div>
             );
         } else {
-            var rows = this.props.groupsData.map(data =>
-                <GroupEntry
-                    key={data.groupid}
-                    onClick={this.onClick}
-                    onChange={this.onChange}
-                    groupid={data.groupid}
-                    groupName={data.groupname}
-                    edittopics={data.edittopics}
-                    deletetopics={data.deletetopics}
-                    editreplies={data.editreplies}
-                    deletereplies={data.deletereplies}
-                    blocked={data.blocked}
-                    disabled={(data.groupname === 'Administrator') ? true : false}
-                />
-            );
+            //null check
+            if (this.props.groups.groupsData) {
+                var groupEntryArray = this.props.groups.groupsData.map(data =>
+                    <GroupEntry
+                        key={data.groupid}
+                        onClick={this.onClick}
+                        onChange={this.onChange}
+                        groupid={data.groupid}
+                        groupName={data.groupname}
+                        edittopics={data.edittopics}
+                        deletetopics={data.deletetopics}
+                        editreplies={data.editreplies}
+                        deletereplies={data.deletereplies}
+                        blocked={data.blocked}
+                        disabled={(data.groupname === 'Administrator') ? true : false}
+                    />
+                );
+            }
             return (
                 <div className="groupsWrap">
                     <div className="row">
@@ -253,7 +293,7 @@ class Groups extends React.Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {rows}
+                                        {groupEntryArray}
                                     </tbody>
                                 </table>
                                 <button type="submit" class="btn btn-primary">Submit Changes</button>

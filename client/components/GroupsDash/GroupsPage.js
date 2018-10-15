@@ -13,30 +13,11 @@ class GroupsPage extends React.Component {
     }
 
     render() {
-        let groupsData = ['Nothing there yet..'];
-        if (this.props.groups.groupsData) {
-            groupsData = this.props.groups.groupsData;
-        }
-
-        var userid = [], firstname = [], username = [], currentGroup = [];
-        if (this.props.groups.userList) {
-            for (var i = 0; i < this.props.groups.userList.length; i++) {
-                userid.push(this.props.groups.userList[i].userid);
-                firstname.push(this.props.groups.userList[i].firstname);
-                username.push(this.props.groups.userList[i].username);
-                currentGroup.push(this.props.groups.userList[i].groupname);
-            }
-        }
 
         return (
             <div className="container">
                 <Groups
                     groups={this.props.groups}
-                    groupsData={groupsData}
-                    userid={userid}
-                    firstname={firstname}
-                    username={username}
-                    currentGroup={currentGroup}
                     addGroup={this.props.addGroup}
                     deleteGroup={this.props.deleteGroup}
                     renameGroup={this.props.renameGroup}
@@ -45,7 +26,7 @@ class GroupsPage extends React.Component {
                     loadPermissions={this.props.loadPermissions}
                     loadUserList={this.props.loadUserList}
                     updateUsers={this.props.updateUsers}
-                    addFlashMessage={addFlashMessage}
+                    addFlashMessage={this.props.addFlashMessage}
                     loadGroups={this.props.loadGroups}
                 />
             </div>
@@ -65,26 +46,29 @@ function mapDispatchToProps(dispatch) {
         loadGroups: () => {
             dispatch(loadGroups());
         },
-        addGroup: (newGroupName) => {
-            dispatch(addGroup(newGroupName));
+        addGroup: async (newGroupName) => {
+            await dispatch(addGroup(newGroupName));
         },
         loadCurrentGroupID: (currentGroupID) => {
             dispatch(loadCurrentGroupID(currentGroupID));
         },
-        deleteGroup: (groupid) => {
-            dispatch(deleteGroup(groupid));
+        deleteGroup: async (groupid) => {
+            await dispatch(deleteGroup(groupid));
         },
-        renameGroup: (groupid, newName) => {
-            dispatch(renameGroup(groupid, newName));
+        renameGroup: async (groupid, newName) => {
+            await dispatch(renameGroup(groupid, newName));
         },
-        loadPermissions: (data) => {
-            dispatch(loadPermissions(data));
+        loadPermissions: async (data) => {
+            await dispatch(loadPermissions(data));
         },
         loadUserList: () => {
             dispatch(loadUserList());
         },
-        updateUsers: (data) => {
-            dispatch(updateUsers(data));
+        updateUsers: async (data) => {
+            await dispatch(updateUsers(data));
+        },
+        addFlashMessage: (type, text) => {
+            dispatch(addFlashMessage(type, text));
         }
     }
 }

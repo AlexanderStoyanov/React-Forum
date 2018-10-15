@@ -45,7 +45,7 @@ router.post('/add', (req, res) => {
             if (err) {
                 res.json(err.stack);
             } else {
-                res.json({ success: true });
+                res.status(200).send({ success: true });
             }
         });
     });
