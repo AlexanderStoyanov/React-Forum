@@ -12,7 +12,7 @@ import './Editor.css';
 
 const content = {
     "entityMap": {},
-    "blocks": [{ "key": "637gr", "text": "Initialized from content state.", "type": "unstyled", "depth": 0, "inlineStyleRanges": [], "entityRanges": [], "data": {} }]
+    "blocks": [{ "key": "637gr", "text": "", "type": "unstyled", "depth": 0, "inlineStyleRanges": [], "entityRanges": [], "data": {} }]
 };
 
 class Reply extends React.Component {
@@ -24,6 +24,7 @@ class Reply extends React.Component {
             edit: false,
             contentState,
             isValid: false,
+            invalid: false,
             errors: {},
         }
 
@@ -62,7 +63,6 @@ class Reply extends React.Component {
                     replyid: this.props.currentReplyID,
                     reply: JSON.stringify(this.state.contentState),
                 });
-                this.props.loadReplies(this.props.currentTopicID);
             }
             else {
                 //else create new reply
@@ -72,19 +72,24 @@ class Reply extends React.Component {
                     reply: JSON.stringify(this.state.contentState),
                     userid: null
                 });
-                this.props.loadReplies(this.props.currentTopicID);
             }
+            //reset state to the default one
+            this.setState({ contentState: null, invalid: false, edit: false });
+            //refresh replies list
+            this.props.loadReplies(this.props.currentTopicID);
         }
     }
 
-    onClick(event) {
+    async onClick(event) {
         event.preventDefault();
         if (event.target.title === 'Edit') {
             this.props.loadCurrentReplyID(event.target.name);
             this.setState({ edit: true, contentState: JSON.parse(this.props.replies[Number(event.target.getAttribute('data-order'))].text) });
         }
         else if (event.target.title === 'Delete') {
-            this.props.deleteReply(event.target.name);
+            await this.props.deleteReply(event.target.name);
+            //refresh replies list after deletion
+            this.props.loadReplies(this.props.currentTopicID);
         }
         else if (event.target.title === 'Back') {
             this.setState({ edit: false });

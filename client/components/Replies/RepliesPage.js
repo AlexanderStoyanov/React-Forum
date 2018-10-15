@@ -34,8 +34,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        deleteReply: (id) => {
-            dispatch(deleteReply(id));
+        deleteReply: async (id) => {
+            await dispatch(deleteReply(id));
         },
         postReply: async (userDetails) => {
             await dispatch(postReply(userDetails));
