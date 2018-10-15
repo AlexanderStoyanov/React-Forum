@@ -122,6 +122,8 @@ class Groups extends React.Component {
         //else if we are managing users (assigning groups to users)
         else if (this.state.manageUsers) {
             await this.props.updateUsers(this.state.newUserGroups);
+            //refresh user list to display currently assigned groups
+            this.props.loadUserList();
             text = 'Groups assigned successfully!';
         }
         //if we are submitting group permissions (default onSubmit value, since it is rendered first on the groups page)
@@ -143,7 +145,8 @@ class Groups extends React.Component {
                 text: this.props.groups.error,
             });
         }
-        this.setState({ edit: false, add: false, manageUsers: false });
+        //reseting everything in the state to its original value
+        this.setState({ edit: false, add: false, manageUsers: false, newName: null, renameText: null, newUserGroups: {}, permissions: {} });
     }
 
     onClick(event) {

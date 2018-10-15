@@ -24,9 +24,9 @@ class GroupsPage extends React.Component {
                     loadCurrentGroupID={this.props.loadCurrentGroupID}
                     groupid={this.props.userDetails.currentGroupID}
                     loadPermissions={this.props.loadPermissions}
-                    loadUserList={this.props.loadUserList}
                     updateUsers={this.props.updateUsers}
                     addFlashMessage={this.props.addFlashMessage}
+                    loadUserList={this.props.loadUserList}
                     loadGroups={this.props.loadGroups}
                 />
             </div>
