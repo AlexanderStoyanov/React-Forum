@@ -49,24 +49,30 @@ class Reply extends React.Component {
         return isValid;
     }
 
-    onSubmit(event) {
+    async onSubmit(event) {
         event.preventDefault();
+        //if validation done with no errors
         if (this.isValid()) {
+            //
             this.setState({ errors: {}, invalid: true });
+            //editing reply - update existing reply
             if (this.state.edit) {
-                this.props.updateReply({
+                await this.props.updateReply({
                     token: this.props.token,
                     replyid: this.props.currentReplyID,
                     reply: JSON.stringify(this.state.contentState),
                 });
+                this.props.loadReplies(this.props.currentTopicID);
             }
             else {
-                this.props.postReply({
+                //else create new reply
+                await this.props.postReply({
                     token: this.props.token,
                     topicid: this.props.currentTopicID,
                     reply: JSON.stringify(this.state.contentState),
                     userid: null
                 });
+                this.props.loadReplies(this.props.currentTopicID);
             }
         }
     }

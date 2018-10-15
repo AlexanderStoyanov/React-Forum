@@ -3,6 +3,7 @@ import Reply from './Reply';
 import { connect } from 'react-redux';
 import { postReply, deleteReply, loadCurrentReplyID, updateReply } from '../../actions/replyAction';
 import { addFlashMessage } from '../../actions/flashMessages';
+import { loadReplies } from '../../actions/replyAction';
 
 class RepliesPage extends React.Component {
     render() {
@@ -18,6 +19,7 @@ class RepliesPage extends React.Component {
                 updateReply={this.props.updateReply}
                 editreplies={this.props.userDetails.permissions.editreplies}
                 deletereplies={this.props.userDetails.permissions.deletereplies}
+                loadReplies={this.props.loadReplies}
             />
         );
     }
@@ -35,8 +37,8 @@ function mapDispatchToProps(dispatch) {
         deleteReply: (id) => {
             dispatch(deleteReply(id));
         },
-        postReply: (userDetails) => {
-            dispatch(postReply(userDetails));
+        postReply: async (userDetails) => {
+            await dispatch(postReply(userDetails));
         },
         addFlashMessage: () => {
             dispatch(addFlashMessage());
@@ -44,8 +46,11 @@ function mapDispatchToProps(dispatch) {
         loadCurrentReplyID: (replyid) => {
             dispatch(loadCurrentReplyID(replyid));
         },
-        updateReply: (replyData) => {
-            dispatch(updateReply(replyData));
+        updateReply: async (replyData) => {
+            await dispatch(updateReply(replyData));
+        },
+        loadReplies: (id) => {
+            dispatch(loadReplies(id));
         },
     }
 }
