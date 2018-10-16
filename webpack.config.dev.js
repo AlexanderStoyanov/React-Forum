@@ -2,7 +2,6 @@ import path from 'path';
 import webpack from 'webpack';
 
 export default {
-    devtool: 'eval-source-map',
     entry: [
         'react-hot-loader/patch',
         'webpack/hot/only-dev-server',
@@ -15,18 +14,18 @@ export default {
         publicPath: '/'
     },
     plugins: [
+        new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
-        new webpack.HotModuleReplacementPlugin()
     ],
     module: {
         rules: [
             {
                 test: /\.js|jsx$/,
-                include: [ path.join(__dirname, 'client'),
-                path.join(__dirname, 'server/shared') 
+                include: [path.join(__dirname, 'client'),
+                path.join(__dirname, 'server/shared')
                 ],
                 loaders: ['babel-loader'],
-                exclude: /node_modules/
+                exclude: /node_modules/,
             },
             { test: /\.css$/, loader: "style-loader!css-loader" },
         ],
