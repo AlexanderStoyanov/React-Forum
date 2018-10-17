@@ -28,9 +28,11 @@ class Forum extends React.Component {
         this.setState({ add: true });
     }
 
-    delete(event) {
+    async delete(event) {
         event.preventDefault();
-        this.props.deleteForum(this.props.currentForumid);
+        await this.props.deleteForum(this.props.currentForumid);
+        this.setState({ edit: false, add: false });
+        this.props.loadForums();
     }
 
     back() {
@@ -41,18 +43,20 @@ class Forum extends React.Component {
         this.setState({ [event.target.name]: event.target.value });
     }
 
-    onSubmit(event) {
+    async onSubmit(event) {
         event.preventDefault();
         if (this.state.edit) {
-            this.props.renameForum(this.props.currentForumid, this.state.renameText);
+            await this.props.renameForum(this.props.currentForumid, this.state.renameText);
+            this.props.loadForums();
         }
         else if (this.state.add) {
-            this.props.addForum(this.state.newName);
+            await this.props.addForum(this.state.newName);
+            this.props.loadForums();
         }
         this.setState({ edit: false, add: false });
     }
 
-    onClick(event) {
+    async onClick(event) {
         if (event.target.tagName.toLowerCase() === 'a') {
             this.props.loadTopics(event.target.name);
         }
@@ -62,7 +66,8 @@ class Forum extends React.Component {
         }
         else if (event.target.title === 'restore') {
             event.preventDefault();
-            this.props.restoreForum(event.target.name);
+            await this.props.restoreForum(event.target.name);
+            this.props.loadForums();
         }
     }
 
@@ -118,7 +123,7 @@ class Forum extends React.Component {
                 rows = this.props.forumNames.map(forum => {
                     if (this.props.group === 'Administrator') {
                         return <ForumEntry
-                            key={forum.forumID}
+                            key={forum.forumid}
                             forumName={forum.forumname}
                             forumID={forum.forumid}
                             deleted={forum.deleted}
@@ -127,7 +132,7 @@ class Forum extends React.Component {
                         />;
                     } else if (forum.deleted !== '1') {
                         return <ForumEntry
-                            key={forum.forumID}
+                            key={forum.forumid}
                             forumName={forum.forumname}
                             forumID={forum.forumid}
                             deleted={forum.deleted}
@@ -161,7 +166,7 @@ class Forum extends React.Component {
                             {
                                 (this.props.blocked === '1') ?
                                     (<div className="alert alert-warning text-center mt-5" role="alert">
-                                        Your account has been terminated!
+                                        Your account has been suspended!
                                     </div>) : (rows)
                             }
                         </div>

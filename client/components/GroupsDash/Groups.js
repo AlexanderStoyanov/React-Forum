@@ -236,7 +236,7 @@ class Groups extends React.Component {
                     <div className="row">
                         <div className="col-md">
                             <form onSubmit={this.onSubmit}>
-                                <table class="table table-striped table-dark mt-5">
+                                <table className="table table-striped table-dark mt-5">
                                     <thead>
                                         <tr>
                                             <th scope="col">Username (First name)</th>
@@ -248,7 +248,7 @@ class Groups extends React.Component {
                                         {userEntryArray}
                                     </tbody>
                                 </table>
-                                <button type="submit" class="btn btn-primary">Submit Changes</button>
+                                <button type="submit" className="btn btn-primary">Submit Changes</button>
                             </form>
                         </div>
                     </div>
@@ -284,7 +284,7 @@ class Groups extends React.Component {
                     <div className="row">
                         <div className="col-md">
                             <form onSubmit={this.onSubmit}>
-                                <table class="table table-striped table-dark mt-5">
+                                <table className="table table-striped table-dark mt-5">
                                     <thead>
                                         <tr>
                                             <th scope="col">Groupname</th>
@@ -299,7 +299,7 @@ class Groups extends React.Component {
                                         {groupEntryArray}
                                     </tbody>
                                 </table>
-                                <button type="submit" class="btn btn-primary">Submit Changes</button>
+                                <button type="submit" className="btn btn-primary">Submit Changes</button>
                             </form>
                         </div>
                     </div>

@@ -21,6 +21,7 @@ class ForumsPage extends React.Component {
         return (
             <div className="container">
                 <Forum
+                    loadForums={this.props.loadForums}
                     loadTopics={this.props.loadTopics}
                     forumNames={forumNames}
                     group={this.props.userDetails.group}
@@ -53,20 +54,20 @@ function mapDispatchToProps(dispatch) {
         loadTopics: (directory) => {
             dispatch(loadTopics(directory));
         },
-        renameForum: (id, name) => {
-            dispatch(renameForum(id, name));
+        renameForum: async (id, name) => {
+            await dispatch(renameForum(id, name));
         },
         loadCurrentForumID: (currentForumID) => {
             dispatch(loadCurrentForumID(currentForumID));
         },
-        deleteForum: (currentForumID) => {
-            dispatch(deleteForum(currentForumID));
+        deleteForum: async (currentForumID) => {
+            await dispatch(deleteForum(currentForumID));
         },
-        addForum: (currentForumID) => {
-            dispatch(addForum(currentForumID));
+        addForum: async (currentForumID) => {
+            await dispatch(addForum(currentForumID));
         },
-        restoreForum: (currentForumID) => {
-            dispatch(restoreForum(currentForumID));
+        restoreForum: async (currentForumID) => {
+            await dispatch(restoreForum(currentForumID));
         },
     }
 }

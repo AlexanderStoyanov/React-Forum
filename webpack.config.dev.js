@@ -39,5 +39,5 @@ export default {
     devServer: {
         historyApiFallback: true
     },
-    mode: 'production',
+    mode: 'development',
 }

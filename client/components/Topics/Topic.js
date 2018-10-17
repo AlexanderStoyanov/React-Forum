@@ -27,9 +27,12 @@ class Topic extends React.Component {
         this.setState({ add: true });
     }
 
-    delete(event) {
+    async delete(event) {
         event.preventDefault();
-        this.props.deleteTopic(this.props.currentTopicid);
+        await this.props.deleteTopic(this.props.currentTopicid);
+        this.setState({ edit: false, add: false });
+        //refresh page
+        this.props.loadTopics(this.props.currentForumid);
     }
 
     back() {
@@ -40,18 +43,22 @@ class Topic extends React.Component {
         this.setState({ [event.target.name]: event.target.value });
     }
 
-    onSubmit(event) {
+    async onSubmit(event) {
         event.preventDefault();
         if (this.state.edit) {
-            this.props.renameTopic(this.props.currentTopicid, this.state.renameText);
+            await this.props.renameTopic(this.props.currentTopicid, this.state.renameText);
+            //refresh page
+            this.props.loadTopics(this.props.currentForumid);
         }
         else if (this.state.add) {
-            this.props.addTopic(this.props.currentForumid, this.state.newName);
+            await this.props.addTopic(this.props.currentForumid, this.state.newName);
+            //refresh page
+            this.props.loadTopics(this.props.currentForumid);
         }
         this.setState({ edit: false, add: false });
     }
 
-    onClick(event) {
+    async onClick(event) {
         if (event.target.tagName.toLowerCase() === 'a') {
             this.props.loadCurrentTopicID(event.target.name);
             this.props.loadReplies(event.target.name);
@@ -62,7 +69,9 @@ class Topic extends React.Component {
         }
         else if (event.target.title === 'restore') {
             event.preventDefault();
-            this.props.restoreTopic(event.target.name);
+            await this.props.restoreTopic(event.target.name);
+            //refresh page
+            this.props.loadTopics(this.props.currentForumid);
         }
     }
 

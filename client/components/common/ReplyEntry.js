@@ -6,17 +6,17 @@ const ReplyEntry = ({ text, firstname, date, onClick, id, order, groupname, edit
     }
 
     function myComponent() {
-        return <div dangerouslySetInnerHTML={createMarkup()} />;
+        return <span dangerouslySetInnerHTML={createMarkup()} />;
     }
 
     let editButton = null;
     let deleteButton = null;
 
     if (editreplies === '1') {
-        editButton = <button name={id} data-order={order} title="Edit" class="btn btn-secondary mx-1" onClick={onClick} >Edit</button>;
+        editButton = <button name={id} data-order={order} title="Edit" className="btn btn-secondary mx-1" onClick={onClick} >Edit</button>;
     }
     if (deletereplies === '1') {
-        deleteButton = <button name={id} title="Delete" class="btn btn-danger mx-1" onClick={onClick} >Delete</button>;
+        deleteButton = <button name={id} title="Delete" className="btn btn-danger mx-1" onClick={onClick} >Delete</button>;
     }
 
     return (

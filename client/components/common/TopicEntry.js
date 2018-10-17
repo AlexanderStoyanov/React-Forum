@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link, withRouter } from "react-router-dom";
 
 const TopicEntry = ({ topicName, topicID, onClick, deleted, match, edittopics, deletetopics }) => {
@@ -43,13 +42,6 @@ const TopicEntry = ({ topicName, topicID, onClick, deleted, match, edittopics, d
             </div>
         </div>
     );
-}
-
-TopicEntry.propTypes = {
-    topicName: PropTypes.string.isRequired,
-    forumURL: PropTypes.string.isRequired,
-    topicURL: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired,
 }
 
 export default withRouter(TopicEntry);

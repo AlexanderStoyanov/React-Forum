@@ -102,7 +102,7 @@ class Reply extends React.Component {
                 <div className="container pt-1" style={{ background: '#e4e4e4' }}>
                     <div className="reply mt-5">
                         bla bla
-                        <button title="Back" class="btn btn-dark m-1" onClick={this.onClick} >Back</button>
+                        <button title="Back" className="btn btn-dark m-1" onClick={this.onClick} >Back</button>
                     </div>
 
 
@@ -135,6 +135,7 @@ class Reply extends React.Component {
             );
         }
         else {
+            //null check
             if (this.props.replies) {
                 var rows = this.props.replies.map((reply, index) => 
                     <ReplyEntry
@@ -169,7 +170,7 @@ class Reply extends React.Component {
                     <button disabled={this.state.invalid} type="submit" className="btn btn-primary">Submit</button>
                 </form>;
             } else {
-                editor = <div class="alert alert-info text-center" role="alert">
+                editor = <div className="alert alert-info text-center" role="alert">
                     Please, 
                     <Link to="/signin" className="nav-link d-inline" >Sign In</Link>
                     or

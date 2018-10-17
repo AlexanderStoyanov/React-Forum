@@ -1,7 +1,7 @@
 import React from 'react';
 import Topic from './Topic';
-import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
+import { loadTopics } from '../../actions/topicAction';
 import { loadReplies } from '../../actions/replyAction';
 import { loadCurrentTopicID, renameTopic, deleteTopic, addTopic, restoreTopic } from '../../actions/topicAction';
 
@@ -19,6 +19,7 @@ class TopicsPage extends React.Component {
                     <div className="col-md">
                         <Topic
                             topicNames={topicNames}
+                            loadTopics={this.props.loadTopics}
                             loadReplies={this.props.loadReplies}
                             loadCurrentTopicID={this.props.loadCurrentTopicID}
                             currentTopicid={this.props.userDetails.currentTopicID}
@@ -40,18 +41,6 @@ class TopicsPage extends React.Component {
     }
 }
 
-TopicsPage.propTypes = {
-    loadReplies: PropTypes.func.isRequired,
-    renameTopic: PropTypes.func.isRequired,
-    addTopic: PropTypes.func.isRequired,
-    deleteTopic: PropTypes.func.isRequired,
-    restoreTopic: PropTypes.func.isRequired,
-    loadCurrentTopicID: PropTypes.func.isRequired,
-    currentTopicid: PropTypes.number.isRequired,
-    currentForumid: PropTypes.number.isRequired,
-    dispatch: PropTypes.func.isRequired,
-}
-
 function mapStateToProps(state) {
     return {
         topic: state.topic,
@@ -61,23 +50,26 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
+        loadTopics: async (id) => {
+            await dispatch(loadTopics(id));
+        },
         loadReplies: (id) => {
             dispatch(loadReplies(id));
         },
-        renameTopic: (id, name) => {
-            dispatch(renameTopic(id, name));
+        renameTopic: async (id, name) => {
+            await dispatch(renameTopic(id, name));
         },
-        addTopic: (currentForumID, name) => {
-            dispatch(addTopic(currentForumID, name));
+        addTopic: async (currentForumID, name) => {
+            await dispatch(addTopic(currentForumID, name));
         },
-        deleteTopic: (id) => {
-            dispatch(deleteTopic(id));
+        deleteTopic: async (id) => {
+            await dispatch(deleteTopic(id));
         },
         loadCurrentTopicID: (currentTopicID) => {
             dispatch(loadCurrentTopicID(currentTopicID));
         },
-        restoreTopic: (id) => {
-            dispatch(restoreTopic(id));
+        restoreTopic: async (id) => {
+            await dispatch(restoreTopic(id));
         },
     }
 }
