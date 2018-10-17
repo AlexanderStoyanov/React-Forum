@@ -9,9 +9,15 @@ class FlashMessagesList extends React.Component {
     render() {
         const messages = this.props.messages.map(message =>
             <FlashMessage key={message.id} message={message} deleteFlashMessage={this.props.deleteFlashMessage} />
-            );
+        );
         return (
-            <div className="container mt-5">{messages}</div>
+            <div className="container mt-5">
+                <div className="row">
+                    <div className="col-md">
+                        {messages}
+                    </div>
+                </div>
+            </div>
         );
     }
 }

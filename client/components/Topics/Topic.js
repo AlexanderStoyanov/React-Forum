@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import TopicEntry from '../common/TopicEntry';
 import TextFieldGroup from '../common/TextFieldGroup';
 
@@ -29,10 +28,11 @@ class Topic extends React.Component {
 
     async delete(event) {
         event.preventDefault();
-        await this.props.deleteTopic(this.props.currentTopicid);
+        const { deleteTopic, loadTopics, currentTopicID, currentForumID } = this.props;
+        await deleteTopic(currentTopicID);
         this.setState({ edit: false, add: false });
         //refresh page
-        this.props.loadTopics(this.props.currentForumid);
+        loadTopics(currentForumID);
     }
 
     back() {
@@ -45,45 +45,48 @@ class Topic extends React.Component {
 
     async onSubmit(event) {
         event.preventDefault();
+        const { currentTopicID, currentForumID, renameTopic, loadTopics, addTopic } = this.props;
         if (this.state.edit) {
-            await this.props.renameTopic(this.props.currentTopicid, this.state.renameText);
+            await renameTopic(currentTopicID, this.state.renameText);
             //refresh page
-            this.props.loadTopics(this.props.currentForumid);
+            loadTopics(currentForumID);
         }
         else if (this.state.add) {
-            await this.props.addTopic(this.props.currentForumid, this.state.newName);
+            await addTopic(currentForumID, this.state.newName);
             //refresh page
-            this.props.loadTopics(this.props.currentForumid);
+            loadTopics(currentForumID);
         }
         this.setState({ edit: false, add: false });
     }
 
     async onClick(event) {
+        const { loadCurrentTopicID, loadReplies, restoreTopic, loadTopics, currentForumID } = this.props;
         if (event.target.tagName.toLowerCase() === 'a') {
-            this.props.loadCurrentTopicID(event.target.name);
-            this.props.loadReplies(event.target.name);
+            loadCurrentTopicID(event.target.name);
+            loadReplies(event.target.name);
         }
         else if (event.target.title === 'edit') {
-            this.props.loadCurrentTopicID(event.target.name);
+            loadCurrentTopicID(event.target.name);
             this.setState({ edit: true });
         }
         else if (event.target.title === 'restore') {
             event.preventDefault();
-            await this.props.restoreTopic(event.target.name);
+            await restoreTopic(event.target.name);
             //refresh page
-            this.props.loadTopics(this.props.currentForumid);
+            loadTopics(currentForumID);
         }
     }
 
     render() {
+        const { deletetopics, edittopics, topicNames, forumURL, group, match } = this.props;
         if (this.state.edit) {
             const { errors } = this.state;
             let renameComponents = null;
             let deleteButton = null;
-            if (this.props.deletetopics === '1') {
+            if (deletetopics === '1') {
                 deleteButton = <button onClick={this.delete} className="btn btn-danger float-right m-1">Delete Topic</button>;
             }
-            if (this.props.edittopics === '1') {
+            if (edittopics === '1') {
                 renameComponents = <div className="d-inline">
                     <TextFieldGroup
                         error={errors.rename}
@@ -132,19 +135,19 @@ class Topic extends React.Component {
                 </div>
             );
         } else {
-            var rows = this.props.topicNames.map(topic => {
-                if (this.props.deletetopics === '1') {
+            var rows = topicNames.map(topic => {
+                if (deletetopics === '1') {
                     return <TopicEntry
                         key={topic.topicid}
                         topicID={topic.topicid}
                         topicName={topic.topicname}
                         deleted={topic.deleted}
-                        forumURL={this.props.forumURL}
+                        forumURL={forumURL}
                         onClick={this.onClick}
-                        group={this.props.group}
-                        match={this.props.match}
-                        edittopics={this.props.edittopics}
-                        deletetopics={this.props.deletetopics}
+                        group={group}
+                        match={match}
+                        edittopics={edittopics}
+                        deletetopics={deletetopics}
                     />;
                 } else if (topic.deleted !== '1') {
                     return <TopicEntry
@@ -152,12 +155,12 @@ class Topic extends React.Component {
                         topicID={topic.topicid}
                         topicName={topic.topicname}
                         deleted={topic.deleted}
-                        forumURL={this.props.forumURL}
+                        forumURL={forumURL}
                         onClick={this.onClick}
-                        group={this.props.group}
-                        match={this.props.match}
-                        edittopics={this.props.edittopics}
-                        deletetopics={this.props.deletetopics}
+                        group={group}
+                        match={match}
+                        edittopics={edittopics}
+                        deletetopics={deletetopics}
                     />;
                 }
             });
@@ -178,10 +181,6 @@ class Topic extends React.Component {
             </div>
         );
     }
-}
-
-Topic.propTypes = {
-    topicNames: PropTypes.array,
 }
 
 export default Topic

@@ -8,6 +8,8 @@ import { loadCurrentTopicID, renameTopic, deleteTopic, addTopic, restoreTopic } 
 
 class TopicsPage extends React.Component {
     render() {
+        const { loadCurrentTopicID, renameTopic, deleteTopic, addTopic, restoreTopic, loadTopics, loadReplies, match, topic } = this.props;
+        const { currentForumID, currentTopicID, permissions, group } = this.props.userDetails;
         let topicNames = ['Nothing there yet..'];
         if (this.props.topic.topicNames) {
             topicNames = this.props.topic.topicNames;
@@ -18,21 +20,21 @@ class TopicsPage extends React.Component {
                 <div className="row">
                     <div className="col-md">
                         <Topic
+                            loadTopics={loadTopics}
+                            loadReplies={loadReplies}
+                            addTopic={addTopic}
+                            renameTopic={renameTopic}
+                            deleteTopic={deleteTopic}
+                            restoreTopic={restoreTopic}
+                            loadCurrentTopicID={loadCurrentTopicID}
                             topicNames={topicNames}
-                            loadTopics={this.props.loadTopics}
-                            loadReplies={this.props.loadReplies}
-                            loadCurrentTopicID={this.props.loadCurrentTopicID}
-                            currentTopicid={this.props.userDetails.currentTopicID}
-                            currentForumid={this.props.userDetails.currentForumID}
-                            renameTopic={this.props.renameTopic}
-                            deleteTopic={this.props.deleteTopic}
-                            restoreTopic={this.props.restoreTopic}
-                            addTopic={this.props.addTopic}
-                            forumURL={this.props.topic.currentDirectory}
-                            group={this.props.userDetails.group}
-                            match={this.props.match}
-                            edittopics={this.props.userDetails.permissions.edittopics}
-                            deletetopics={this.props.userDetails.permissions.deletetopics}
+                            group={group}
+                            match={match}
+                            forumURL={topic.currentDirectory}
+                            currentTopicID={currentTopicID}
+                            currentForumID={currentForumID}
+                            edittopics={permissions.edittopics}
+                            deletetopics={permissions.deletetopics}
                         />
                     </div>
                 </div>

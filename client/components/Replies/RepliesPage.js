@@ -7,19 +7,20 @@ import { loadReplies } from '../../actions/replyAction';
 
 class RepliesPage extends React.Component {
     render() {
+        const { postReply, deleteReply, loadCurrentReplyID, updateReply, loadReplies, userDetails, reply } = this.props;
         return (
             <Reply
-                replies = {this.props.reply.replies}
-                postReply={this.props.postReply}
-                deleteReply={this.props.deleteReply}
-                currentTopicID={this.props.userDetails.currentTopicID}
-                token={this.props.userDetails.token}
-                loadCurrentReplyID={this.props.loadCurrentReplyID}
-                currentReplyID={this.props.userDetails.currentReplyID}
-                updateReply={this.props.updateReply}
-                editreplies={this.props.userDetails.permissions.editreplies}
-                deletereplies={this.props.userDetails.permissions.deletereplies}
-                loadReplies={this.props.loadReplies}
+                replies = {reply.replies}
+                loadReplies={loadReplies}
+                postReply={postReply}
+                deleteReply={deleteReply}
+                loadCurrentReplyID={loadCurrentReplyID}
+                updateReply={updateReply}
+                token={userDetails.token}
+                currentTopicID={userDetails.currentTopicID}
+                currentReplyID={userDetails.currentReplyID}
+                editreplies={userDetails.permissions.editreplies}
+                deletereplies={userDetails.permissions.deletereplies}
             />
         );
     }

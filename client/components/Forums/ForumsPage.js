@@ -14,25 +14,28 @@ class ForumsPage extends React.Component {
     }
 
     render() {
+        const { group, token, currentForumID, permissions } = this.props.userDetails;
+        const { loadForums, loadTopics, addForum, renameForum, deleteForum, restoreForum, loadCurrentForumID } = this.props;
         let forumNames = ['Nothing there yet..'];
+        //null check
         if (this.props.forum.forumNames) {
             forumNames = this.props.forum.forumNames;
         }
         return (
             <div className="container">
                 <Forum
-                    loadForums={this.props.loadForums}
-                    loadTopics={this.props.loadTopics}
+                    loadForums={loadForums}
+                    loadTopics={loadTopics}
+                    addForum={addForum}
+                    renameForum={renameForum}
+                    deleteForum={deleteForum}
+                    restoreForum={restoreForum}
+                    loadCurrentForumID={loadCurrentForumID}
                     forumNames={forumNames}
-                    group={this.props.userDetails.group}
-                    token={this.props.userDetails.token}
-                    blocked={this.props.userDetails.permissions.blocked}
-                    renameForum={this.props.renameForum}
-                    deleteForum={this.props.deleteForum}
-                    restoreForum={this.props.restoreForum}
-                    addForum={this.props.addForum}
-                    currentForumid={this.props.userDetails.currentForumID}
-                    loadCurrentForumID={this.props.loadCurrentForumID}
+                    group={group}
+                    token={token}
+                    currentForumID={currentForumID}
+                    blocked={permissions.blocked}
                 />
             </div>
         );
@@ -54,20 +57,20 @@ function mapDispatchToProps(dispatch) {
         loadTopics: (directory) => {
             dispatch(loadTopics(directory));
         },
+        addForum: async (currentForumID) => {
+            await dispatch(addForum(currentForumID));
+        },
         renameForum: async (id, name) => {
             await dispatch(renameForum(id, name));
-        },
-        loadCurrentForumID: (currentForumID) => {
-            dispatch(loadCurrentForumID(currentForumID));
         },
         deleteForum: async (currentForumID) => {
             await dispatch(deleteForum(currentForumID));
         },
-        addForum: async (currentForumID) => {
-            await dispatch(addForum(currentForumID));
-        },
         restoreForum: async (currentForumID) => {
             await dispatch(restoreForum(currentForumID));
+        },
+        loadCurrentForumID: (currentForumID) => {
+            dispatch(loadCurrentForumID(currentForumID));
         },
     }
 }

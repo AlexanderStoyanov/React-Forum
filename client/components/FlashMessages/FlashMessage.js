@@ -8,6 +8,13 @@ class FlashMessage extends React.Component {
         this.onClick = this.onClick.bind(this);
     }
 
+    componentDidMount() {
+        //self-deleting flash message after 3 sec
+        setTimeout(() => {
+            this.props.deleteFlashMessage(this.props.message.id);
+        }, 3000);
+    }
+
     onClick() {
         this.props.deleteFlashMessage(this.props.message.id);
     }

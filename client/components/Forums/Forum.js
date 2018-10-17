@@ -30,7 +30,7 @@ class Forum extends React.Component {
 
     async delete(event) {
         event.preventDefault();
-        await this.props.deleteForum(this.props.currentForumid);
+        await this.props.deleteForum(this.props.currentForumID);
         this.setState({ edit: false, add: false });
         this.props.loadForums();
     }
@@ -46,7 +46,7 @@ class Forum extends React.Component {
     async onSubmit(event) {
         event.preventDefault();
         if (this.state.edit) {
-            await this.props.renameForum(this.props.currentForumid, this.state.renameText);
+            await this.props.renameForum(this.props.currentForumID, this.state.renameText);
             this.props.loadForums();
         }
         else if (this.state.add) {
@@ -72,6 +72,8 @@ class Forum extends React.Component {
     }
 
     render() {
+        const { group, token } = this.props;
+
         if (this.state.edit) {
             const { errors } = this.state;
             return (
@@ -119,29 +121,33 @@ class Forum extends React.Component {
             );
         } else {
             var rows = null;
-            if (this.props.token) {
+            //if signed in, create forum-entries
+            if (token) {
                 rows = this.props.forumNames.map(forum => {
-                    if (this.props.group === 'Administrator') {
+                    //if Admin, return deleted and non-deleted forums
+                    if (group === 'Administrator') {
                         return <ForumEntry
                             key={forum.forumid}
                             forumName={forum.forumname}
                             forumID={forum.forumid}
                             deleted={forum.deleted}
-                            group={this.props.group}
+                            group={group}
                             onClick={this.onClick}
                         />;
                     } else if (forum.deleted !== '1') {
+                        //else if forum was deleted, and group is not Admin, do not render forum
                         return <ForumEntry
                             key={forum.forumid}
                             forumName={forum.forumname}
                             forumID={forum.forumid}
                             deleted={forum.deleted}
-                            group={this.props.group}
+                            group={group}
                             onClick={this.onClick}
                         />;
                     }
                 });
             } else {
+                //if not signed in, display alert
                 rows = (<div className="alert alert-info text-center mt-5" role="alert">
                     Please, &nbsp;
                     <Link to="/signin" className="alert-link d-inline" >Sign In</Link>
@@ -153,8 +159,8 @@ class Forum extends React.Component {
 
             return (
                 <div className="forumWrap">
-                    {
-                        (this.props.group === 'Administrator') ?
+                    {   //if Admin, render button 'add forum'
+                        (group === 'Administrator') ?
                             (<div className="row">
                                 <div className="col-md">
                                     <button onClick={this.add} className="btn btn-primary float-right m-1">Add Forum</button>
@@ -163,7 +169,7 @@ class Forum extends React.Component {
                     }
                     <div className="row">
                         <div className="col-md">
-                            {
+                            {   //if blocked, render alert
                                 (this.props.blocked === '1') ?
                                     (<div className="alert alert-warning text-center mt-5" role="alert">
                                         Your account has been suspended!

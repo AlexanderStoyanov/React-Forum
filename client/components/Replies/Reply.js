@@ -42,33 +42,32 @@ class Reply extends React.Component {
 
     isValid() {
         const { errors, isValid } = validateReply(this.state.contentState.blocks[0]);
-
         if (!isValid) {
             this.setState({ errors });
         }
-
         return isValid;
     }
 
     async onSubmit(event) {
         event.preventDefault();
+        const { updateReply, postReply, loadReplies, token, currentReplyID, currentTopicID } = this.props;
         //if validation done with no errors
         if (this.isValid()) {
-            //
+            //if input is valid
             this.setState({ errors: {}, invalid: true });
             //editing reply - update existing reply
             if (this.state.edit) {
-                await this.props.updateReply({
-                    token: this.props.token,
-                    replyid: this.props.currentReplyID,
+                await updateReply({
+                    token: token,
+                    replyid: currentReplyID,
                     reply: JSON.stringify(this.state.contentState),
                 });
             }
             else {
                 //else create new reply
-                await this.props.postReply({
-                    token: this.props.token,
-                    topicid: this.props.currentTopicID,
+                await postReply({
+                    token: token,
+                    topicid: tcurrentTopicID,
                     reply: JSON.stringify(this.state.contentState),
                     userid: null
                 });
@@ -76,20 +75,21 @@ class Reply extends React.Component {
             //reset state to the default one
             this.setState({ contentState: null, invalid: false, edit: false });
             //refresh replies list
-            this.props.loadReplies(this.props.currentTopicID);
+            loadReplies(currentTopicID);
         }
     }
 
     async onClick(event) {
         event.preventDefault();
+        const { loadCurrentReplyID, deleteReply, loadReplies, currentTopicID, replies } = this.props;
         if (event.target.title === 'Edit') {
-            this.props.loadCurrentReplyID(event.target.name);
-            this.setState({ edit: true, contentState: JSON.parse(this.props.replies[Number(event.target.getAttribute('data-order'))].text) });
+            loadCurrentReplyID(event.target.name);
+            this.setState({ edit: true, contentState: JSON.parse(replies[Number(event.target.getAttribute('data-order'))].text) });
         }
         else if (event.target.title === 'Delete') {
-            await this.props.deleteReply(event.target.name);
+            await deleteReply(event.target.name);
             //refresh replies list after deletion
-            this.props.loadReplies(this.props.currentTopicID);
+            loadReplies(currentTopicID);
         }
         else if (event.target.title === 'Back') {
             this.setState({ edit: false });
@@ -97,6 +97,7 @@ class Reply extends React.Component {
     }
 
     render() {
+        const { editreplies, deletereplies, replies, token } = this.props;
         if (this.state.edit) {
             return (
                 <div className="container pt-1" style={{ background: '#e4e4e4' }}>
@@ -136,8 +137,8 @@ class Reply extends React.Component {
         }
         else {
             //null check
-            if (this.props.replies) {
-                var rows = this.props.replies.map((reply, index) => 
+            if (replies) {
+                var rows = replies.map((reply, index) => 
                     <ReplyEntry
                         key={reply.replyid}
                         text={draftToHtml(JSON.parse(reply.text))}
@@ -147,14 +148,14 @@ class Reply extends React.Component {
                         order={index}
                         groupname={reply.groupname}
                         onClick={this.onClick}
-                        editreplies={this.props.editreplies}
-                        deletereplies={this.props.deletereplies}
+                        editreplies={editreplies}
+                        deletereplies={deletereplies}
                     />
                 );
             }
 
             let editor = null;
-            if (this.props.token) {
+            if (token) {
                 editor = <form onSubmit={this.onSubmit}>
                     <Editor
                         toolbarClassName="toolbarClass"
