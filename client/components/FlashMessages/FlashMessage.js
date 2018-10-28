@@ -9,7 +9,7 @@ class FlashMessage extends React.Component {
     }
 
     componentDidMount() {
-        //self-deleting flash message after 3 sec
+        //self-deleting after 3 sec
         setTimeout(() => {
             this.props.deleteFlashMessage(this.props.message.id);
         }, 3000);

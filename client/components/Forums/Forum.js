@@ -3,6 +3,7 @@ import ForumEntry from '../common/ForumEntry';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import TextFieldGroup from '../common/TextFieldGroup';
+import EditField from '../common/EditField';
 
 class Forum extends React.Component {
     constructor(props) {
@@ -73,29 +74,20 @@ class Forum extends React.Component {
 
     render() {
         const { group, token } = this.props;
+        const { errors, renameText, newName } = this.state;
 
         if (this.state.edit) {
-            const { errors } = this.state;
             return (
-                <div className="row">
-                    <div className="col-md-8 mx-auto">
-                        <div className="editBlock mt-5">
-                            <form onSubmit={this.onSubmit} >
-                                <TextFieldGroup
-                                    error={errors.rename}
-                                    label="Rename"
-                                    onChange={this.onChange}
-                                    value={this.state.renameText}
-                                    field="renameText"
-                                    type="text"
-                                />
-                                <button type="submit" className="btn btn-primary m-1">Rename</button>
-                                <button onClick={this.back} className="btn btn-dark m-1">Back</button>
-                                <button onClick={this.delete} className="btn btn-danger float-right m-1">Delete Forum</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                <EditField
+                    error={errors.edit}
+                    onChange={this.onChange}
+                    onSubmit={this.onSubmit}
+                    back={this.back}
+                    remove={this.delete}
+                    value={renameText}
+                    field="renameText"
+                    type="Forum"
+                />
             );
         } else if (this.state.add) {
             const { errors } = this.state;
