@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { loadTopics } from '../../actions/topicAction';
 import { renameForum, loadCurrentForumID, deleteForum, addForum, loadForums, restoreForum } from '../../actions/forumAction';
 
-import ForumEntry from '../common/ForumEntry';
+import ForumEntry from './ForumEntry';
 import AddField from '../common/AddField';
 import EditField from '../common/EditField';
 
@@ -70,13 +70,13 @@ class ForumsPage extends React.Component {
 
     async onSubmit(event) {
         event.preventDefault();
-        const { addForum, renameForum, loadForums, currentForumID } = this.props;
+        const { addForum, renameForum, loadForums, userDetails } = this.props;
         const { add, edit, newName, renameText } = this.state;
         if (add) {
             await addForum(newName);
         }
         else if (edit) {
-            await renameForum(currentForumID, renameText);
+            await renameForum(userDetails.currentForumID, renameText);
         }
         this.setState({ add: false, edit: false });
         loadForums();
@@ -84,14 +84,10 @@ class ForumsPage extends React.Component {
 
     async onClick(event) {
         console.log(event.target);
-        const { loadTopics, loadCurrentForumID } = this.props;
+        const { loadTopics } = this.props;
         if (event.target.tagName.toLowerCase() === 'a') {
             loadTopics(event.target.name);
         }
-        // else if (event.target.title === 'edit') {
-        //     loadCurrentForumID(event.target.name);
-        //     this.setState({ edit: true });
-        // }
     }
 
     render() {

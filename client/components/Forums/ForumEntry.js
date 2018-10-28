@@ -31,11 +31,12 @@ class ForumEntry extends React.Component {
             }
         }
         return (
-            <div className="card m-2" name="card" onClick={this.onClick}>
+            <div className="card m-2" name="card">
                 <div className="card-body">
                     <h1>
                         <Link
                             to={`/forum/${forumname}`}
+                            onClick={this.onClick}
                             className="nav-link d-inline"
                             name={`${forumid}`}
                             style={{ opacity: (deleted === '1') ? '0.5' : '1' }}
