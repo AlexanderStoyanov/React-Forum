@@ -100,7 +100,7 @@ class Reply extends React.Component {
         const { editreplies, deletereplies, replies, token } = this.props;
         if (this.state.edit) {
             return (
-                <div className="container pt-1" style={{ background: '#e4e4e4' }}>
+                <div className="container pt-1" style={{ backgroundColor: '#333338' }}>
                     <div className="reply mt-5">
                         bla bla
                         <button title="Back" className="btn btn-dark m-1" onClick={this.onClick} >Back</button>
@@ -181,7 +181,7 @@ class Reply extends React.Component {
             }
 
             return (
-                <div className="container pt-1" style={{ background: '#e4e4e4' }}>
+                <div className="container pt-1" style={{ backgroundColor: '#222229' }}>
                     <div className="reply mt-5">
                         {rows}
                     </div>

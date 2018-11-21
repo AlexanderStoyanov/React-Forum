@@ -28,7 +28,9 @@ class NavigationBar extends React.Component {
             name = this.props.userDetails.name;
         }
         return (
-            <nav className="navbar sticky-top navbar-expand-md bg-dark navbar-dark">
+            <nav className="navbar sticky-top navbar-expand-md navbar-dark"
+                style={{ background: '#111' }}
+            >
 
                 <Link to='/' className="navbar-brand mr-4">Feed</Link>
 

@@ -13,7 +13,7 @@ import GroupsPage from './GroupsDash/GroupsPage';
 class App extends React.Component {
     render() {
         return (
-            <div className="App">
+            <div className="App" style={{ background: '#222229' }}>
                 <NavigationBarContainer />
                 <FlashMessagesList />
                 <main>

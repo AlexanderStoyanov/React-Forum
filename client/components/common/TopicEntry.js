@@ -24,7 +24,7 @@ const TopicEntry = ({ topicName, topicID, onClick, deleted, match, edittopics, d
     }
 
     return (
-        <div className="card" onClick={onClick}>
+        <div className="card m-2" onClick={onClick} style={{ background: '#333339' }}>
             <div className="card-body">
                 <h3>
                     <Link
@@ -33,6 +33,7 @@ const TopicEntry = ({ topicName, topicID, onClick, deleted, match, edittopics, d
                         name={`${topicID}`}
                         style={{
                             opacity: (deleted === '1') ? '0.5' : '1',
+                            color: '#ddd'
                         }}
                     >{topicName}
                     </Link>

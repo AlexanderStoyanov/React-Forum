@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const TextFieldGroup = ({ field, value, label, error, type, onChange, onBlur }) => {
     return (
         <div className="form-group">
-            <label className="control-label">{label}</label>
+            <label className="control-label text-light">{label}</label>
             <input
                 value={value}
                 onChange={onChange}

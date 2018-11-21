@@ -31,7 +31,7 @@ class ForumEntry extends React.Component {
             }
         }
         return (
-            <div className="card m-2" name="card" style={{ backgroundColor: '#b9b9b9' }}>
+            <div className="card m-2" name="card" style={{ background: '#333339' }}>
                 <div className="card-body">
                     <h1>
                         <Link
@@ -39,7 +39,7 @@ class ForumEntry extends React.Component {
                             onClick={this.onClick}
                             className="nav-link d-inline"
                             name={`${forumid}`}
-                            style={{ opacity: (deleted === '1') ? '0.5' : '1', color: '#333333' }}
+                            style={{ opacity: (deleted === '1') ? '0.5' : '1', color: '#ddd' }}
                         >{forumname}</Link>
                         {editButton}
                         {restoreButton}
