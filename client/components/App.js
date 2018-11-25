@@ -14,7 +14,7 @@ import Footer from './Footer/Footer';
 class App extends React.Component {
     render() {
         return (
-            <div className="App" style={{ background: '#222229' }}>
+            <div className="App" style={{ background: '#222229', minHeight: '100vh' }}>
                 <NavigationBarContainer />
                 <FlashMessagesList />
                 <main>

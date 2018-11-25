@@ -8,31 +8,46 @@ const GroupEntry = ({ groupName, groupid, edittopics, deletetopics, editreplies,
                 <button className="btn btn-secondary ml-2" title="edit" data-id={groupid} onClick={onClick}>Edit</button>
             </th>
             <td>
-                <input className="form-check-input position-static mx-auto" 
-                type="checkbox" id="edittopicsCheckbox" disabled={disabled}
-                data-id={groupid} name="edittopics" onChange={onChange} defaultChecked={ (edittopics === '1') ? true : null }/>
+                <label className="switch">
+                    <input className="form-check-input position-static mx-auto"
+                        type="checkbox" id="edittopicsCheckbox" disabled={disabled}
+                        data-id={groupid} name="edittopics" onChange={onChange} defaultChecked={(edittopics === '1') ? true : null} />
+                    <span class="slider round"></span>
+                </label>
             </td>
             <td>
-                <input className="form-check-input position-static mx-auto" 
-                type="checkbox" id="deletetopicsCheckbox" disabled={disabled}
-                data-id={groupid} name="deletetopics" onChange={onChange} defaultChecked={ (deletetopics === '1') ? true : null } />
+                <label className="switch">
+                    <input className="form-check-input position-static mx-auto"
+                        type="checkbox" id="deletetopicsCheckbox" disabled={disabled}
+                        data-id={groupid} name="deletetopics" onChange={onChange} defaultChecked={(deletetopics === '1') ? true : null} />
+                        <span class="slider round"></span>
+                </label>
             </td>
             <td>
-                <input className="form-check-input position-static mx-auto" 
-                type="checkbox" id="editrepliesCheckbox" disabled={disabled}
-                data-id={groupid} name="editreplies" onChange={onChange} defaultChecked={ (editreplies === '1') ? true : null } />
+                <label className="switch">
+                    <input className="form-check-input position-static mx-auto"
+                        type="checkbox" id="editrepliesCheckbox" disabled={disabled}
+                        data-id={groupid} name="editreplies" onChange={onChange} defaultChecked={(editreplies === '1') ? true : null} />
+                        <span class="slider round"></span>
+                </label>
             </td>
             <td>
-                <input className="form-check-input position-static mx-auto" 
-                type="checkbox" id="deleterepliesCheckbox" disabled={disabled}
-                data-id={groupid} name="deletereplies" onChange={onChange} defaultChecked={ (deletereplies === '1') ? true : null } />
+                <label className="switch">
+                    <input className="form-check-input position-static mx-auto"
+                        type="checkbox" id="deleterepliesCheckbox" disabled={disabled}
+                        data-id={groupid} name="deletereplies" onChange={onChange} defaultChecked={(deletereplies === '1') ? true : null} />
+                        <span class="slider round"></span>
+                </label>
             </td>
             <td>
-                <input className="form-check-input position-static mx-auto" 
-                type="checkbox" id="blockedCheckbox" disabled={disabled}
-                data-id={groupid} name="blocked" onChange={onChange} defaultChecked={ (blocked === '1') ? true : null } />
+                <label className="switch">
+                    <input className="form-check-input position-static mx-auto"
+                        type="checkbox" id="blockedCheckbox" disabled={disabled}
+                        data-id={groupid} name="blocked" onChange={onChange} defaultChecked={(blocked === '1') ? true : null} />
+                        <span class="slider round"></span>
+                </label>
             </td>
-        </tr>
+        </tr >
     );
 }
 
