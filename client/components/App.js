@@ -9,6 +9,7 @@ import RepliesPage from './Replies/RepliesPage';
 import SignUpPage from './SignUp/SignUpPage';
 import SignInPage from './SignIn/SignInPage';
 import GroupsPage from './GroupsDash/GroupsPage';
+import Footer from './Footer/Footer';
 
 class App extends React.Component {
     render() {
@@ -26,6 +27,7 @@ class App extends React.Component {
                         <Route path='/signin' component={SignInPage} />
                     </Switch>
                 </main>
+                <Footer />
             </div>
         );
     }

@@ -143,7 +143,7 @@ class Reply extends React.Component {
                                         }
                                     }}
                                 />
-                                <button disabled={invalid} type="submit" className="btn btn-primary">Submit</button>
+                                <button disabled={invalid} type="submit" className="btn btn-primary m-1">Submit</button>
                                 <button title="Back" className="btn btn-dark m-1" onClick={this.onClick} >Back</button>
                             </form>
                         </div>
@@ -184,7 +184,7 @@ class Reply extends React.Component {
                             }
                         }}
                     />
-                    <button disabled={invalid} type="submit" className="btn btn-primary">Submit</button>
+                    <button disabled={invalid} type="submit" className="btn btn-primary m-1">Submit</button>
                 </form>;
             } else {
                 editor = <div className="alert alert-info text-center" role="alert">
