@@ -23,6 +23,9 @@ class Reply extends React.Component {
         this.state = {
             edit: false,
             contentState,
+            date: null,
+            name: null,
+            group: null,
             isValid: false,
             invalid: false,
             errors: {},
@@ -84,7 +87,13 @@ class Reply extends React.Component {
         const { loadCurrentReplyID, deleteReply, loadReplies, currentTopicID, replies } = this.props;
         if (event.target.title === 'Edit') {
             loadCurrentReplyID(event.target.name);
-            this.setState({ edit: true, contentState: JSON.parse(replies[Number(event.target.getAttribute('data-order'))].text) });
+            this.setState({ 
+                edit: true, 
+                contentState: JSON.parse(replies[Number(event.target.getAttribute('data-order'))].text),
+                date: replies[Number(event.target.getAttribute('data-order'))].date,
+                name: replies[Number(event.target.getAttribute('data-order'))].firstname,
+                group: replies[Number(event.target.getAttribute('data-order'))].groupname,
+            });
         }
         else if (event.target.title === 'Delete') {
             await deleteReply(event.target.name);
@@ -98,12 +107,18 @@ class Reply extends React.Component {
 
     render() {
         const { editreplies, deletereplies, replies, token } = this.props;
-        if (this.state.edit) {
+        const { edit, invalid, contentState, date, name, group } = this.state;
+        if (edit) {
             return (
-                <div className="container pt-1" style={{ backgroundColor: '#333338' }}>
+                <div className="container pt-1">
                     <div className="reply mt-5">
-                        bla bla
-                        <button title="Back" className="btn btn-dark m-1" onClick={this.onClick} >Back</button>
+                        <h3 className="text-center">Preview</h3>
+                        <ReplyEntry
+                            text={draftToHtml(contentState)}
+                            date={date}
+                            firstname={name}
+                            groupname={group}
+                        />
                     </div>
 
 
@@ -117,7 +132,7 @@ class Reply extends React.Component {
                             />
                             <form onSubmit={this.onSubmit}>
                                 <Editor
-                                    defaultContentState={this.state.contentState}
+                                    defaultContentState={contentState}
                                     toolbarClassName="toolbarClass"
                                     editorClassName="editorClass"
                                     onContentStateChange={this.onContentStateChange}
@@ -128,7 +143,8 @@ class Reply extends React.Component {
                                         }
                                     }}
                                 />
-                                <button disabled={this.state.invalid} type="submit" className="btn btn-primary">Submit</button>
+                                <button disabled={invalid} type="submit" className="btn btn-primary">Submit</button>
+                                <button title="Back" className="btn btn-dark m-1" onClick={this.onClick} >Back</button>
                             </form>
                         </div>
                     </div>
@@ -138,7 +154,7 @@ class Reply extends React.Component {
         else {
             //null check
             if (replies) {
-                var rows = replies.map((reply, index) => 
+                var rows = replies.map((reply, index) =>
                     <ReplyEntry
                         key={reply.replyid}
                         text={draftToHtml(JSON.parse(reply.text))}
@@ -168,11 +184,11 @@ class Reply extends React.Component {
                             }
                         }}
                     />
-                    <button disabled={this.state.invalid} type="submit" className="btn btn-primary">Submit</button>
+                    <button disabled={invalid} type="submit" className="btn btn-primary">Submit</button>
                 </form>;
             } else {
                 editor = <div className="alert alert-info text-center" role="alert">
-                    Please, 
+                    Please,
                     <Link to="/signin" className="nav-link d-inline" >Sign In</Link>
                     or
                     <Link to="/signup" className="nav-link d-inline" >Sign Up</Link>

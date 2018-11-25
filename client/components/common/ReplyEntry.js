@@ -22,7 +22,7 @@ const ReplyEntry = ({ text, firstname, date, onClick, id, order, groupname, edit
     return (
         <div className="row">
             <div className="col-md-3">
-                <div className="card">
+                <div className="card" style={{backgroundColor: '#444449'}}>
                     <div className="card-body">
                         <h5 className="card-title text-center">{firstname}</h5>
                         <h6 className="card-title text-center">Group: {groupname}</h6>
@@ -31,8 +31,8 @@ const ReplyEntry = ({ text, firstname, date, onClick, id, order, groupname, edit
                 </div>
             </div>
             <div className="col-md-9">
-                <div className="card p-3 mb-3 bg-white">
-                    <div className="card-header">
+                <div className="card p-3 mb-3" style={{backgroundColor: '#444449'}}>
+                    <div className="card-header" style={{backgroundColor: '#0000002e'}}>
                         {new Date(Number(date)).toLocaleString()}
                         {
                             (editreplies === '1' || deletereplies === '1') ? 
