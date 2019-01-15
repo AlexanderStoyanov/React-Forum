@@ -39,6 +39,6 @@ function mapDispatchToProps(dispatch) {
             dispatch(signOut());
         }
     }
-} 
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavigationBarContainer);

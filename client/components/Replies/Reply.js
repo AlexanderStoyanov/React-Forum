@@ -70,7 +70,7 @@ class Reply extends React.Component {
                 //else create new reply
                 await postReply({
                     token: token,
-                    topicid: tcurrentTopicID,
+                    topicid: currentTopicID,
                     reply: JSON.stringify(this.state.contentState),
                     userid: null
                 });

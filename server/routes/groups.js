@@ -5,6 +5,7 @@ let router = express.Router();
 
 //Pooling
 import { Pool } from 'pg';
+import { isNull } from 'util';
 const connectionString = 'postgres://fxnccmwu:UVEOgDD08que1CZcC9L2twa6PxN11Cyo@baasu.db.elephantsql.com:5432/fxnccmwu';
 const pool = new Pool({
     connectionString: connectionString,
@@ -96,14 +97,14 @@ router.post('/loadPermissions', (req, res) => {
     var arr = Object.keys(req.body);
     for (var i = 0; i < arr.length; i++) {
         const query = {
-            text: 'update groups set edittopics = $2, deletetopics = $3, editreplies = $4, deletereplies = $5, blocked = $6 where groupid = $1',
+            text: 'update groups set edittopics = coalesce($2, edittopics), deletetopics = coalesce($3, deletetopics), editreplies = coalesce($4, editreplies), deletereplies = coalesce($5, deletereplies), blocked = coalesce($6, blocked) where groupid = $1',
             values: [
                 arr[i],
-                req.body[arr[i]].edittopics === true ? '1' : '0',
-                req.body[arr[i]].deletetopics === true ? '1' : '0',
-                req.body[arr[i]].editreplies === true ? '1' : '0',
-                req.body[arr[i]].deletereplies === true ? '1' : '0',
-                req.body[arr[i]].blocked === true ? '1' : '0',
+                req.body[arr[i]].edittopics === true ? '1' : (req.body[arr[i]].edittopics === false ? '0' : null),
+                req.body[arr[i]].deletetopics === true ? '1' : (req.body[arr[i]].deletetopics === false ? '0' : null),
+                req.body[arr[i]].editreplies === true ? '1' : (req.body[arr[i]].editreplies === false ? '0' : null),
+                req.body[arr[i]].deletereplies === true ? '1' : (req.body[arr[i]].deletereplies === false ? '0' : null),
+                req.body[arr[i]].blocked === true ? '1' : (req.body[arr[i]].blocked === false ? '0' : null),
             ],
         }
     

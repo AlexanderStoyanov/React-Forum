@@ -23,15 +23,15 @@ class NavigationBar extends React.Component {
     }
 
     render() {
+        const { userDetails } = this.props;
         var name = 'undef';
-        if (this.props.userDetails) {
-            name = this.props.userDetails.name;
+        if (userDetails) {
+            name = userDetails.name;
         }
         return (
             <nav className="navbar sticky-top navbar-expand-md navbar-dark"
                 style={{ background: '#111' }}
             >
-
                 <Link to='/' className="navbar-brand mr-4">Feed</Link>
 
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -41,15 +41,15 @@ class NavigationBar extends React.Component {
                 <div className="collapse navbar-collapse scrollable" id="collapsibleNavbar">
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item">
-                            <Link to='/forum' name="/forum" className="nav-link" onClick={this.onClick} > Home</Link>
+                            <Link to='/forum' name="/forum" className="nav-link" onClick={this.onClick} >Home</Link>
                         </li>
-                    </ul>
-                    <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
                             <Link to='/groups' name="/groups" className="nav-link" onClick={this.onClick} >Groups</Link>
                         </li>
+                    </ul>
+                    <ul className="navbar-nav ml-auto">
                         {
-                            (this.props.userDetails.token) ?
+                            (userDetails.token) ?
                                 (<div className="d-flex">
                                     <span className="navbar-text">
                                         Welcome, {name}
