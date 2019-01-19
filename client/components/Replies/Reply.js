@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import ReplyEntry from '../common/ReplyEntry';
+import GroupSelectionEntry from '../common/GroupSelectionEntry';
 
 import { Editor } from 'react-draft-wysiwyg';
 import { convertFromRaw } from 'draft-js';
@@ -35,6 +36,7 @@ class Reply extends React.Component {
         this.isValid = this.isValid.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onClick = this.onClick.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
 
     onContentStateChange(contentState) {
@@ -105,8 +107,33 @@ class Reply extends React.Component {
         }
     }
 
+    async onChange(event) {
+        const { updateUsers, addFlashMessage, groups, loadReplies, currentTopicID } = this.props;
+        //if we are selecting new group from grouplist
+        var text = 'Groups assigned successfully!';
+        if (event.target.tagName.toLowerCase() === "select") {
+            var userID = event.target.getAttribute("data-userid");
+        }
+        await updateUsers({[userID]: event.target.value});
+        loadReplies(currentTopicID);
+
+        //if no error, add success message
+        if (!groups.error) {
+            addFlashMessage({
+                type: 'success',
+                text: text,
+            });
+            //else if error, add error message
+        } else {
+            addFlashMessage({
+                type: 'error',
+                text: groups.error,
+            });
+        }
+    }
+
     render() {
-        const { editreplies, deletereplies, replies, token } = this.props;
+        const { editreplies, deletereplies, replies, token, groups } = this.props;
         const { edit, invalid, contentState, date, name, group } = this.state;
         if (edit) {
             return (
@@ -154,18 +181,29 @@ class Reply extends React.Component {
         else {
             //null check
             if (replies) {
+                if(groups.groupsData) {
+                    var groupSelectionArray = groups.groupsData.map(group =>
+                        <GroupSelectionEntry
+                            groupID={group.groupid}
+                            groupName={group.groupname}
+                        />);
+                }
+
                 var rows = replies.map((reply, index) =>
                     <ReplyEntry
                         key={reply.replyid}
                         text={draftToHtml(JSON.parse(reply.text))}
                         firstname={reply.firstname}
+                        userid={reply.userid}
                         date={reply.date}
                         id={reply.replyid}
                         order={index}
                         groupname={reply.groupname}
                         onClick={this.onClick}
+                        onChange={this.onChange}
                         editreplies={editreplies}
                         deletereplies={deletereplies}
+                        groupSelectionArray={groupSelectionArray}
                     />
                 );
             }

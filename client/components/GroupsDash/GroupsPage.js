@@ -13,21 +13,21 @@ class GroupsPage extends React.Component {
     }
 
     render() {
-
+        const { groups, addGroup, deleteGroup, renameGroup, loadCurrentGroupID, userDetails, loadPermissions, updateUsers, addFlashMessage, loadUserList, loadGroups } = this.props;
         return (
             <div className="container">
                 <Groups
-                    groups={this.props.groups}
-                    addGroup={this.props.addGroup}
-                    deleteGroup={this.props.deleteGroup}
-                    renameGroup={this.props.renameGroup}
-                    loadCurrentGroupID={this.props.loadCurrentGroupID}
-                    groupid={this.props.userDetails.currentGroupID}
-                    loadPermissions={this.props.loadPermissions}
-                    updateUsers={this.props.updateUsers}
-                    addFlashMessage={this.props.addFlashMessage}
-                    loadUserList={this.props.loadUserList}
-                    loadGroups={this.props.loadGroups}
+                    groups={groups}
+                    addGroup={addGroup}
+                    deleteGroup={deleteGroup}
+                    renameGroup={renameGroup}
+                    loadCurrentGroupID={loadCurrentGroupID}
+                    groupid={userDetails.currentGroupID}
+                    loadPermissions={loadPermissions}
+                    updateUsers={updateUsers}
+                    addFlashMessage={addFlashMessage}
+                    loadUserList={loadUserList}
+                    loadGroups={loadGroups}
                 />
             </div>
         );

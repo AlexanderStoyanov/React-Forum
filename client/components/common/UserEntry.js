@@ -10,8 +10,8 @@ const UserEntry = ({ userid, username, firstname, currentGroup, groupSelectionAr
                 {currentGroup}
             </td>
             <td>
-                <div class="form-group">
-                    <select class="form-control" id="exampleFormControlSelect1" data-userid={userid} onChange={onChange}>
+                <div className="form-group">
+                    <select className="form-control" id="exampleFormControlSelect1" data-userid={userid} onChange={onChange}>
                     <option>Default</option>
                         {groupSelectionArray}
                     </select>

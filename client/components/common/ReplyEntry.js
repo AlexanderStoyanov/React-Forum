@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ReplyEntry = ({ text, firstname, date, onClick, id, order, groupname, editreplies, deletereplies }) => {
+const ReplyEntry = ({ text, firstname, date, onClick, id, order, groupname, editreplies, deletereplies, groupSelectionArray, userid, onChange }) => {
     function createMarkup() {
         return { __html: text };
     }
@@ -19,33 +19,33 @@ const ReplyEntry = ({ text, firstname, date, onClick, id, order, groupname, edit
         deleteButton = <button name={id} title="Delete" className="btn btn-danger mx-1" onClick={onClick} >Delete</button>;
     }
 
-    // var groupSelectionArray = this.props.groups.groupsData.map(group =>
-    //     <GroupSelectionEntry
-    //         groupID={group.groupid}
-    //         groupName={group.groupname}
-    //     />);
-
     return (
         <div className="row">
             <div className="col-md-3">
-                <div className="card" style={{backgroundColor: '#444449'}}>
+                <div className="card" style={{ backgroundColor: '#444449' }}>
                     <div className="card-body">
                         <h5 className="card-title text-center">{firstname}</h5>
                         <h6 className="card-title text-center">Group: {groupname}</h6>
+                        <div className="form-group">
+                            <select className="form-control" id="exampleFormControlSelect1" data-userid={userid} onChange={onChange}>
+                                <option>Default</option>
+                                {groupSelectionArray}
+                            </select>
+                        </div>
                         <p className="card-text"> </p>
                     </div>
                 </div>
             </div>
             <div className="col-md-9">
-                <div className="card p-3 mb-3" style={{backgroundColor: '#444449'}}>
-                    <div className="card-header" style={{backgroundColor: '#0000002e'}}>
+                <div className="card p-3 mb-3" style={{ backgroundColor: '#444449' }}>
+                    <div className="card-header" style={{ backgroundColor: '#0000002e' }}>
                         {new Date(Number(date)).toLocaleString()}
                         {
-                            (editreplies === '1' || deletereplies === '1') ? 
-                            (<div className="float-right">
-                            {editButton}
-                            {deleteButton}
-                        </div>) : (null)
+                            (editreplies === '1' || deletereplies === '1') ?
+                                (<div className="float-right">
+                                    {editButton}
+                                    {deleteButton}
+                                </div>) : (null)
                         }
                     </div>
                     <div className="card-body">
