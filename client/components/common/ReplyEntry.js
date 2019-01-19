@@ -19,6 +19,12 @@ const ReplyEntry = ({ text, firstname, date, onClick, id, order, groupname, edit
         deleteButton = <button name={id} title="Delete" className="btn btn-danger mx-1" onClick={onClick} >Delete</button>;
     }
 
+    // var groupSelectionArray = this.props.groups.groupsData.map(group =>
+    //     <GroupSelectionEntry
+    //         groupID={group.groupid}
+    //         groupName={group.groupname}
+    //     />);
+
     return (
         <div className="row">
             <div className="col-md-3">

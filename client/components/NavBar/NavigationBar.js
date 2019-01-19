@@ -51,9 +51,11 @@ class NavigationBar extends React.Component {
                         {
                             (userDetails.token) ?
                                 (<div className="d-flex">
-                                    <span className="navbar-text">
-                                        Welcome, {name}
-                                    </span>
+                                    <li className="nav-item">
+                                        <span className="navbar-text">
+                                            Welcome, {name}
+                                        </span>
+                                    </li>
                                     <li className="nav-item">
                                         <Link to='/signin' name="/signin" className="nav-link" onClick={this.signOut} >Sign out</Link>
                                     </li>
