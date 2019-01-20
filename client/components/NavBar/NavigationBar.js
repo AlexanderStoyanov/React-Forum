@@ -47,29 +47,27 @@ class NavigationBar extends React.Component {
                             <Link to='/groups' name="/groups" className="nav-link" onClick={this.onClick} >Groups</Link>
                         </li>
                     </ul>
-                    <ul className="navbar-nav ml-auto">
-                        {
-                            (userDetails.token) ?
-                                (<div className="d-flex">
-                                    <li className="nav-item">
-                                        <span className="navbar-text">
-                                            Welcome, {name}
-                                        </span>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to='/signin' name="/signin" className="nav-link" onClick={this.signOut} >Sign out</Link>
-                                    </li>
-                                </div>) :
-                                (<div className="d-flex">
-                                    <li className="nav-item">
-                                        <Link to='/signin' name="/signin" className="nav-link" onClick={this.onClick} >Sign In</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to='/signup' name="/signup" className="nav-link" onClick={this.onClick} >Sign Up</Link>
-                                    </li>
-                                </div>)
-                        }
-                    </ul>
+                    {
+                        (userDetails.token) ?
+                            (<ul className="navbar-nav ml-auto">
+                                <li className="nav-item">
+                                    <span className="navbar-text">
+                                        Welcome, {name}
+                                    </span>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to='/signin' name="/signin" className="nav-link" onClick={this.signOut} >Sign out</Link>
+                                </li>
+                            </ul>) :
+                            (<ul className="navbar-nav ml-auto">
+                                <li className="nav-item">
+                                    <Link to='/signin' name="/signin" className="nav-link" onClick={this.onClick} >Sign In</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to='/signup' name="/signup" className="nav-link" onClick={this.onClick} >Sign Up</Link>
+                                </li>
+                            </ul>)
+                    }
                 </div>
             </nav>
         );

@@ -92,8 +92,6 @@ class Groups extends React.Component {
         }
         //else if we are selecting new group from grouplist
         else if (event.target.tagName.toLowerCase() === "select") {
-            //console.log(event.target);
-            //console.log(event.target.value); //groupid
             var userID = event.target.getAttribute("data-userid");
             this.setState({ newUserGroups: { ...this.state.newUserGroups, [userID]: event.target.value } });
         }
@@ -162,7 +160,7 @@ class Groups extends React.Component {
     render() {
         const { groups } = this.props;
         if (this.state.edit) {
-            const { errors } = this.state;
+            const { errors, renameText } = this.state;
             return (
                 <div className="row">
                     <div className="col-md-8 mx-auto">
@@ -172,7 +170,7 @@ class Groups extends React.Component {
                                     error={errors.rename}
                                     label="Rename"
                                     onChange={this.onChange}
-                                    value={this.state.renameText}
+                                    value={renameText}
                                     field="renameText"
                                     type="text"
                                 />
@@ -185,7 +183,7 @@ class Groups extends React.Component {
                 </div>
             );
         } else if (this.state.add) {
-            const { errors } = this.state;
+            const { errors, newName } = this.state;
             return (
                 <div className="row">
                     <div className="col-md-8 mx-auto">
@@ -195,7 +193,7 @@ class Groups extends React.Component {
                                     error={errors.add}
                                     label="New Group Name"
                                     onChange={this.onChange}
-                                    value={this.state.newName}
+                                    value={newName}
                                     field="newName"
                                     type="text"
                                 />
